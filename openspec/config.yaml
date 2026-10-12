@@ -1,0 +1,40 @@
+schema: spec-driven
+context: |
+  AAM assists Account Managers coordinating regional insurance programs.
+  Generic product requirements are in docs/product/user-stories.md.
+  Priorities: renewal monitoring; quarterly claims-deck delivery (local delivery);
+  program changes; email understanding and controlled responses.
+  The broker may represent multiple clients. A case may span multiple threads.
+  Proposed stack: Python/FastAPI, direct structured-output specialists and bounded research,
+  DB-owned business state/timers, short-lived Azure Durable Task workers on AKS,
+  managed PostgreSQL, Blob, later-slice AI Search and Foundry model deployments.
+  Service Bus is deferred. Business policy gaps require owner decisions, not invented defaults.
+  All backend infrastructure is managed Azure. No production application exists yet.
+  Agents propose; trusted application code authorizes changes and external actions.
+  Sending a reply does not satisfy a business obligation or close a case.
+  Initial specs are proposed deltas, not a claim of implemented behavior.
+rules:
+  proposal:
+    - Identify source user stories and distinguish requested behavior from design assumptions.
+    - Declare non-goals, delivery scope and all new or modified capabilities.
+  specs:
+    - Use stable requirement IDs and SHALL or MUST with observable behavior.
+    - Each requirement needs a positive and a negative Given/When/Then scenario.
+    - Specify authorization, failure behavior and human handling for ambiguity.
+    - Keep technology choices in design; keep user-visible contracts in specs.
+  design:
+    - Include architecture and data-flow diagrams, ownership, recovery and deployment boundaries.
+    - Document decisions, alternatives, compatibility, data residency and unresolved policy decisions.
+  tasks:
+    - Every task needs a stable ID, dependencies, requirement IDs, deliverables and acceptance criteria.
+    - Include positive and negative checks, planned verification evidence and rollout gates.
+    - Leave implementation unchecked until evidence exists; distinguish PASS, FAIL and NOT RUN.
+operations:
+  apply:
+    guidance:
+      - Read AGENTS.md and the testing strategy. Implement one bounded task at a time.
+      - Do not enable external sending or close tasks solely on fixture success.
+  archive:
+    guidance:
+      - Archive only the implemented and validated scope. Resolve or split deferred work first.
+      - Do not promote this proposed baseline merely because planning artifacts exist.

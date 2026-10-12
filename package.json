@@ -1,0 +1,17 @@
+{
+  "name": "aam-specifications",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Specifications for a general-purpose AI mail assistant for insurance account managers",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "spec:validate": "openspec validate --all --strict --no-interactive",
+    "spec:status": "openspec status --change establish-aam-platform",
+    "spec:list": "openspec list"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.8.0"
+  }
+}

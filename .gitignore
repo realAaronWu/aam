@@ -1,0 +1,29 @@
+# Local secrets and generated output
+.env
+.env.*
+!.env.example
+.DS_Store
+~$*
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+coverage/
+dist/
+work/
+artifacts/local/
+
+# Private inputs, local collaboration and generated visuals
+.agent-channel/
+.agents/
+private/
+*.docx
+*.pdf
+arch.png
+*.eml
+*.msg
+*.pst
+*.pem
+*.key

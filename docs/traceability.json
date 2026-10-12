@@ -1,0 +1,3319 @@
+{
+  "schema_version": 2,
+  "change": "establish-aam-platform",
+  "status": "PROPOSED_NOT_IMPLEMENTED",
+  "requirements": [
+    {
+      "id": "CX-01",
+      "capability": "account-context",
+      "spec": "openspec/changes/establish-aam-platform/specs/account-context/spec.md",
+      "stories": [
+        "US-02"
+      ],
+      "tasks": [
+        "T07.1"
+      ],
+      "scenarios": [
+        "CX-01-P",
+        "CX-01-N",
+        "CX-01-N2",
+        "CX-01-N3"
+      ],
+      "positive_scenario": "CX-01-P",
+      "negative_scenario": "CX-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-02",
+      "capability": "account-context",
+      "spec": "openspec/changes/establish-aam-platform/specs/account-context/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T08.1"
+      ],
+      "scenarios": [
+        "CX-02-P",
+        "CX-02-N"
+      ],
+      "positive_scenario": "CX-02-P",
+      "negative_scenario": "CX-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-03",
+      "capability": "account-context",
+      "spec": "openspec/changes/establish-aam-platform/specs/account-context/spec.md",
+      "stories": [
+        "US-02"
+      ],
+      "tasks": [
+        "T08.2"
+      ],
+      "scenarios": [
+        "CX-03-P",
+        "CX-03-N"
+      ],
+      "positive_scenario": "CX-03-P",
+      "negative_scenario": "CX-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-01",
+      "capability": "action-authorization",
+      "spec": "openspec/changes/establish-aam-platform/specs/action-authorization/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T14.1"
+      ],
+      "scenarios": [
+        "AU-01-P",
+        "AU-01-N"
+      ],
+      "positive_scenario": "AU-01-P",
+      "negative_scenario": "AU-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-02",
+      "capability": "action-authorization",
+      "spec": "openspec/changes/establish-aam-platform/specs/action-authorization/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T03.1",
+        "T14.2",
+        "T15.1",
+        "T14.3"
+      ],
+      "scenarios": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2"
+      ],
+      "positive_scenario": "AU-02-P",
+      "negative_scenario": "AU-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-03",
+      "capability": "action-authorization",
+      "spec": "openspec/changes/establish-aam-platform/specs/action-authorization/spec.md",
+      "stories": [
+        "US-07",
+        "US-08"
+      ],
+      "tasks": [
+        "T03.1",
+        "T15.1",
+        "T15.2",
+        "T25.1",
+        "T25.2"
+      ],
+      "scenarios": [
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2"
+      ],
+      "positive_scenario": "AU-03-P",
+      "negative_scenario": "AU-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-01",
+      "capability": "agent-mail-response",
+      "spec": "openspec/changes/establish-aam-platform/specs/agent-mail-response/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T01.1",
+        "T01.2",
+        "T11.1",
+        "T11.2"
+      ],
+      "scenarios": [
+        "AI-01-P",
+        "AI-01-N"
+      ],
+      "positive_scenario": "AI-01-P",
+      "negative_scenario": "AI-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-02",
+      "capability": "agent-mail-response",
+      "spec": "openspec/changes/establish-aam-platform/specs/agent-mail-response/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T12.1",
+        "T12.2"
+      ],
+      "scenarios": [
+        "AI-02-P",
+        "AI-02-N"
+      ],
+      "positive_scenario": "AI-02-P",
+      "negative_scenario": "AI-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03",
+      "capability": "agent-mail-response",
+      "spec": "openspec/changes/establish-aam-platform/specs/agent-mail-response/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T13.2",
+        "T14.3"
+      ],
+      "scenarios": [
+        "AI-03-P",
+        "AI-03-N",
+        "AI-03-N2",
+        "AI-03-P2",
+        "AI-03-N3"
+      ],
+      "positive_scenario": "AI-03-P",
+      "negative_scenario": "AI-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-04",
+      "capability": "agent-mail-response",
+      "spec": "openspec/changes/establish-aam-platform/specs/agent-mail-response/spec.md",
+      "stories": [
+        "US-02",
+        "US-07"
+      ],
+      "tasks": [
+        "T13.1"
+      ],
+      "scenarios": [
+        "AI-04-P",
+        "AI-04-N"
+      ],
+      "positive_scenario": "AI-04-P",
+      "negative_scenario": "AI-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-01",
+      "capability": "case-tracking",
+      "spec": "openspec/changes/establish-aam-platform/specs/case-tracking/spec.md",
+      "stories": [
+        "US-01",
+        "US-02"
+      ],
+      "tasks": [
+        "T03.1",
+        "T09.1"
+      ],
+      "scenarios": [
+        "CS-01-P",
+        "CS-01-N"
+      ],
+      "positive_scenario": "CS-01-P",
+      "negative_scenario": "CS-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-02",
+      "capability": "case-tracking",
+      "spec": "openspec/changes/establish-aam-platform/specs/case-tracking/spec.md",
+      "stories": [
+        "US-01",
+        "US-03",
+        "US-04"
+      ],
+      "tasks": [
+        "T03.1",
+        "T09.1",
+        "T09.2",
+        "T25.1",
+        "T25.2"
+      ],
+      "scenarios": [
+        "CS-02-P",
+        "CS-02-N"
+      ],
+      "positive_scenario": "CS-02-P",
+      "negative_scenario": "CS-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-03",
+      "capability": "case-tracking",
+      "spec": "openspec/changes/establish-aam-platform/specs/case-tracking/spec.md",
+      "stories": [
+        "US-01",
+        "US-02",
+        "US-05"
+      ],
+      "tasks": [
+        "T10.1",
+        "T10.2"
+      ],
+      "scenarios": [
+        "CS-03-P",
+        "CS-03-N"
+      ],
+      "positive_scenario": "CS-03-P",
+      "negative_scenario": "CS-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-04",
+      "capability": "case-tracking",
+      "spec": "openspec/changes/establish-aam-platform/specs/case-tracking/spec.md",
+      "stories": [
+        "US-01",
+        "US-02"
+      ],
+      "tasks": [
+        "T03.1",
+        "T09.3",
+        "T11.2"
+      ],
+      "scenarios": [
+        "CS-04-P",
+        "CS-04-N"
+      ],
+      "positive_scenario": "CS-04-P",
+      "negative_scenario": "CS-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-01",
+      "capability": "mail-ingestion",
+      "spec": "openspec/changes/establish-aam-platform/specs/mail-ingestion/spec.md",
+      "stories": [
+        "US-02"
+      ],
+      "tasks": [
+        "T04.1",
+        "T04.2"
+      ],
+      "scenarios": [
+        "IN-01-P",
+        "IN-01-N"
+      ],
+      "positive_scenario": "IN-01-P",
+      "negative_scenario": "IN-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-02",
+      "capability": "mail-ingestion",
+      "spec": "openspec/changes/establish-aam-platform/specs/mail-ingestion/spec.md",
+      "stories": [
+        "US-02"
+      ],
+      "tasks": [
+        "T05.1"
+      ],
+      "scenarios": [
+        "IN-02-P",
+        "IN-02-N"
+      ],
+      "positive_scenario": "IN-02-P",
+      "negative_scenario": "IN-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-03",
+      "capability": "mail-ingestion",
+      "spec": "openspec/changes/establish-aam-platform/specs/mail-ingestion/spec.md",
+      "stories": [
+        "US-01",
+        "US-02"
+      ],
+      "tasks": [
+        "T06.1",
+        "T06.2"
+      ],
+      "scenarios": [
+        "IN-03-P",
+        "IN-03-N"
+      ],
+      "positive_scenario": "IN-03-P",
+      "negative_scenario": "IN-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-04",
+      "capability": "mail-ingestion",
+      "spec": "openspec/changes/establish-aam-platform/specs/mail-ingestion/spec.md",
+      "stories": [
+        "US-02",
+        "US-07",
+        "US-08"
+      ],
+      "tasks": [
+        "T04.2",
+        "T15.2"
+      ],
+      "scenarios": [
+        "IN-04-P",
+        "IN-04-N"
+      ],
+      "positive_scenario": "IN-04-P",
+      "negative_scenario": "IN-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-01",
+      "capability": "operations-security",
+      "spec": "openspec/changes/establish-aam-platform/specs/operations-security/spec.md",
+      "stories": [
+        "US-02",
+        "US-08"
+      ],
+      "tasks": [
+        "T02.1",
+        "T24.1",
+        "T25.1"
+      ],
+      "scenarios": [
+        "OP-01-P",
+        "OP-01-N"
+      ],
+      "positive_scenario": "OP-01-P",
+      "negative_scenario": "OP-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-02",
+      "capability": "operations-security",
+      "spec": "openspec/changes/establish-aam-platform/specs/operations-security/spec.md",
+      "stories": [
+        "US-08"
+      ],
+      "tasks": [
+        "T22.1",
+        "T22.2"
+      ],
+      "scenarios": [
+        "OP-02-P",
+        "OP-02-N"
+      ],
+      "positive_scenario": "OP-02-P",
+      "negative_scenario": "OP-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-03",
+      "capability": "operations-security",
+      "spec": "openspec/changes/establish-aam-platform/specs/operations-security/spec.md",
+      "stories": [
+        "US-08"
+      ],
+      "tasks": [
+        "T01.1",
+        "T01.2",
+        "T01.3",
+        "T23.1",
+        "T24.1",
+        "T23.2"
+      ],
+      "scenarios": [
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2"
+      ],
+      "positive_scenario": "OP-03-P",
+      "negative_scenario": "OP-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-04",
+      "capability": "operations-security",
+      "spec": "openspec/changes/establish-aam-platform/specs/operations-security/spec.md",
+      "stories": [
+        "US-07",
+        "US-08"
+      ],
+      "tasks": [
+        "T01.3",
+        "T02.1",
+        "T15.2"
+      ],
+      "scenarios": [
+        "OP-04-P",
+        "OP-04-N"
+      ],
+      "positive_scenario": "OP-04-P",
+      "negative_scenario": "OP-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-01",
+      "capability": "program-changes",
+      "spec": "openspec/changes/establish-aam-platform/specs/program-changes/spec.md",
+      "stories": [
+        "US-04"
+      ],
+      "tasks": [
+        "T20.1"
+      ],
+      "scenarios": [
+        "PC-01-P",
+        "PC-01-N"
+      ],
+      "positive_scenario": "PC-01-P",
+      "negative_scenario": "PC-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-02",
+      "capability": "program-changes",
+      "spec": "openspec/changes/establish-aam-platform/specs/program-changes/spec.md",
+      "stories": [
+        "US-04"
+      ],
+      "tasks": [
+        "T20.2"
+      ],
+      "scenarios": [
+        "PC-02-P",
+        "PC-02-N"
+      ],
+      "positive_scenario": "PC-02-P",
+      "negative_scenario": "PC-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-01",
+      "capability": "quality-evaluation",
+      "spec": "openspec/changes/establish-aam-platform/specs/quality-evaluation/spec.md",
+      "stories": [
+        "US-02",
+        "US-07",
+        "US-08"
+      ],
+      "tasks": [
+        "T01.1",
+        "T01.2",
+        "T21.1",
+        "T21.2",
+        "T25.1",
+        "T25.2"
+      ],
+      "scenarios": [
+        "QA-01-P",
+        "QA-01-N"
+      ],
+      "positive_scenario": "QA-01-P",
+      "negative_scenario": "QA-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-02",
+      "capability": "quality-evaluation",
+      "spec": "openspec/changes/establish-aam-platform/specs/quality-evaluation/spec.md",
+      "stories": [
+        "US-07",
+        "US-08"
+      ],
+      "tasks": [
+        "T26.1",
+        "T26.2"
+      ],
+      "scenarios": [
+        "QA-02-P",
+        "QA-02-N"
+      ],
+      "positive_scenario": "QA-02-P",
+      "negative_scenario": "QA-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-01",
+      "capability": "quarterly-delivery",
+      "spec": "openspec/changes/establish-aam-platform/specs/quarterly-delivery/spec.md",
+      "stories": [
+        "US-03"
+      ],
+      "tasks": [
+        "T19.1"
+      ],
+      "scenarios": [
+        "QD-01-P",
+        "QD-01-N"
+      ],
+      "positive_scenario": "QD-01-P",
+      "negative_scenario": "QD-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-02",
+      "capability": "quarterly-delivery",
+      "spec": "openspec/changes/establish-aam-platform/specs/quarterly-delivery/spec.md",
+      "stories": [
+        "US-03"
+      ],
+      "tasks": [
+        "T19.2"
+      ],
+      "scenarios": [
+        "QD-02-P",
+        "QD-02-N"
+      ],
+      "positive_scenario": "QD-02-P",
+      "negative_scenario": "QD-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-01",
+      "capability": "renewal-monitoring",
+      "spec": "openspec/changes/establish-aam-platform/specs/renewal-monitoring/spec.md",
+      "stories": [
+        "US-01"
+      ],
+      "tasks": [
+        "T18.1"
+      ],
+      "scenarios": [
+        "RN-01-P",
+        "RN-01-N"
+      ],
+      "positive_scenario": "RN-01-P",
+      "negative_scenario": "RN-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-02",
+      "capability": "renewal-monitoring",
+      "spec": "openspec/changes/establish-aam-platform/specs/renewal-monitoring/spec.md",
+      "stories": [
+        "US-01"
+      ],
+      "tasks": [
+        "T18.2"
+      ],
+      "scenarios": [
+        "RN-02-P",
+        "RN-02-N"
+      ],
+      "positive_scenario": "RN-02-P",
+      "negative_scenario": "RN-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-03",
+      "capability": "renewal-monitoring",
+      "spec": "openspec/changes/establish-aam-platform/specs/renewal-monitoring/spec.md",
+      "stories": [
+        "US-01"
+      ],
+      "tasks": [
+        "T18.3"
+      ],
+      "scenarios": [
+        "RN-03-P",
+        "RN-03-N"
+      ],
+      "positive_scenario": "RN-03-P",
+      "negative_scenario": "RN-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-01",
+      "capability": "workflow-configuration",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-configuration/spec.md",
+      "stories": [
+        "US-06"
+      ],
+      "tasks": [
+        "T17.1"
+      ],
+      "scenarios": [
+        "CFG-01-P",
+        "CFG-01-N"
+      ],
+      "positive_scenario": "CFG-01-P",
+      "negative_scenario": "CFG-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-02",
+      "capability": "workflow-configuration",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-configuration/spec.md",
+      "stories": [
+        "US-06"
+      ],
+      "tasks": [
+        "T17.2"
+      ],
+      "scenarios": [
+        "CFG-02-P",
+        "CFG-02-N"
+      ],
+      "positive_scenario": "CFG-02-P",
+      "negative_scenario": "CFG-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-03",
+      "capability": "workflow-configuration",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-configuration/spec.md",
+      "stories": [
+        "US-06"
+      ],
+      "tasks": [
+        "T17.3"
+      ],
+      "scenarios": [
+        "CFG-03-P",
+        "CFG-03-N"
+      ],
+      "positive_scenario": "CFG-03-P",
+      "negative_scenario": "CFG-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-01",
+      "capability": "workflow-runtime",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-runtime/spec.md",
+      "stories": [
+        "US-01",
+        "US-03",
+        "US-04",
+        "US-08"
+      ],
+      "tasks": [
+        "T03.1",
+        "T16.1",
+        "T25.1",
+        "T25.2"
+      ],
+      "scenarios": [
+        "WF-01-P",
+        "WF-01-N"
+      ],
+      "positive_scenario": "WF-01-P",
+      "negative_scenario": "WF-01-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-02",
+      "capability": "workflow-runtime",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-runtime/spec.md",
+      "stories": [
+        "US-01",
+        "US-02",
+        "US-08"
+      ],
+      "tasks": [
+        "T03.1",
+        "T03.2",
+        "T16.1",
+        "T16.2",
+        "T15.1",
+        "T25.1",
+        "T25.2"
+      ],
+      "scenarios": [
+        "WF-02-P",
+        "WF-02-N"
+      ],
+      "positive_scenario": "WF-02-P",
+      "negative_scenario": "WF-02-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-03",
+      "capability": "workflow-runtime",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-runtime/spec.md",
+      "stories": [
+        "US-01",
+        "US-03",
+        "US-04"
+      ],
+      "tasks": [
+        "T16.2"
+      ],
+      "scenarios": [
+        "WF-03-P",
+        "WF-03-N",
+        "WF-03-P2"
+      ],
+      "positive_scenario": "WF-03-P",
+      "negative_scenario": "WF-03-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T01.1",
+      "title": "Scaffold typed modules and contract tests",
+      "work_package": "T01",
+      "dependencies": [],
+      "requirements": [
+        "AI-01",
+        "QA-01",
+        "OP-03"
+      ],
+      "planned_locations": "src/aam/; contracts/; tests/; pyproject.toml",
+      "status": "NOT RUN",
+      "deliverables": "Locked Python modules, typed contracts and fixtures; no agent framework required. The CI host is selected through D-15 before provider-specific workflow files are authored.",
+      "positive": "Clean checkout installs and validates a complete typed sample.",
+      "negative": "Unknown schema major version and missing required result are rejected.",
+      "milestone": "M1",
+      "entry_point": "contract schema loader / locked clean install",
+      "test_layer": "contracts",
+      "test_file": "tests/contracts/test_foundation.py",
+      "verification_command": "uv run pytest tests/contracts/test_foundation.py -q",
+      "closes": [],
+      "contributes": [
+        "AI-01-P",
+        "AI-01-N",
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2",
+        "QA-01-P",
+        "QA-01-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T01.2",
+      "title": "Establish routine CI and attributable reports",
+      "work_package": "T01",
+      "dependencies": [
+        "T01.1"
+      ],
+      "requirements": [
+        "AI-01",
+        "QA-01",
+        "OP-03"
+      ],
+      "planned_locations": "ci/; selected provider workflow directory; tests/delivery/",
+      "status": "NOT RUN",
+      "deliverables": "Selected CI provider workflow for specs, lint/types and real test discovery; run manifest and failure artifacts. Implement scenario-ownership/traceability checks and challenge missing-owner, duplicate-owner and missing-test mutations.",
+      "positive": "A deliberate passing job reports source revision and executes discovered tests.",
+      "negative": "A deliberately failing negative test fails CI and preserves diagnostics; empty discovery cannot pass.",
+      "milestone": "M1",
+      "entry_point": "selected CI workflow dispatch and retained test report",
+      "test_layer": "delivery",
+      "test_file": "tests/delivery/test_ci_discovery.py",
+      "verification_command": "Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run uv run pytest tests/delivery/test_ci_discovery.py -q for the local discovery contract.",
+      "business_gates": [
+        "D-15"
+      ],
+      "closes": [],
+      "contributes": [
+        "AI-01-P",
+        "AI-01-N",
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2",
+        "QA-01-P",
+        "QA-01-N"
+      ]
+    },
+    {
+      "id": "T01.3",
+      "title": "Provision isolated dev/test services and identities",
+      "work_package": "T01",
+      "requirements": [
+        "OP-03",
+        "OP-04"
+      ],
+      "planned_locations": "infra/dev/; docs/runbooks/dev-setup.md; tests/platform/",
+      "status": "NOT RUN",
+      "deliverables": "Reproducible managed PostgreSQL, Blob, DTS, ACR, Key Vault, Monitor and test workload identity; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Document local emulator limits and test the managed backend before claiming provider qualification.",
+      "positive": "A clean checkout deploys to the approved test resource group and allowed mailbox probes succeed; retain resource and grant inventory.",
+      "negative": "Wrong subscription/tenant, unscoped mailbox or unrestricted test recipient fails admission/probe; no production connection is silently substituted.",
+      "milestone": "M1",
+      "dependencies": [
+        "T01.1"
+      ],
+      "entry_point": "dev/test IaC deployment and scoped test-identity probe",
+      "test_layer": "platform",
+      "test_file": "tests/platform/test_dev_environment.py",
+      "verification_command": "uv run pytest tests/platform/test_dev_environment.py -q",
+      "business_gates": [
+        "D-05",
+        "D-08",
+        "D-09",
+        "D-15"
+      ],
+      "closes": [],
+      "contributes": [
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2",
+        "OP-04-P",
+        "OP-04-N"
+      ]
+    },
+    {
+      "id": "T02.1",
+      "title": "Implement scoped user and workload authorization",
+      "work_package": "T02",
+      "dependencies": [
+        "T01.1",
+        "T01.3"
+      ],
+      "requirements": [
+        "OP-01",
+        "OP-04"
+      ],
+      "planned_locations": "src/aam/security/; tests/security/",
+      "status": "NOT RUN",
+      "deliverables": "Entra user/account policy and workload grants including scoped Graph read, draft-write and send roles; inventory overlapping Entra grants and test effective scope, not just RBAC simulation.",
+      "positive": "Assigned AM reads and reviews its case through the API.",
+      "negative": "Actual unscoped Graph access and cross-account API access are denied; a broad overlapping Entra grant fails configuration qualification.",
+      "milestone": "M1",
+      "entry_point": "authenticated case API authorization middleware",
+      "test_layer": "security",
+      "test_file": "tests/security/test_identity.py",
+      "verification_command": "uv run pytest tests/security/test_identity.py -q",
+      "closes": [],
+      "contributes": [
+        "OP-01-P",
+        "OP-01-N",
+        "OP-04-P",
+        "OP-04-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T03.1",
+      "title": "Create business entities and version constraints",
+      "work_package": "T03",
+      "dependencies": [
+        "T01.1",
+        "T01.3",
+        "T02.1"
+      ],
+      "requirements": [
+        "CS-01",
+        "CS-02",
+        "CS-04",
+        "WF-01",
+        "WF-02",
+        "AU-02",
+        "AU-03"
+      ],
+      "planned_locations": "src/aam/persistence/; migrations/; contracts/events/",
+      "status": "NOT RUN",
+      "deliverables": "Migrations for authoritative cases/obligations, proposed tasks, waits/timers, dependencies, commands/attempts, recovery epoch and technical work ledger. ADR-06 is the schema contract.",
+      "positive": "One business-cycle key persists with versioned records and source references.",
+      "negative": "Duplicate effect/cycle keys, stale versions and obsolete recovery epochs fail deterministically.",
+      "milestone": "M1",
+      "entry_point": "database migrations and case/obligation repository transactions",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_persistence.py",
+      "verification_command": "uv run pytest tests/integration/test_persistence.py -q",
+      "closes": [],
+      "contributes": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2",
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2",
+        "CS-01-P",
+        "CS-01-N",
+        "CS-02-P",
+        "CS-02-N",
+        "CS-04-P",
+        "CS-04-N",
+        "WF-01-P",
+        "WF-01-N",
+        "WF-02-P",
+        "WF-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T03.2",
+      "title": "Implement inbox and transactional outbox",
+      "work_package": "T03",
+      "dependencies": [
+        "T03.1"
+      ],
+      "requirements": [
+        "WF-02"
+      ],
+      "planned_locations": "src/aam/persistence/; migrations/; contracts/events/",
+      "status": "NOT RUN",
+      "deliverables": "Transactional inbox/outbox, stable case sequence, technical attempt ledger and lost-start-ack reconciliation; DB polling command queue is the sole dispatch authority.",
+      "positive": "Committed state and its event survive worker restart.",
+      "negative": "Fault between commit and publish neither loses the event nor repeats the business transition.",
+      "milestone": "M1",
+      "entry_point": "inbox/outbox transaction and work-ledger recovery harness",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_outbox.py",
+      "verification_command": "uv run pytest tests/integration/test_outbox.py -q",
+      "closes": [
+        "WF-02-N"
+      ],
+      "contributes": [
+        "WF-02-P"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T04.1",
+      "title": "Persist folder delta pages and stable mail identities",
+      "work_package": "T04",
+      "dependencies": [
+        "T02.1",
+        "T03.2"
+      ],
+      "requirements": [
+        "IN-01"
+      ],
+      "planned_locations": "src/aam/integrations/mail/; tests/contracts/mail/",
+      "status": "NOT RUN",
+      "deliverables": "Outbound Graph polling with cursor per approved mailbox/folder, immutable IDs and Blob-first admission followed by atomic message/cursor/outbox DB commit.",
+      "positive": "A poll page advances only after every allowed message is recorded; same-mailbox folder movement retains one identity.",
+      "negative": "Blob failure, DB failure after Blob write and duplicate delta entries neither skip the cursor nor duplicate committed work; orphan objects are collectible.",
+      "milestone": "M1",
+      "entry_point": "folder delta adapter page commit/cursor boundary",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_mail_delta.py",
+      "verification_command": "uv run pytest tests/integration/test_mail_delta.py -q",
+      "business_gates": [
+        "D-05",
+        "D-08",
+        "D-16"
+      ],
+      "closes": [],
+      "contributes": [
+        "IN-01-P",
+        "IN-01-N"
+      ]
+    },
+    {
+      "id": "T05.1",
+      "title": "Build bounded inspection and extraction",
+      "work_package": "T05",
+      "dependencies": [
+        "T04.1"
+      ],
+      "requirements": [
+        "IN-02"
+      ],
+      "planned_locations": "src/aam/documents/; tests/documents/",
+      "status": "NOT RUN",
+      "deliverables": "Bounded scanning/extraction with source positions, quarantine and data-use classification; no unclassified content is sent to model/search.",
+      "positive": "A supported deck yields traceable text and evidence references.",
+      "negative": "Encrypted, unsafe, oversized or failed extraction becomes quarantine/review without invented content.",
+      "milestone": "M1",
+      "entry_point": "attachment admission, scan and extraction pipeline",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_attachments.py",
+      "verification_command": "uv run pytest tests/integration/test_attachments.py -q",
+      "business_gates": [
+        "D-08"
+      ],
+      "closes": [
+        "IN-02-P",
+        "IN-02-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T06.1",
+      "title": "Implement authoritative reads and freshness",
+      "work_package": "T06",
+      "dependencies": [
+        "T02.1",
+        "T03.2"
+      ],
+      "requirements": [
+        "IN-03"
+      ],
+      "planned_locations": "src/aam/integrations/crm/; tests/contracts/crm/",
+      "status": "NOT RUN",
+      "deliverables": "Versioned connector interface, fixtures and approved field mapping.",
+      "positive": "Account, owner, contacts and renewal dates retain source time/version.",
+      "negative": "Unavailable or stale mandatory facts block dependent actions.",
+      "milestone": "M1",
+      "entry_point": "CRM synchronization adapter read/freshness boundary",
+      "test_layer": "contracts",
+      "test_file": "tests/contracts/test_crm_read.py",
+      "verification_command": "uv run pytest tests/contracts/test_crm_read.py -q",
+      "business_gates": [
+        "D-04"
+      ],
+      "closes": [
+        "IN-03-P"
+      ],
+      "contributes": [
+        "IN-03-N"
+      ]
+    },
+    {
+      "id": "T09.1",
+      "title": "Implement conversation links and authorized case edits",
+      "work_package": "T09",
+      "dependencies": [
+        "T02.1",
+        "T03.2"
+      ],
+      "requirements": [
+        "CS-01",
+        "CS-02"
+      ],
+      "planned_locations": "src/aam/cases/; tests/cases/",
+      "status": "NOT RUN",
+      "deliverables": "Link, split, merge and reassign commands with causal event history.",
+      "positive": "Two threads link to one authorized case and a split preserves original references.",
+      "negative": "Cross-account merge is rejected and equal timestamps do not reverse causal ordering.",
+      "milestone": "M1",
+      "entry_point": "case link/split/merge command API",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_case_links.py",
+      "verification_command": "uv run pytest tests/integration/test_case_links.py -q",
+      "closes": [
+        "CS-01-P",
+        "CS-01-N"
+      ],
+      "contributes": [
+        "CS-02-P",
+        "CS-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T07.1",
+      "title": "Resolve identities with evidence and review",
+      "work_package": "T07",
+      "dependencies": [
+        "T04.1",
+        "T06.1",
+        "T09.1"
+      ],
+      "requirements": [
+        "CX-01"
+      ],
+      "planned_locations": "src/aam/context/resolver.py; tests/context/",
+      "status": "NOT RUN",
+      "deliverables": "Candidate matching, identifier checks and ambiguity queue.",
+      "positive": "One broker with two clients resolves to the explicit authorized policy.",
+      "negative": "Broker or local team ambiguity and explicit multi-client mail without configured handling hold restricted retrieval/actions; no sender-only guess.",
+      "milestone": "M1",
+      "entry_point": "account/workstream resolver and ambiguity queue",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_resolution.py",
+      "verification_command": "uv run pytest tests/integration/test_resolution.py -q",
+      "business_gates": [
+        "D-16"
+      ],
+      "closes": [
+        "CX-01-P",
+        "CX-01-N",
+        "CX-01-N2",
+        "CX-01-N3"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T04.2",
+      "title": "Reconcile inbound and Sent Items observation",
+      "work_package": "T04",
+      "dependencies": [
+        "T04.1",
+        "T07.1"
+      ],
+      "requirements": [
+        "IN-01",
+        "IN-04"
+      ],
+      "planned_locations": "src/aam/integrations/mail/; tests/contracts/mail/",
+      "status": "NOT RUN",
+      "deliverables": "Controlled cursor-reset/rescan, approved-folder reconciliation, Sent Items human/AAM/unknown attribution, request disposition invalidation and observation health. No webhook subscription lifecycle is required initially.",
+      "positive": "Catch-up after downtime records each message once, including human replies and provider-stamped AAM sends.",
+      "negative": "Expired cursor, missed move, unknown attribution or stale Sent Items health is visible and cannot silently permit dependent automatic dispatch.",
+      "milestone": "M1",
+      "entry_point": "inbound/Sent Items catch-up and request-disposition projection",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_mail_observation.py",
+      "verification_command": "uv run pytest tests/integration/test_mail_observation.py -q",
+      "business_gates": [
+        "D-05",
+        "D-13",
+        "D-16"
+      ],
+      "closes": [
+        "IN-01-P",
+        "IN-01-N"
+      ],
+      "contributes": [
+        "IN-04-P",
+        "IN-04-N"
+      ]
+    },
+    {
+      "id": "T08.1",
+      "title": "Freeze and validate stage input snapshots",
+      "work_package": "T08",
+      "dependencies": [
+        "T07.1"
+      ],
+      "requirements": [
+        "CX-02"
+      ],
+      "planned_locations": "src/aam/context/snapshots.py; contracts/context/",
+      "status": "NOT RUN",
+      "deliverables": "Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction.",
+      "positive": "Every specialist sees the same authoritative message/account identity.",
+      "negative": "Changed original ID/body or model-supplied broader scope fails before tool execution.",
+      "milestone": "M1",
+      "entry_point": "context snapshot builder and specialist-input boundary",
+      "test_layer": "contracts",
+      "test_file": "tests/contracts/test_context_snapshot.py",
+      "verification_command": "uv run pytest tests/contracts/test_context_snapshot.py -q",
+      "closes": [
+        "CX-02-P",
+        "CX-02-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T08.2",
+      "title": "Bound history and represent missing material",
+      "work_package": "T08",
+      "dependencies": [
+        "T08.1"
+      ],
+      "requirements": [
+        "CX-03"
+      ],
+      "planned_locations": "src/aam/context/snapshots.py; contracts/context/",
+      "status": "NOT RUN",
+      "deliverables": "Ordered context selection and explicit truncation/unavailable flags.",
+      "positive": "Recent complete context remains usable with omitted-history metadata.",
+      "negative": "Truncated current body or unprocessed required attachment cannot yield a fully supported answer.",
+      "milestone": "M1",
+      "entry_point": "context selection with unavailable-body/attachment states",
+      "test_layer": "contracts",
+      "test_file": "tests/contracts/test_context_limits.py",
+      "verification_command": "uv run pytest tests/contracts/test_context_limits.py -q",
+      "closes": [
+        "CX-03-P",
+        "CX-03-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T09.2",
+      "title": "Implement completion and waiver rules",
+      "work_package": "T09",
+      "dependencies": [
+        "T09.1"
+      ],
+      "requirements": [
+        "CS-02"
+      ],
+      "planned_locations": "src/aam/cases/; tests/cases/",
+      "status": "NOT RUN",
+      "deliverables": "Completion/waiver evaluator with typed evidence-policy slots. Missing approved evidence or waiver rules are explicit activation/closure blocks.",
+      "positive": "Accepted completion evidence or authorized waiver satisfies all mandatory work.",
+      "negative": "Promise, draft, send acceptance and successful agent run cannot alone close a case.",
+      "milestone": "M1",
+      "entry_point": "obligation completion and case-closure command handler",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_completion.py",
+      "verification_command": "uv run pytest tests/integration/test_completion.py -q",
+      "business_gates": [
+        "D-07",
+        "D-12"
+      ],
+      "closes": [
+        "CS-02-P",
+        "CS-02-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T09.3",
+      "title": "Separate obligation proposals and authorized promotion",
+      "work_package": "T09",
+      "requirements": [
+        "CS-04"
+      ],
+      "planned_locations": "src/aam/cases/proposals/; tests/integration/",
+      "status": "NOT RUN",
+      "deliverables": "Pending proposal storage and idempotent decision handler driven by configured promotion rules, with no implicit model-created timer.",
+      "positive": "A repeated authorized synthetic-policy decision creates one obligation with provenance.",
+      "negative": "Unset promotion policy or unauthorized owner/date change leaves the proposal pending with no reminder.",
+      "milestone": "M1",
+      "dependencies": [
+        "T09.2"
+      ],
+      "entry_point": "proposed-obligation decision command handler",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_proposal_promotion.py",
+      "verification_command": "uv run pytest tests/integration/test_proposal_promotion.py -q",
+      "business_gates": [
+        "D-16"
+      ],
+      "closes": [
+        "CS-04-P",
+        "CS-04-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T10.1",
+      "title": "Build case overview and actionable work queues",
+      "work_package": "T10",
+      "dependencies": [
+        "T02.1",
+        "T09.2"
+      ],
+      "requirements": [
+        "CS-03"
+      ],
+      "planned_locations": "web/; src/aam/api/cases/; tests/ui/",
+      "status": "NOT RUN",
+      "deliverables": "Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here.",
+      "positive": "AM can inspect owner/deadline/evidence and record authorized resolution.",
+      "negative": "Unauthorized cases stay hidden; same-time events preserve causality.",
+      "milestone": "M1",
+      "entry_point": "case query API and evidence timeline browser flow",
+      "test_layer": "ui",
+      "test_file": "tests/ui/test_case_overview.py",
+      "verification_command": "uv run pytest tests/ui/test_case_overview.py -q",
+      "closes": [
+        "CS-03-N"
+      ],
+      "contributes": [
+        "CS-03-P"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T16.1",
+      "title": "Implement durable activity and external-event contracts",
+      "work_package": "T16",
+      "dependencies": [
+        "T03.2",
+        "T09.2",
+        "T01.3"
+      ],
+      "requirements": [
+        "WF-01",
+        "WF-02"
+      ],
+      "planned_locations": "src/aam/workflows/; tests/workflows/",
+      "status": "NOT RUN",
+      "deliverables": "DB-owned wait/timer persistence and short DTS executions; deterministic attempt IDs, outbox start reconciliation, watchdog, deadline and recovery-epoch fences.",
+      "positive": "Reply or approval after restart creates new bounded work against the original DB wait; duplicate/lost start acknowledgment does not lose or duplicate its committed result.",
+      "negative": "Missing type/interpreter version suspends the case; obsolete attempt/epoch cannot overwrite newer state; absent/expired DTS history cannot erase DB business deduplication.",
+      "milestone": "M1",
+      "entry_point": "DTS work dispatch, watchdog and DB-owned wait recovery",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_bounded_execution.py",
+      "verification_command": "uv run pytest tests/integration/test_bounded_execution.py -q",
+      "closes": [
+        "WF-01-P",
+        "WF-01-N"
+      ],
+      "contributes": [
+        "WF-02-P",
+        "WF-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T16.2",
+      "title": "Implement calendars timers and operator transitions",
+      "work_package": "T16",
+      "dependencies": [
+        "T16.1"
+      ],
+      "requirements": [
+        "WF-03",
+        "WF-02"
+      ],
+      "planned_locations": "src/aam/workflows/; tests/workflows/",
+      "status": "NOT RUN",
+      "deliverables": "DB due sweep, holiday/timezone calculation, reschedule/pause/cancel, missed-sweep recovery and configurable upcoming/overdue notification events.",
+      "positive": "Synthetic approved holiday, reschedule and notification rules emit one expected occurrence; superseded timers do not dispatch.",
+      "negative": "Missing owner/calendar/channel/rule produces an explicit hold; two sweepers cannot activate the same timer version twice.",
+      "milestone": "M1",
+      "entry_point": "due-row sweep and current-version transition handler",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_timers.py",
+      "verification_command": "uv run pytest tests/integration/test_timers.py -q",
+      "business_gates": [
+        "D-06",
+        "D-14"
+      ],
+      "closes": [
+        "WF-03-P",
+        "WF-03-N",
+        "WF-03-P2"
+      ],
+      "contributes": [
+        "WF-02-P",
+        "WF-02-N"
+      ]
+    },
+    {
+      "id": "T17.1",
+      "title": "Validate and publish versioned packages",
+      "work_package": "T17",
+      "dependencies": [
+        "T16.1"
+      ],
+      "requirements": [
+        "CFG-01"
+      ],
+      "planned_locations": "resources/workflows/; src/aam/configuration/; tests/configuration/",
+      "status": "NOT RUN",
+      "deliverables": "Workflow type schema and registry with retrievable artifacts, case pinning, compatibility declaration and required business-policy slots. No model-runtime or extension-example prerequisite.",
+      "positive": "New case pins version two while active version-one case remains reproducible.",
+      "negative": "Missing completion rule, unregistered tool or incompatible schema blocks publication.",
+      "milestone": "M1",
+      "entry_point": "workflow-type registry publish/activation API",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_workflow_registry.py",
+      "verification_command": "uv run pytest tests/integration/test_workflow_registry.py -q",
+      "business_gates": [
+        "D-06",
+        "D-07",
+        "D-12",
+        "D-13",
+        "D-16",
+        "D-17"
+      ],
+      "closes": [
+        "CFG-01-P",
+        "CFG-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T17.3",
+      "title": "Publish bounded client parameter revisions",
+      "work_package": "T17",
+      "requirements": [
+        "CFG-03"
+      ],
+      "planned_locations": "src/aam/configuration/; web/configuration/; tests/integration/",
+      "status": "NOT RUN",
+      "deliverables": "Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas.",
+      "positive": "Approved cadence revision affects new cases only; previous revision remains retrievable.",
+      "negative": "Parameter publication cannot inject a step/tool/permission or silently mutate an active case.",
+      "milestone": "M1",
+      "dependencies": [
+        "T17.1"
+      ],
+      "entry_point": "client-parameter publish and case-version pinning API",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_client_parameters.py",
+      "verification_command": "uv run pytest tests/integration/test_client_parameters.py -q",
+      "business_gates": [
+        "D-06",
+        "D-13",
+        "D-16"
+      ],
+      "closes": [
+        "CFG-03-P",
+        "CFG-03-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T21.1",
+      "title": "Create labeled representative evaluation sets",
+      "work_package": "T21",
+      "dependencies": [
+        "T01.1"
+      ],
+      "requirements": [
+        "QA-01"
+      ],
+      "planned_locations": "evals/; tests/evaluation/",
+      "status": "NOT RUN",
+      "deliverables": "Early synthetic seed corpus, versioned labels and frozen holdout; domain-review and data-use approval process for de-identified real samples and small runtime demonstration sets. Split by source conversation/scenario family before tuning; exclude held-out examples from shipped bundles and annotate missing slices.",
+      "positive": "All three journeys, languages and broker ambiguity slices have positive/adverse examples; reviewed runtime demonstrations and held-out records have disjoint identities, content hashes and source conversation groups.",
+      "negative": "Unapproved real data, unreviewed examples, exact or related-conversation leakage, or absent rare-category samples prevents the corresponding evaluation claim; a live reply approval alone cannot publish an example.",
+      "milestone": "M1",
+      "entry_point": "corpus manifest/label loader and dataset approval checks",
+      "test_layer": "evaluation",
+      "test_file": "tests/evaluation/test_corpus.py",
+      "verification_command": "uv run pytest tests/evaluation/test_corpus.py -q",
+      "business_gates": [
+        "D-08"
+      ],
+      "closes": [],
+      "contributes": [
+        "QA-01-P",
+        "QA-01-N"
+      ]
+    },
+    {
+      "id": "T22.1",
+      "title": "Expose correlated health metrics and exceptions",
+      "work_package": "T22",
+      "dependencies": [
+        "T03.2",
+        "T01.3"
+      ],
+      "requirements": [
+        "OP-02"
+      ],
+      "planned_locations": "src/aam/operations/; docs/runbooks/; tests/recovery/",
+      "status": "NOT RUN",
+      "deliverables": "Early DB work-age/queue metrics, correlation, persistence readiness and safe diagnostics; add provider/model metrics with later integrations.",
+      "positive": "Injected outage produces a case-linked actionable diagnostic.",
+      "negative": "Critical persistence failure cannot remain healthy or silently drop work.",
+      "milestone": "M1",
+      "entry_point": "work ledger health/readiness and backlog diagnostic endpoints",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_observability.py",
+      "verification_command": "uv run pytest tests/integration/test_observability.py -q",
+      "closes": [],
+      "contributes": [
+        "OP-02-P",
+        "OP-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T14.1",
+      "title": "Evaluate independent action policy",
+      "work_package": "T14",
+      "dependencies": [
+        "T09.2",
+        "T09.3",
+        "T04.2",
+        "T16.1",
+        "T17.3"
+      ],
+      "requirements": [
+        "AU-01"
+      ],
+      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/",
+      "status": "NOT RUN",
+      "deliverables": "Shared configurable action/recipient/authority policy with explicit missing-policy holds; accepts typed deterministic template proposals independently of model pipeline.",
+      "positive": "Approved low-risk policy permits only its scoped action type.",
+      "negative": "Matched knowledge alone cannot authorize terms, commitments or ambiguous accounts.",
+      "milestone": "M2",
+      "entry_point": "shared action policy on deterministic proposals",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_action_policy.py",
+      "verification_command": "uv run pytest tests/integration/test_action_policy.py -q",
+      "business_gates": [
+        "D-13",
+        "D-16"
+      ],
+      "closes": [
+        "AU-01-P",
+        "AU-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T14.2",
+      "title": "Bind exact approvals and invalidate stale drafts",
+      "work_package": "T14",
+      "dependencies": [
+        "T14.1",
+        "T10.1"
+      ],
+      "requirements": [
+        "AU-02"
+      ],
+      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/",
+      "status": "NOT RUN",
+      "deliverables": "Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts.",
+      "positive": "Unchanged approved content passes; an unrelated country event does not invalidate it; restart retains the pending approval.",
+      "negative": "Changed content/recipient, referenced term, request disposition, policy/authority or expiry invalidates approval and blocks dispatch.",
+      "milestone": "M2",
+      "entry_point": "approval API/UI and dispatch dependency-set validator",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_approval_dependencies.py",
+      "verification_command": "uv run pytest tests/integration/test_approval_dependencies.py -q",
+      "business_gates": [
+        "D-13"
+      ],
+      "closes": [],
+      "contributes": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2"
+      ]
+    },
+    {
+      "id": "T15.1",
+      "title": "Execute scoped authorized commands",
+      "work_package": "T15",
+      "dependencies": [
+        "T04.2",
+        "T14.2",
+        "T16.2"
+      ],
+      "requirements": [
+        "AU-03",
+        "WF-02",
+        "AU-02"
+      ],
+      "planned_locations": "src/aam/delivery/; tests/delivery/",
+      "status": "NOT RUN",
+      "deliverables": "Leased/fenced DB command queue, shared dependency recheck, observation barrier and draft-create/persist-ID/send flow with scoped identity and independent test recipient guards.",
+      "positive": "Approved current content is submitted and stored with its exact hash.",
+      "negative": "A completed/canceled obligation, stale observation, duplicate command, changed provider draft or stale approval cannot issue a fresh send; crash in submitting enters uncertainty.",
+      "milestone": "M2",
+      "entry_point": "DB command claim, draft creation and Graph sandbox dispatch",
+      "test_layer": "provider",
+      "test_file": "tests/provider/test_delivery.py",
+      "verification_command": "uv run pytest tests/provider/test_delivery.py -q",
+      "closes": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2",
+        "WF-02-P"
+      ],
+      "contributes": [
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2",
+        "WF-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T15.2",
+      "title": "Reconcile uncertain outcomes and failures",
+      "work_package": "T15",
+      "dependencies": [
+        "T15.1"
+      ],
+      "requirements": [
+        "AU-03",
+        "IN-04",
+        "OP-04"
+      ],
+      "planned_locations": "src/aam/delivery/; tests/delivery/",
+      "status": "NOT RUN",
+      "deliverables": "Tenant qualification of immutable draft IDs and app-specific stamp create/filter/sent preservation; lost create/send response reconciliation, late NDR mapping, effective mailbox scope and transport-rule probes.",
+      "positive": "A lost send response is reconciled to the same command and a human reply observed before dispatch suppresses its pending draft.",
+      "negative": "Unknown/duplicate stamp, delayed Sent Items, ambiguous NDR or unscoped mailbox produces an explicit hold/denial; no blind resend. Bypass the worker allowlist in a controlled test to verify the independent provider restriction.",
+      "milestone": "M2",
+      "entry_point": "Graph reconciliation and stale-observation dispatch barrier",
+      "test_layer": "provider",
+      "test_file": "tests/provider/test_reconciliation.py",
+      "verification_command": "uv run pytest tests/provider/test_reconciliation.py -q",
+      "business_gates": [
+        "D-05",
+        "D-13",
+        "D-16"
+      ],
+      "closes": [
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2",
+        "IN-04-P",
+        "IN-04-N",
+        "OP-04-P",
+        "OP-04-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T19.1",
+      "title": "Create quarterly country obligations",
+      "work_package": "T19",
+      "dependencies": [
+        "T17.3",
+        "T09.2",
+        "T16.2"
+      ],
+      "requirements": [
+        "QD-01"
+      ],
+      "planned_locations": "resources/workflows/quarterly-delivery/; tests/journeys/quarterly/",
+      "status": "NOT RUN",
+      "deliverables": "Account/quarter/country scheduling, contacts and reminder rules.",
+      "positive": "Required countries receive one owned obligation each.",
+      "negative": "Repeated schedule or unknown local contact creates no duplicate or unsafe recipient.",
+      "milestone": "M2",
+      "entry_point": "quarterly schedule-to-case command",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_quarterly_schedule.py",
+      "verification_command": "uv run pytest tests/journeys/test_quarterly_schedule.py -q",
+      "business_gates": [
+        "D-06"
+      ],
+      "closes": [
+        "QD-01-P",
+        "QD-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T19.2",
+      "title": "Evaluate deck delivery evidence",
+      "work_package": "T19",
+      "dependencies": [
+        "T19.1",
+        "T15.2",
+        "T05.1"
+      ],
+      "requirements": [
+        "QD-02"
+      ],
+      "planned_locations": "resources/workflows/quarterly-delivery/; tests/journeys/quarterly/",
+      "status": "NOT RUN",
+      "deliverables": "Review-assisted deterministic template reminders and evidence acceptance under explicit synthetic policies; no full LLM, CRM write-back or type-migration dependency.",
+      "positive": "Valid delivery confirmation completes that country and stops its reminders.",
+      "negative": "Promise or wrong-quarter deck keeps the obligation outstanding.",
+      "milestone": "M2",
+      "entry_point": "quarterly reminder/evidence/closure journey using approved templates",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_quarterly_delivery.py",
+      "verification_command": "uv run pytest tests/journeys/test_quarterly_delivery.py -q",
+      "business_gates": [
+        "D-07",
+        "D-12",
+        "D-13"
+      ],
+      "closes": [
+        "QD-02-P",
+        "QD-02-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T11.1",
+      "title": "Adapt registry and bounded specialist invocation",
+      "work_package": "T11",
+      "dependencies": [
+        "T08.2",
+        "T21.1",
+        "T01.3"
+      ],
+      "requirements": [
+        "AI-01"
+      ],
+      "planned_locations": "src/aam/agents/; resources/agents/; resources/examples/; tests/agents/",
+      "status": "NOT RUN",
+      "deliverables": "Direct structured-output provider adapter, typed schemas, versioned prompts and reviewed workflow-example YAML loader/selector; bundle digest covers example bytes, schema and selector settings, with retrievable immutable contents. No extra service/index or mandatory agent framework; tool loop restricted to research.",
+      "positive": "Pinned bundle produces typed output within budget; identical inputs select identical example IDs; unknown-workflow analysis uses balanced examples, writer selection respects intent/language, and valid zero matches are explicit.",
+      "negative": "Missing/corrupt bundle, duplicate IDs, unknown labels, unregistered tool, malformed result and timeout fail explicitly. Token limits drop complete examples without displacing current context; mutable files cannot change a pinned run.",
+      "milestone": "M3",
+      "entry_point": "structured-model adapter with typed result/budget checks",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_model_adapter.py",
+      "verification_command": "uv run pytest tests/agents/test_model_adapter.py -q",
+      "closes": [],
+      "contributes": [
+        "AI-01-P",
+        "AI-01-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T10.2",
+      "title": "Build versioned case summaries",
+      "work_package": "T10",
+      "dependencies": [
+        "T10.1",
+        "T11.1"
+      ],
+      "requirements": [
+        "CS-03"
+      ],
+      "planned_locations": "web/; src/aam/api/cases/; tests/ui/",
+      "status": "NOT RUN",
+      "deliverables": "Event-triggered summary job and freshness display.",
+      "positive": "Committed structured changes appear while a narrative refresh is pending.",
+      "negative": "A stale summary is labeled and cannot overwrite newer case facts.",
+      "milestone": "M3",
+      "entry_point": "summary generation job plus case-view freshness presentation",
+      "test_layer": "ui",
+      "test_file": "tests/ui/test_summary_freshness.py",
+      "verification_command": "uv run pytest tests/ui/test_summary_freshness.py -q",
+      "closes": [
+        "CS-03-P"
+      ],
+      "contributes": [
+        "CS-03-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T11.2",
+      "title": "Replace supervisor delegation with deterministic coordination",
+      "work_package": "T11",
+      "dependencies": [
+        "T11.1",
+        "T16.1"
+      ],
+      "requirements": [
+        "AI-01",
+        "CS-04"
+      ],
+      "planned_locations": "src/aam/agents/; resources/agents/; tests/agents/",
+      "status": "NOT RUN",
+      "deliverables": "Application-owned stage order and frozen inputs; persisted outputs and selected example IDs/settings per stage; proposed obligations route through T09.3 policy rather than creating tasks implicitly.",
+      "positive": "Actual coordinator executes analysis selection, analysis, current evidence retrieval, writing selection and drafting in order, including known/unknown workflow, multi-question and valid zero-example paths.",
+      "negative": "Skipped, duplicate or premature stage, invalid bundle or substituted context cannot produce an authorized proposal; examples cannot resolve account scope or enter the evidence registry.",
+      "milestone": "M3",
+      "entry_point": "deterministic stage coordinator and persisted stage results",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_stage_coordinator.py",
+      "verification_command": "uv run pytest tests/agents/test_stage_coordinator.py -q",
+      "closes": [
+        "AI-01-P",
+        "AI-01-N"
+      ],
+      "contributes": [
+        "CS-04-P",
+        "CS-04-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T12.1",
+      "title": "Implement approved scoped retrieval",
+      "work_package": "T12",
+      "dependencies": [
+        "T08.1",
+        "T01.3"
+      ],
+      "requirements": [
+        "AI-02"
+      ],
+      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
+      "status": "NOT RUN",
+      "deliverables": "Approved-knowledge registry/indexer with versioned Search upsert/delete, account/effective-date filters and DB revalidation after retrieval; provision Search in the isolated environment at this slice.",
+      "positive": "Applicable evidence for two questions is returned with source locations.",
+      "negative": "Model-supplied filters cannot retrieve another client or unpublished/expired SOP.",
+      "milestone": "M3",
+      "entry_point": "knowledge indexer and scoped Search adapter",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_retrieval.py",
+      "verification_command": "uv run pytest tests/integration/test_retrieval.py -q",
+      "closes": [],
+      "contributes": [
+        "AI-02-P",
+        "AI-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T12.2",
+      "title": "Implement evidence registration and question coverage",
+      "work_package": "T12",
+      "dependencies": [
+        "T12.1",
+        "T11.2"
+      ],
+      "requirements": [
+        "AI-02"
+      ],
+      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
+      "status": "NOT RUN",
+      "deliverables": "Evidence versions, coverage states and bounded multi-query retrieval.",
+      "positive": "Per-question support distinguishes sufficient from partial coverage.",
+      "negative": "Unknown IDs, conflicting evidence and budget exhaustion never become sufficient coverage.",
+      "milestone": "M3",
+      "entry_point": "research loop evidence registry and coverage evaluator",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_research_coverage.py",
+      "verification_command": "uv run pytest tests/agents/test_research_coverage.py -q",
+      "closes": [
+        "AI-02-P",
+        "AI-02-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T13.1",
+      "title": "Draft typed responses and internal claim maps",
+      "work_package": "T13",
+      "dependencies": [
+        "T12.2"
+      ],
+      "requirements": [
+        "AI-04"
+      ],
+      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "status": "NOT RUN",
+      "deliverables": "Typed writer with language/continuity checks, distinctly labeled current facts and illustrative examples, rendered message and draft claim map; no model-generated content enters deterministic reminder path.",
+      "positive": "Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.",
+      "negative": "Customer output excludes internal IDs and secrets, does not copy example dates/amounts or claim illustrative completed actions, and makes no unsupported action promise.",
+      "milestone": "M3",
+      "entry_point": "writer adapter on final language/continuity and disclosure rules",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_drafting.py",
+      "verification_command": "uv run pytest tests/agents/test_drafting.py -q",
+      "closes": [
+        "AI-04-P",
+        "AI-04-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T13.2",
+      "title": "Validate factual claims and commitments",
+      "work_package": "T13",
+      "dependencies": [
+        "T13.1"
+      ],
+      "requirements": [
+        "AI-03"
+      ],
+      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "status": "NOT RUN",
+      "deliverables": "Independent final-text claim extraction, union with writer map and deterministic critical spans; coverage gaps and missing evidence block automation.",
+      "positive": "Applicable 30-day claim is supported by its actual source.",
+      "negative": "An unmapped 999-day claim, unsupported commitment paraphrase, failed extraction, unknown source or copied illustrative fact blocks automation even when the writer map appears valid; example IDs cannot qualify as current evidence.",
+      "milestone": "M3",
+      "entry_point": "final-text claim extraction/coverage and critical-span validator",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_claim_validation.py",
+      "verification_command": "uv run pytest tests/agents/test_claim_validation.py -q",
+      "closes": [
+        "AI-03-P",
+        "AI-03-N",
+        "AI-03-N2"
+      ],
+      "contributes": [
+        "AI-03-P2",
+        "AI-03-N3"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T14.3",
+      "title": "Review validated model drafts and controlled factual warnings",
+      "work_package": "T14",
+      "requirements": [
+        "AI-03",
+        "AU-02"
+      ],
+      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/",
+      "status": "NOT RUN",
+      "deliverables": "New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden.",
+      "positive": "An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.",
+      "negative": "Absent override policy, changed content or forbidden recipient prevents approval/dispatch; no generic human-approval bypass.",
+      "milestone": "M3",
+      "dependencies": [
+        "T14.2",
+        "T13.2"
+      ],
+      "entry_point": "edited-draft validation and warning-acknowledgment approval UI",
+      "test_layer": "ui",
+      "test_file": "tests/ui/test_edited_review.py",
+      "verification_command": "uv run pytest tests/ui/test_edited_review.py -q",
+      "business_gates": [
+        "D-13"
+      ],
+      "closes": [
+        "AI-03-P2",
+        "AI-03-N3"
+      ],
+      "contributes": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2",
+        "AI-03-P",
+        "AI-03-N",
+        "AI-03-N2"
+      ]
+    },
+    {
+      "id": "T18.1",
+      "title": "Create proactive regional and country cases",
+      "work_package": "T18",
+      "dependencies": [
+        "T06.1",
+        "T17.3",
+        "T16.2"
+      ],
+      "requirements": [
+        "RN-01"
+      ],
+      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "status": "NOT RUN",
+      "deliverables": "CRM eligibility scan with calendar-month and account-specific lead-time rules.",
+      "positive": "Configured earlier jumbo date creates one cycle and applicable country workstreams.",
+      "negative": "Repeated scan or missing renewal date creates no duplicate or invented schedule.",
+      "milestone": "M3",
+      "entry_point": "CRM eligibility sweep and renewal case creation",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_renewal_schedule.py",
+      "verification_command": "uv run pytest tests/journeys/test_renewal_schedule.py -q",
+      "business_gates": [
+        "D-04",
+        "D-06"
+      ],
+      "closes": [
+        "RN-01-P",
+        "RN-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T18.2",
+      "title": "Coordinate pricing terms and release",
+      "work_package": "T18",
+      "dependencies": [
+        "T18.1",
+        "T15.2",
+        "T05.1"
+      ],
+      "requirements": [
+        "RN-02"
+      ],
+      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "status": "NOT RUN",
+      "deliverables": "Versioned pricing/terms and approved consolidation interface. Scope is gated by D-17; do not implement numeric authorship or choose document-only behavior as an unstated business answer.",
+      "positive": "Accepted applicable country terms produce an approvable consolidation.",
+      "negative": "Missing business consolidation scope, stale input versions or incomplete approved preconditions hold release; no inferred exception.",
+      "milestone": "M3",
+      "entry_point": "pricing/terms version acceptance and release command boundary",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_renewal_terms.py",
+      "verification_command": "uv run pytest tests/journeys/test_renewal_terms.py -q",
+      "business_gates": [
+        "D-12",
+        "D-13",
+        "D-17"
+      ],
+      "closes": [
+        "RN-02-P",
+        "RN-02-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T18.3",
+      "title": "Track negotiation rounds and finalization",
+      "work_package": "T18",
+      "dependencies": [
+        "T18.2"
+      ],
+      "requirements": [
+        "RN-03"
+      ],
+      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "status": "NOT RUN",
+      "deliverables": "Round/action history, confirmation evidence and obsolete-reminder cancellation.",
+      "positive": "Confirmed agreed outcome finalizes the correct versions.",
+      "negative": "Discount request or acknowledgment cannot accept commercial terms or close the renewal.",
+      "milestone": "M3",
+      "entry_point": "negotiation event processing and finalization command",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_renewal_finalization.py",
+      "verification_command": "uv run pytest tests/journeys/test_renewal_finalization.py -q",
+      "business_gates": [
+        "D-12",
+        "D-17"
+      ],
+      "closes": [
+        "RN-03-P",
+        "RN-03-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T20.1",
+      "title": "Resolve underwriting notice and affected entities",
+      "work_package": "T20",
+      "dependencies": [
+        "T06.1",
+        "T07.1",
+        "T17.3"
+      ],
+      "requirements": [
+        "PC-01"
+      ],
+      "planned_locations": "resources/workflows/program-change/; tests/journeys/program-change/",
+      "status": "NOT RUN",
+      "deliverables": "Authenticated notice intake, existing/new-opportunity mapping and uncertainty handling.",
+      "positive": "Confirmed notice creates linked impacted workstreams.",
+      "negative": "A lookalike sender, conflicting entities or missing business authority policy holds the trigger; passing mail authentication alone cannot establish underwriting authority.",
+      "milestone": "M3",
+      "entry_point": "program-change notice intake with configured authority policy",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_program_trigger.py",
+      "verification_command": "uv run pytest tests/journeys/test_program_trigger.py -q",
+      "business_gates": [
+        "D-17"
+      ],
+      "closes": [
+        "PC-01-P",
+        "PC-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T20.2",
+      "title": "Coordinate approved notices and next actions",
+      "work_package": "T20",
+      "dependencies": [
+        "T20.1",
+        "T15.2"
+      ],
+      "requirements": [
+        "PC-02"
+      ],
+      "planned_locations": "resources/workflows/program-change/; tests/journeys/program-change/",
+      "status": "NOT RUN",
+      "deliverables": "Approval path, acknowledgment tracking and evidence-based closure.",
+      "positive": "Approved communication and completed agreed actions allow closure.",
+      "negative": "Replacement coverage promise is blocked; sending alone cannot close the case.",
+      "milestone": "M3",
+      "entry_point": "approved notice and next-action closure journey",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_program_actions.py",
+      "verification_command": "uv run pytest tests/journeys/test_program_actions.py -q",
+      "business_gates": [
+        "D-12",
+        "D-13"
+      ],
+      "closes": [
+        "PC-02-P",
+        "PC-02-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T21.2",
+      "title": "Implement candidate evaluation and honest reports",
+      "work_package": "T21",
+      "dependencies": [
+        "T21.1",
+        "T13.2"
+      ],
+      "requirements": [
+        "QA-01"
+      ],
+      "planned_locations": "evals/; tests/evaluation/",
+      "status": "NOT RUN",
+      "deliverables": "Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output.",
+      "positive": "Reports identify exact model/bundle/corpus, selected-example configuration and comparable per-slice outcomes; no-example baseline and prior bundle can be reproduced without altering the holdout.",
+      "negative": "Partial logs, skipped live execution, crashed model, unreviewed examples or tuning/holdout leakage cannot be summarized as a successful accuracy run; no automatic promotion from favorable aggregate scores.",
+      "milestone": "M3",
+      "entry_point": "candidate evaluation runner and actual final readiness report",
+      "test_layer": "evaluation",
+      "test_file": "tests/evaluation/test_candidate_report.py",
+      "verification_command": "uv run pytest tests/evaluation/test_candidate_report.py -q",
+      "business_gates": [
+        "D-10"
+      ],
+      "closes": [
+        "QA-01-P",
+        "QA-01-N"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T06.2",
+      "title": "Implement approved idempotent write-back",
+      "work_package": "T06",
+      "dependencies": [
+        "T06.1",
+        "T15.2"
+      ],
+      "requirements": [
+        "IN-03"
+      ],
+      "planned_locations": "src/aam/integrations/crm/; tests/contracts/crm/",
+      "status": "NOT RUN",
+      "deliverables": "Feature-gated mapped CRM writes and separate command reconciliation. Read-only journey delivery does not depend on enabling write-back.",
+      "positive": "Repeated accepted activity command has one business effect.",
+      "negative": "Unauthorized field changes and ambiguous CRM responses remain rejected/uncertain, not completed.",
+      "milestone": "M4",
+      "entry_point": "CRM write-back adapter and command reconciliation",
+      "test_layer": "provider",
+      "test_file": "tests/provider/test_crm_writeback.py",
+      "verification_command": "uv run pytest tests/provider/test_crm_writeback.py -q",
+      "business_gates": [
+        "D-04"
+      ],
+      "closes": [
+        "IN-03-N"
+      ],
+      "contributes": [
+        "IN-03-P"
+      ]
+    },
+    {
+      "id": "T17.2",
+      "title": "Implement controlled migration and extension example",
+      "work_package": "T17",
+      "dependencies": [
+        "T17.3"
+      ],
+      "requirements": [
+        "CFG-02"
+      ],
+      "planned_locations": "resources/workflows/; src/aam/configuration/; tests/configuration/",
+      "status": "NOT RUN",
+      "deliverables": "Migration impact/authorization and synthetic health-talk extension compatibility example; preserves type and parameter pins and records effects on approvals/timers.",
+      "positive": "An explicitly authorized migration records changed state/approval impact.",
+      "negative": "Silent active-case upgrade is rejected; extension does not change renewal behavior.",
+      "milestone": "M4",
+      "entry_point": "version migration API and synthetic extension interpreter",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_workflow_migration.py",
+      "verification_command": "uv run pytest tests/integration/test_workflow_migration.py -q",
+      "closes": [
+        "CFG-02-P",
+        "CFG-02-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T22.2",
+      "title": "Implement authorized repair and replay",
+      "work_package": "T22",
+      "dependencies": [
+        "T22.1",
+        "T15.2",
+        "T16.2"
+      ],
+      "requirements": [
+        "OP-02"
+      ],
+      "planned_locations": "src/aam/operations/; docs/runbooks/; tests/recovery/",
+      "status": "NOT RUN",
+      "deliverables": "Operator commands with reason, scope, original IDs and audit.",
+      "positive": "Repair resumes the same work without duplicate external actions.",
+      "negative": "Unauthorized replay or stale command is rejected even through manual/fallback paths.",
+      "milestone": "M4",
+      "entry_point": "operator repair/replay API through actual worker execution",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_operator_recovery.py",
+      "verification_command": "uv run pytest tests/integration/test_operator_recovery.py -q",
+      "closes": [
+        "OP-02-P",
+        "OP-02-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T23.1",
+      "title": "Harden production deployment and AKS operating model",
+      "work_package": "T23",
+      "dependencies": [
+        "T01.3",
+        "T22.1"
+      ],
+      "requirements": [
+        "OP-03"
+      ],
+      "planned_locations": "infra/; deploy/; tests/deployment/",
+      "status": "NOT RUN",
+      "deliverables": "Production IaC and separate identities; effective grants, private data endpoints, polling egress, portal ingress, HA/backup, image scan, patch/upgrade ownership and qualified backlog autoscaling. No assumed Graph public webhook.",
+      "positive": "Fresh test environment provisions from declared parameters without self-hosted backend services.",
+      "negative": "Missing region/identity configuration or accidental production connection fails deployment validation.",
+      "milestone": "M4",
+      "entry_point": "production IaC plan/deployment, grants and operating-policy checks",
+      "test_layer": "platform",
+      "test_file": "tests/platform/test_production_environment.py",
+      "verification_command": "uv run pytest tests/platform/test_production_environment.py -q",
+      "business_gates": [
+        "D-05",
+        "D-08",
+        "D-09",
+        "D-15"
+      ],
+      "closes": [],
+      "contributes": [
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2"
+      ]
+    },
+    {
+      "id": "T24.1",
+      "title": "Enforce residency retention and protected telemetry",
+      "work_package": "T24",
+      "dependencies": [
+        "T02.1",
+        "T05.1",
+        "T12.1",
+        "T23.1"
+      ],
+      "requirements": [
+        "OP-01",
+        "OP-03"
+      ],
+      "planned_locations": "docs/security/; tests/security/; infra/policies/",
+      "status": "NOT RUN",
+      "deliverables": "Approved policy covering every store/index/model/log/backup and scoped access.",
+      "positive": "Authorized retention/restore lifecycle handles all derived records consistently.",
+      "negative": "Disallowed region, cross-account source access or secrets in logs blocks release.",
+      "milestone": "M4",
+      "entry_point": "data-policy admission/export/delete/retention across all stores",
+      "test_layer": "security",
+      "test_file": "tests/security/test_data_lifecycle.py",
+      "verification_command": "uv run pytest tests/security/test_data_lifecycle.py -q",
+      "business_gates": [
+        "D-08",
+        "D-16"
+      ],
+      "closes": [],
+      "contributes": [
+        "OP-01-P",
+        "OP-01-N",
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2"
+      ]
+    },
+    {
+      "id": "T23.2",
+      "title": "Qualify deploy upgrade rollback and restore",
+      "work_package": "T23",
+      "dependencies": [
+        "T23.1",
+        "T24.1",
+        "T22.2",
+        "T17.2"
+      ],
+      "requirements": [
+        "OP-03"
+      ],
+      "planned_locations": "infra/; deploy/; tests/deployment/",
+      "status": "NOT RUN",
+      "deliverables": "Cold deployment, node drain/upgrade, compatible rollback and ordered fenced restore runbook: DB, Blob, Search, waits/timers, mailbox/provider reconciliation, then dispatch reopen.",
+      "positive": "Recovered case state and bounded technical jobs meet approved objectives without replaying confirmed provider effects.",
+      "negative": "Old-epoch workers, missing package/blob, sends accepted after backup or unresolved provider history prevent affected dispatch reopening.",
+      "milestone": "M4",
+      "entry_point": "fenced restore runbook, upgrade/drain and dispatch-reopen gates",
+      "test_layer": "platform",
+      "test_file": "tests/platform/test_restore.py",
+      "verification_command": "uv run pytest tests/platform/test_restore.py -q",
+      "business_gates": [
+        "D-09",
+        "D-15"
+      ],
+      "closes": [
+        "OP-03-P",
+        "OP-03-N",
+        "OP-03-N2"
+      ],
+      "contributes": []
+    },
+    {
+      "id": "T25.1",
+      "title": "Exercise actual acceptance paths under faults",
+      "work_package": "T25",
+      "dependencies": [
+        "T18.3",
+        "T19.2",
+        "T20.2",
+        "T21.2",
+        "T22.2",
+        "T23.2",
+        "T10.2",
+        "T14.3",
+        "T06.2"
+      ],
+      "requirements": [
+        "QA-01",
+        "WF-01",
+        "WF-02",
+        "AU-03",
+        "CS-02",
+        "OP-01"
+      ],
+      "planned_locations": "tests/e2e/; artifacts/release/; docs/reviews/",
+      "status": "NOT RUN",
+      "deliverables": "Three composed journeys and all-access-path authorization tests; mutation guards for context, unmapped claims, approval dependencies, scope, event replay and closure. Retain actual final statuses and attributable provider evidence.",
+      "positive": "All priority workflows complete with attributed final business state and source evidence.",
+      "negative": "Duplicate/out-of-order events, pod termination and conflicting evidence produce correct final statuses without uncontrolled sends.",
+      "milestone": "M4",
+      "entry_point": "composed API-to-provider journeys and all-boundary security suite",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_acceptance_faults.py",
+      "verification_command": "uv run pytest tests/journeys/test_acceptance_faults.py -q",
+      "closes": [
+        "OP-01-P",
+        "OP-01-N"
+      ],
+      "contributes": [
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2",
+        "CS-02-P",
+        "CS-02-N",
+        "QA-01-P",
+        "QA-01-N",
+        "WF-01-P",
+        "WF-01-N",
+        "WF-02-P",
+        "WF-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T25.2",
+      "title": "Complete independent correctness and delivery review",
+      "work_package": "T25",
+      "dependencies": [
+        "T25.1",
+        "T01.2"
+      ],
+      "requirements": [
+        "QA-01",
+        "WF-01",
+        "WF-02",
+        "AU-03",
+        "CS-02"
+      ],
+      "planned_locations": "tests/e2e/; artifacts/release/; docs/reviews/",
+      "status": "NOT RUN",
+      "deliverables": "Reviewed revision, findings, resolutions, CI runs and requirement evidence matrix.",
+      "positive": "Qualified artifacts and all required tests are tied to the exact reviewed revision.",
+      "negative": "Pending review, missing CI execution or unresolved critical findings cannot produce a ready-for-production declaration.",
+      "milestone": "M4",
+      "entry_point": "independent correctness/delivery review of qualified revision",
+      "test_layer": "review",
+      "test_file": "tests/review/test_independent_review.py",
+      "verification_command": "Independent reviewer executes the documented correctness and delivery protocol against the exact qualified commit; retain signed/attributed findings and closure in docs/reviews/. Silence is NOT RUN.",
+      "closes": [],
+      "contributes": [
+        "AU-03-P",
+        "AU-03-N",
+        "AU-03-N2",
+        "CS-02-P",
+        "CS-02-N",
+        "QA-01-P",
+        "QA-01-N",
+        "WF-01-P",
+        "WF-01-N",
+        "WF-02-P",
+        "WF-02-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T26.1",
+      "title": "Run shadow and approve category thresholds",
+      "work_package": "T26",
+      "dependencies": [
+        "T25.2"
+      ],
+      "requirements": [
+        "QA-02"
+      ],
+      "planned_locations": "resources/policies/; docs/runbooks/automation/; tests/rollout/",
+      "status": "NOT RUN",
+      "deliverables": "Business-approved category gate records with denominator, minimum n, representative slices, confidence-bound method and accepted thresholds; shadow outcomes separated from synthetic results.",
+      "positive": "A qualified low-risk category has explicit measured acceptance and owner signoff.",
+      "negative": "Small/unrepresentative samples, unset threshold or disqualifying outcome cannot qualify the category even with zero observed failures.",
+      "milestone": "M5",
+      "entry_point": "category gate evaluator on shadow evidence and approved metrics",
+      "test_layer": "evaluation",
+      "test_file": "tests/evaluation/test_shadow_gates.py",
+      "verification_command": "uv run pytest tests/evaluation/test_shadow_gates.py -q",
+      "business_gates": [
+        "D-10",
+        "D-13"
+      ],
+      "closes": [],
+      "contributes": [
+        "QA-02-P",
+        "QA-02-N"
+      ]
+    },
+    {
+      "id": "T26.2",
+      "title": "Exercise canary kill switch and rollback",
+      "work_package": "T26",
+      "dependencies": [
+        "T26.1"
+      ],
+      "requirements": [
+        "QA-02"
+      ],
+      "planned_locations": "resources/policies/; docs/runbooks/automation/; tests/rollout/",
+      "status": "NOT RUN",
+      "deliverables": "Scoped automatic policy, monitoring, disablement and rollback evidence.",
+      "positive": "Only approved cohort sends automatically; disabling returns it to review-assisted processing.",
+      "negative": "A serious violation disables affected automation without losing case history or retrying completed sends.",
+      "milestone": "M5",
+      "entry_point": "canary activation/kill-switch and rollback through policy API",
+      "test_layer": "journeys",
+      "test_file": "tests/journeys/test_automation_canary.py",
+      "verification_command": "uv run pytest tests/journeys/test_automation_canary.py -q",
+      "business_gates": [
+        "D-13"
+      ],
+      "closes": [
+        "QA-02-P",
+        "QA-02-N"
+      ],
+      "contributes": []
+    }
+  ],
+  "stories": [
+    {
+      "id": "US-01",
+      "title": "Renewal monitoring and coordination",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CS-01",
+        "CS-02",
+        "CS-03",
+        "CS-04",
+        "IN-03",
+        "RN-01",
+        "RN-02",
+        "RN-03",
+        "WF-01",
+        "WF-02",
+        "WF-03"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-02",
+      "title": "Intelligent email handling",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CX-01",
+        "CX-02",
+        "CX-03",
+        "AU-01",
+        "AU-02",
+        "AI-01",
+        "AI-02",
+        "AI-03",
+        "AI-04",
+        "CS-01",
+        "CS-03",
+        "CS-04",
+        "IN-01",
+        "IN-02",
+        "IN-03",
+        "IN-04",
+        "OP-01",
+        "QA-01",
+        "WF-02"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-03",
+      "title": "Quarterly local claims deck delivery",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CS-02",
+        "QD-01",
+        "QD-02",
+        "WF-01",
+        "WF-03"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-04",
+      "title": "Program changes",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CS-02",
+        "PC-01",
+        "PC-02",
+        "WF-01",
+        "WF-03"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-05",
+      "title": "Current case overview",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CS-03"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-06",
+      "title": "Extensible workflow administration",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CFG-01",
+        "CFG-02",
+        "CFG-03"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-07",
+      "title": "Controlled automatic responses",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "CX-02",
+        "AU-01",
+        "AU-02",
+        "AU-03",
+        "AI-01",
+        "AI-02",
+        "AI-03",
+        "AI-04",
+        "IN-04",
+        "OP-04",
+        "QA-01",
+        "QA-02"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-08",
+      "title": "Reliable managed operation",
+      "scope": "initial",
+      "source": "docs/product/user-stories.md",
+      "requirements": [
+        "AU-03",
+        "IN-04",
+        "OP-01",
+        "OP-02",
+        "OP-03",
+        "OP-04",
+        "QA-01",
+        "QA-02",
+        "WF-01",
+        "WF-02"
+      ],
+      "acceptance_outline": null,
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-09",
+      "title": "Quarterly consolidated reporting",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-10",
+      "title": "Health talk tracker",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-11",
+      "title": "Pool report issuance",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-12",
+      "title": "Client review meetings",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-13",
+      "title": "SLA and service reviews",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-14",
+      "title": "Renewal timeline planning",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    },
+    {
+      "id": "US-15",
+      "title": "Renewal meetings",
+      "scope": "extension",
+      "source": "docs/product/user-stories.md",
+      "requirements": [],
+      "acceptance_outline": "docs/product/extension-workflows.md",
+      "status": "PROPOSED_NOT_IMPLEMENTED"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "CX-01-P",
+      "requirement": "CX-01",
+      "closing_task": "T07.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-01-N",
+      "requirement": "CX-01",
+      "closing_task": "T07.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-01-N2",
+      "requirement": "CX-01",
+      "closing_task": "T07.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-01-N3",
+      "requirement": "CX-01",
+      "closing_task": "T07.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-02-P",
+      "requirement": "CX-02",
+      "closing_task": "T08.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-02-N",
+      "requirement": "CX-02",
+      "closing_task": "T08.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-03-P",
+      "requirement": "CX-03",
+      "closing_task": "T08.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-03-N",
+      "requirement": "CX-03",
+      "closing_task": "T08.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-01-P",
+      "requirement": "AU-01",
+      "closing_task": "T14.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-01-N",
+      "requirement": "AU-01",
+      "closing_task": "T14.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-02-P",
+      "requirement": "AU-02",
+      "closing_task": "T15.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-02-N",
+      "requirement": "AU-02",
+      "closing_task": "T15.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-02-P2",
+      "requirement": "AU-02",
+      "closing_task": "T15.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-02-N2",
+      "requirement": "AU-02",
+      "closing_task": "T15.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-03-P",
+      "requirement": "AU-03",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-03-N",
+      "requirement": "AU-03",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AU-03-N2",
+      "requirement": "AU-03",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-01-P",
+      "requirement": "AI-01",
+      "closing_task": "T11.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-01-N",
+      "requirement": "AI-01",
+      "closing_task": "T11.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-02-P",
+      "requirement": "AI-02",
+      "closing_task": "T12.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-02-N",
+      "requirement": "AI-02",
+      "closing_task": "T12.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03-P",
+      "requirement": "AI-03",
+      "closing_task": "T13.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03-N",
+      "requirement": "AI-03",
+      "closing_task": "T13.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03-N2",
+      "requirement": "AI-03",
+      "closing_task": "T13.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03-P2",
+      "requirement": "AI-03",
+      "closing_task": "T14.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-03-N3",
+      "requirement": "AI-03",
+      "closing_task": "T14.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-04-P",
+      "requirement": "AI-04",
+      "closing_task": "T13.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-04-N",
+      "requirement": "AI-04",
+      "closing_task": "T13.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-01-P",
+      "requirement": "CS-01",
+      "closing_task": "T09.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-01-N",
+      "requirement": "CS-01",
+      "closing_task": "T09.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-02-P",
+      "requirement": "CS-02",
+      "closing_task": "T09.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-02-N",
+      "requirement": "CS-02",
+      "closing_task": "T09.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-03-P",
+      "requirement": "CS-03",
+      "closing_task": "T10.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-03-N",
+      "requirement": "CS-03",
+      "closing_task": "T10.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-04-P",
+      "requirement": "CS-04",
+      "closing_task": "T09.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CS-04-N",
+      "requirement": "CS-04",
+      "closing_task": "T09.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-01-P",
+      "requirement": "IN-01",
+      "closing_task": "T04.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-01-N",
+      "requirement": "IN-01",
+      "closing_task": "T04.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-02-P",
+      "requirement": "IN-02",
+      "closing_task": "T05.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-02-N",
+      "requirement": "IN-02",
+      "closing_task": "T05.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-03-P",
+      "requirement": "IN-03",
+      "closing_task": "T06.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-03-N",
+      "requirement": "IN-03",
+      "closing_task": "T06.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-04-P",
+      "requirement": "IN-04",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "IN-04-N",
+      "requirement": "IN-04",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-01-P",
+      "requirement": "OP-01",
+      "closing_task": "T25.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-01-N",
+      "requirement": "OP-01",
+      "closing_task": "T25.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-02-P",
+      "requirement": "OP-02",
+      "closing_task": "T22.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-02-N",
+      "requirement": "OP-02",
+      "closing_task": "T22.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-03-P",
+      "requirement": "OP-03",
+      "closing_task": "T23.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-03-N",
+      "requirement": "OP-03",
+      "closing_task": "T23.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-03-N2",
+      "requirement": "OP-03",
+      "closing_task": "T23.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-04-P",
+      "requirement": "OP-04",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "OP-04-N",
+      "requirement": "OP-04",
+      "closing_task": "T15.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-01-P",
+      "requirement": "PC-01",
+      "closing_task": "T20.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-01-N",
+      "requirement": "PC-01",
+      "closing_task": "T20.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-02-P",
+      "requirement": "PC-02",
+      "closing_task": "T20.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "PC-02-N",
+      "requirement": "PC-02",
+      "closing_task": "T20.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-01-P",
+      "requirement": "QA-01",
+      "closing_task": "T21.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-01-N",
+      "requirement": "QA-01",
+      "closing_task": "T21.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-02-P",
+      "requirement": "QA-02",
+      "closing_task": "T26.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QA-02-N",
+      "requirement": "QA-02",
+      "closing_task": "T26.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-01-P",
+      "requirement": "QD-01",
+      "closing_task": "T19.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-01-N",
+      "requirement": "QD-01",
+      "closing_task": "T19.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-02-P",
+      "requirement": "QD-02",
+      "closing_task": "T19.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "QD-02-N",
+      "requirement": "QD-02",
+      "closing_task": "T19.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-01-P",
+      "requirement": "RN-01",
+      "closing_task": "T18.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-01-N",
+      "requirement": "RN-01",
+      "closing_task": "T18.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-02-P",
+      "requirement": "RN-02",
+      "closing_task": "T18.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-02-N",
+      "requirement": "RN-02",
+      "closing_task": "T18.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-03-P",
+      "requirement": "RN-03",
+      "closing_task": "T18.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "RN-03-N",
+      "requirement": "RN-03",
+      "closing_task": "T18.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-01-P",
+      "requirement": "CFG-01",
+      "closing_task": "T17.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-01-N",
+      "requirement": "CFG-01",
+      "closing_task": "T17.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-02-P",
+      "requirement": "CFG-02",
+      "closing_task": "T17.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-02-N",
+      "requirement": "CFG-02",
+      "closing_task": "T17.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-03-P",
+      "requirement": "CFG-03",
+      "closing_task": "T17.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-03-N",
+      "requirement": "CFG-03",
+      "closing_task": "T17.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-01-P",
+      "requirement": "WF-01",
+      "closing_task": "T16.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-01-N",
+      "requirement": "WF-01",
+      "closing_task": "T16.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-02-P",
+      "requirement": "WF-02",
+      "closing_task": "T15.1",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-02-N",
+      "requirement": "WF-02",
+      "closing_task": "T03.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-03-P",
+      "requirement": "WF-03",
+      "closing_task": "T16.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-03-N",
+      "requirement": "WF-03",
+      "closing_task": "T16.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "WF-03-P2",
+      "requirement": "WF-03",
+      "closing_task": "T16.2",
+      "status": "NOT RUN",
+      "evidence": []
+    }
+  ]
+}
