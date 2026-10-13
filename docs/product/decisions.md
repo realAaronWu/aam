@@ -6,8 +6,8 @@ Architecture is an engineering proposal. Business owners define the stories and 
 
 | ID | Decision/input | Treatment | Owner and gate |
 | --- | --- | --- | --- |
-| D-01 | Specialist implementation | ADR-01/12: Deep Agents with LangChain tools and LangGraph attempt-local execution; AAM owns readiness, authorization and long-lived business state | Engineering, T11 |
-| D-02 | Business persistence | ADR-06: PostgreSQL owns cases, waits and timers; DTS bounded execution | Engineering/platform, before T03.1 |
+| D-01 | Specialist implementation | ADR-01/12/15: TypeScript only; Next.js/Node.js, Zod and Deep Agents TypeScript with LangChain tools and LangGraph attempt-local execution; AAM owns readiness, authorization and long-lived business state | Engineering, T11 |
+| D-02 | Business persistence | ADR-02/06: PostgreSQL owns cases, waits, timers and bounded jobs with leases/fences; external orchestration deferred | Engineering/platform, before T03.1 |
 | D-03 | Initial action mode | Review-assisted; automatic production permissions require D-13 and qualification | Business owner, before action activation |
 | D-04 | CRM API/fields/write-back | Read contract first; field ownership and write-back mappings require CRM owner. Write-back is optional and does not block read-only journeys | CRM owner, T06.1/T06.2 |
 | D-08 | Region, residency, retention, classification | Cover all stores, model requests, indexes, logs, scheduler and backups; no production data without approval | Data/platform owners, T01.3/T24.1 before data use |

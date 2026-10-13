@@ -14,17 +14,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Locked Python foundation, typed contracts and fixtures; Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored. Planned locations: `src/aam/; contracts/; tests/; pyproject.toml`.
+  **Deliverables:** Locked TypeScript/Node.js foundation with Next.js portal, separate worker entry points, shared Zod contracts, Vitest and Playwright; preserve useful demo business/UI modules through reviewed generic imports. Add test/typecheck/build scripts and reject empty test discovery. Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored. Planned locations: `app/; workers/; src/aam/; contracts/; tests/; package.json; package-lock.json; tsconfig.json`.
 
-  **Positive acceptance:** Clean checkout installs and validates a complete typed sample.
+  **Positive acceptance:** Clean checkout installs from the lockfile, typechecks, builds and validates a complete typed sample; runtime schemas reject invalid external values.
 
-  **Negative acceptance:** Unknown schema major version and missing required result are rejected.
+  **Negative acceptance:** Unknown schema major version, missing required result, empty test discovery or an undeclared non-TypeScript application runtime fails qualification.
 
   **Closes:** none. **Contributes:** AI-01-P, AI-01-N, OP-03-P, OP-03-N, OP-03-N2, QA-01-P, QA-01-N.
 
   **Entry point and layer:** contract schema loader / locked clean install (contracts).
 
-  **Verification command (planned):** `uv run pytest tests/contracts/test_foundation.py -q`
+  **Verification command (planned):** `npm run test -- tests/contracts/test_foundation.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -44,7 +44,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** selected CI workflow dispatch and retained test report (delivery).
 
-  **Verification command (planned):** `Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run uv run pytest tests/delivery/test_ci_discovery.py -q for the local discovery contract.`
+  **Verification command (planned):** `Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run npm run test -- tests/delivery/test_ci_discovery.test.ts for the local discovery contract.`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -54,7 +54,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-08, D-09, D-15.
 
-  **Deliverables:** Reproducible managed PostgreSQL, Blob, DTS, ACR, Key Vault, Monitor and test workload identity; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Document local emulator limits and test the managed backend before claiming provider qualification. Planned locations: `infra/dev/; docs/runbooks/dev-setup.md; tests/platform/`.
+  **Deliverables:** Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and test workload identities for the three TypeScript deployment roles; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Qualify managed database concurrency and failover rather than assuming local fixtures establish provider compatibility. Planned locations: `infra/dev/; docs/runbooks/dev-setup.md; tests/platform/`.
 
   **Positive acceptance:** A clean checkout deploys to the approved test resource group and allowed mailbox probes succeed; retain resource and grant inventory.
 
@@ -64,7 +64,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** dev/test IaC deployment and scoped test-identity probe (platform).
 
-  **Verification command (planned):** `uv run pytest tests/platform/test_dev_environment.py -q`
+  **Verification command (planned):** `npm run test -- tests/platform/test_dev_environment.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -84,7 +84,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** authenticated case API authorization middleware (security).
 
-  **Verification command (planned):** `uv run pytest tests/security/test_identity.py -q`
+  **Verification command (planned):** `npm run test -- tests/security/test_identity.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T02.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -104,7 +104,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** database migrations and case/obligation repository transactions (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_persistence.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_persistence.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T03.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -114,17 +114,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Transactional inbox/outbox, stable case sequence, technical attempt ledger and lost-start-ack reconciliation; DB polling command queue is the sole dispatch authority. Planned locations: `src/aam/persistence/; migrations/; contracts/events/`.
+  **Deliverables:** Transactional inbox/outbox, stable case sequence, unique durable work rows and atomic outbox-to-work transfer with lost-commit-ack reconciliation; DB polling command queue is the sole delivery authority. Planned locations: `src/aam/persistence/; migrations/; contracts/events/`.
 
   **Positive acceptance:** Committed state and its event survive worker restart.
 
-  **Negative acceptance:** Fault between commit and publish neither loses the event nor repeats the business transition.
+  **Negative acceptance:** Fault during outbox transfer or after commit acknowledgement loss neither loses work nor repeats the business transition; querying the stable key distinguishes committed from unfinished work.
 
   **Closes:** WF-02-N. **Contributes:** WF-02-P.
 
   **Entry point and layer:** inbox/outbox transaction and work-ledger recovery harness (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_outbox.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_outbox.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T03.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -144,7 +144,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** folder delta adapter page commit/cursor boundary (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_mail_delta.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_mail_delta.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T04.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -164,7 +164,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** attachment admission, scan and extraction pipeline (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_attachments.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_attachments.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T05.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -184,7 +184,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM synchronization adapter read/freshness boundary (contracts).
 
-  **Verification command (planned):** `uv run pytest tests/contracts/test_crm_read.py -q`
+  **Verification command (planned):** `npm run test -- tests/contracts/test_crm_read.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -204,7 +204,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** case link/split/merge command API (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_case_links.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_case_links.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -214,7 +214,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-16.
 
-  **Deliverables:** Candidate matching, identifier checks and ambiguity queue. Planned locations: `src/aam/context/resolver.py; tests/context/`.
+  **Deliverables:** Candidate matching, identifier checks and ambiguity queue. Planned locations: `src/aam/context/resolver.ts; tests/context/`.
 
   **Positive acceptance:** One broker with two clients resolves to the explicit authorized policy.
 
@@ -224,7 +224,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** account/workstream resolver and ambiguity queue (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_resolution.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_resolution.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T07.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -244,7 +244,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** inbound/Sent Items catch-up and request-disposition projection (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_mail_observation.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_mail_observation.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T04.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -254,7 +254,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction. Planned locations: `src/aam/context/snapshots.py; contracts/context/`.
+  **Deliverables:** Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction. Planned locations: `src/aam/context/snapshots.ts; contracts/context/`.
 
   **Positive acceptance:** Every specialist sees the same authoritative message/account identity.
 
@@ -264,7 +264,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** context snapshot builder and specialist-input boundary (contracts).
 
-  **Verification command (planned):** `uv run pytest tests/contracts/test_context_snapshot.py -q`
+  **Verification command (planned):** `npm run test -- tests/contracts/test_context_snapshot.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T08.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -274,7 +274,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Ordered context selection and explicit truncation/unavailable flags. Planned locations: `src/aam/context/snapshots.py; contracts/context/`.
+  **Deliverables:** Ordered context selection and explicit truncation/unavailable flags. Planned locations: `src/aam/context/snapshots.ts; contracts/context/`.
 
   **Positive acceptance:** Recent complete context remains usable with omitted-history metadata.
 
@@ -284,7 +284,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** context selection with unavailable-body/attachment states (contracts).
 
-  **Verification command (planned):** `uv run pytest tests/contracts/test_context_limits.py -q`
+  **Verification command (planned):** `npm run test -- tests/contracts/test_context_limits.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T08.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -304,7 +304,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** obligation completion and case-closure command handler (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_completion.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_completion.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -324,7 +324,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** proposed-obligation decision command handler (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_proposal_promotion.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_proposal_promotion.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -334,7 +334,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here. Planned locations: `web/; src/aam/api/cases/; tests/ui/`.
+  **Deliverables:** Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here. Planned locations: `web/; src/aam/api/cases/; tests/ui/; tests/e2e/case-overview.spec.ts`.
 
   **Positive acceptance:** AM can inspect owner/deadline/evidence and record authorized resolution.
 
@@ -344,27 +344,27 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** case query API and evidence timeline browser flow (ui).
 
-  **Verification command (planned):** `uv run pytest tests/ui/test_case_overview.py -q`
+  **Verification command (planned):** `npm run test -- tests/ui/test_case_overview.test.ts && npm run test:e2e -- tests/e2e/case-overview.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T10.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 1.18 T16.1 Implement durable activity and external-event contracts
+- [ ] 1.18 T16.1 Implement bounded jobs, leases and business-wait recovery
 
   **Milestone:** M1. **Requirements:** WF-01, WF-02. **Depends on:** T03.2, T09.2, T01.3.
 
   **Business gates:** none.
 
-  **Deliverables:** DB-owned wait/timer persistence and short DTS executions; deterministic attempt IDs, outbox start reconciliation, watchdog, deadline and recovery-epoch fences. Planned locations: `src/aam/workflows/; tests/workflows/`.
+  **Deliverables:** DB-owned waits/timers and bounded Node.js jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership. Planned locations: `workers/; src/aam/jobs/; src/aam/workflows/; tests/integration/`.
 
-  **Positive acceptance:** Reply or approval after restart creates new bounded work against the original DB wait; duplicate/lost start acknowledgment does not lose or duplicate its committed result.
+  **Positive acceptance:** Reply or approval after restart creates new bounded work against the original DB wait; two worker replicas claim work safely and recover a lost commit acknowledgement without duplicate committed results.
 
-  **Negative acceptance:** Missing type/interpreter version suspends the case; obsolete attempt/epoch cannot overwrite newer state; absent/expired DTS history cannot erase DB business deduplication.
+  **Negative acceptance:** Missing handler version suspends the case; expired lease, cancelled attempt or old epoch cannot commit late results; attempt-history cleanup preserves business deduplication; exhausted retries quarantine rather than loop indefinitely.
 
   **Closes:** WF-01-P, WF-01-N. **Contributes:** WF-02-P, WF-02-N.
 
-  **Entry point and layer:** DTS work dispatch, watchdog and DB-owned wait recovery (integration).
+  **Entry point and layer:** PostgreSQL job claim/commit, lease watchdog and DB-owned wait recovery (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_bounded_execution.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_bounded_execution.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T16.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -384,7 +384,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** due-row sweep and current-version transition handler (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_timers.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_timers.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T16.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -404,7 +404,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** workflow-type registry publish/activation API (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_workflow_registry.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_workflow_registry.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -414,7 +414,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-06, D-13, D-16.
 
-  **Deliverables:** Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas. Planned locations: `src/aam/configuration/; web/configuration/; tests/integration/`.
+  **Deliverables:** Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas. Planned locations: `src/aam/configuration/; web/configuration/; tests/integration/; tests/e2e/client-parameters.spec.ts`.
 
   **Positive acceptance:** Approved cadence revision affects new cases only; previous revision remains retrievable.
 
@@ -424,7 +424,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** client-parameter publish and case-version pinning API (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_client_parameters.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_client_parameters.test.ts && npm run test:e2e -- tests/e2e/client-parameters.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -444,7 +444,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** corpus manifest/label loader and dataset approval checks (evaluation).
 
-  **Verification command (planned):** `uv run pytest tests/evaluation/test_corpus.py -q`
+  **Verification command (planned):** `npm run test -- tests/evaluation/test_corpus.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T21.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -464,7 +464,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** work ledger health/readiness and backlog diagnostic endpoints (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_observability.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_observability.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T22.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -486,7 +486,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** shared action policy on deterministic proposals (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_action_policy.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_action_policy.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -496,7 +496,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13.
 
-  **Deliverables:** Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/`.
+  **Deliverables:** Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/; tests/e2e/approval-dependencies.spec.ts`.
 
   **Positive acceptance:** Unchanged approved content passes; an unrelated country event does not invalidate it; restart retains the pending approval.
 
@@ -506,7 +506,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** approval API/UI and dispatch dependency-set validator (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_approval_dependencies.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_approval_dependencies.test.ts && npm run test:e2e -- tests/e2e/approval-dependencies.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -526,7 +526,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** DB command claim, draft creation and Graph sandbox dispatch (provider).
 
-  **Verification command (planned):** `uv run pytest tests/provider/test_delivery.py -q`
+  **Verification command (planned):** `npm run test -- tests/provider/test_delivery.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T15.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -546,7 +546,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** Graph reconciliation and stale-observation dispatch barrier (provider).
 
-  **Verification command (planned):** `uv run pytest tests/provider/test_reconciliation.py -q`
+  **Verification command (planned):** `npm run test -- tests/provider/test_reconciliation.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T15.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -566,7 +566,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** quarterly schedule-to-case command (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_quarterly_schedule.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_quarterly_schedule.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T19.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -586,7 +586,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** quarterly reminder/evidence/closure journey using approved templates (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_quarterly_delivery.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_quarterly_delivery.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T19.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -598,17 +598,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Locked Deep Agents/LangChain/LangGraph runtime adapter with typed schemas, approved skills, aggregate budgets, restricted main/child tool sets and versioned example loader/selector; retain immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation. Planned locations: `src/aam/agents/; resources/agents/; resources/examples/; tests/agents/`.
+  **Deliverables:** Locked Deep Agents TypeScript/LangChain/LangGraph adapter with Zod schemas, reviewed skills, shared model/tool/time budgets including child and summarization calls, cancellation propagation and restricted effective tools. Versioned example loader/selector retains immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation. Planned locations: `src/aam/agents/; contracts/; resources/agents/; resources/examples/; tests/agents/`.
 
   **Positive acceptance:** Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.
 
-  **Negative acceptance:** Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, unrestricted writer delegation, malformed output and timeout fail explicitly; examples never displace mandatory current context.
+  **Negative acceptance:** Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, budget overshoot, swallowed cancellation, malformed output and timeout fail explicitly; examples never displace mandatory current context.
 
   **Closes:** none. **Contributes:** AI-01-P, AI-01-N.
 
   **Entry point and layer:** Deep Agents adapter, skill loader and effective main/child tool inventory (agents).
 
-  **Verification command (planned):** `uv run pytest tests/agents/test_model_adapter.py -q`
+  **Verification command (planned):** `npm run test -- tests/agents/test_model_adapter.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -618,7 +618,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Event-triggered summary job and freshness display. Planned locations: `web/; src/aam/api/cases/; tests/ui/`.
+  **Deliverables:** Event-triggered summary job and freshness display. Planned locations: `web/; src/aam/api/cases/; tests/ui/; tests/e2e/summary-freshness.spec.ts`.
 
   **Positive acceptance:** Committed structured changes appear while a narrative refresh is pending.
 
@@ -628,7 +628,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** summary generation job plus case-view freshness presentation (ui).
 
-  **Verification command (planned):** `uv run pytest tests/ui/test_summary_freshness.py -q`
+  **Verification command (planned):** `npm run test -- tests/ui/test_summary_freshness.test.ts && npm run test:e2e -- tests/e2e/summary-freshness.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T10.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -638,17 +638,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Search top-k does not establish exhaustive business evidence. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
+  **Deliverables:** Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Evidence registry rejects unknown IDs and conflicting content for an existing ID; search top-k does not establish exhaustive business evidence. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
 
   **Positive acceptance:** Applicable evidence for two questions is returned with source locations.
 
-  **Negative acceptance:** Model-supplied filters cannot retrieve another client or unpublished/expired SOP.
+  **Negative acceptance:** Model-supplied filters cannot retrieve another client or unpublished/expired SOP; fabricated evidence IDs and collisions with different source contents are rejected.
 
   **Closes:** none. **Contributes:** AI-02-P, AI-02-N.
 
   **Entry point and layer:** knowledge indexer and scoped Search adapter (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_retrieval.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_retrieval.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -668,7 +668,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM eligibility sweep and renewal case creation (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_renewal_schedule.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_schedule.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -688,7 +688,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** pricing/terms version acceptance and release command boundary (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_renewal_terms.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_terms.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -708,7 +708,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** negotiation event processing and finalization command (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_renewal_finalization.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_finalization.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -728,7 +728,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** program-change notice intake with configured authority policy (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_program_trigger.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_program_trigger.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -748,7 +748,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** approved notice and next-action closure journey (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_program_actions.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_program_actions.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -768,7 +768,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** connection registration API and guarded read gateway including provider qualification (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_connections.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_connections.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -778,7 +778,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Application-owned context and mandatory boundary hooks around dynamic Deep Agents planning; record evidence, example IDs and typed proposals; restart bounded attempts from durable state instead of maintaining a second business workflow store. Planned locations: `src/aam/agents/; resources/agents/; tests/agents/`.
+  **Deliverables:** Application-owned immutable context and typed handoff records around dynamic Deep Agents planning; children receive server-built snapshot references and cannot rewrite upstream results. Record evidence/example IDs and proposals; restart bounded attempts from durable state without a second business workflow store. Planned locations: `src/aam/agents/; resources/agents/; tests/agents/`.
 
   **Positive acceptance:** Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.
 
@@ -788,7 +788,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** bounded Deep Agents work handler and guarded output/tool entry points (agents).
 
-  **Verification command (planned):** `uv run pytest tests/agents/test_stage_coordinator.py -q`
+  **Verification command (planned):** `npm run test -- tests/agents/test_stage_coordinator.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -808,7 +808,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** research loop evidence registry and coverage evaluator (agents).
 
-  **Verification command (planned):** `uv run pytest tests/agents/test_research_coverage.py -q`
+  **Verification command (planned):** `npm run test -- tests/agents/test_research_coverage.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -828,7 +828,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** writer adapter on final language/continuity and disclosure rules (agents).
 
-  **Verification command (planned):** `uv run pytest tests/agents/test_drafting.py -q`
+  **Verification command (planned):** `npm run test -- tests/agents/test_drafting.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -848,7 +848,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** final-text claim extraction/coverage and critical-span validator (agents).
 
-  **Verification command (planned):** `uv run pytest tests/agents/test_claim_validation.py -q`
+  **Verification command (planned):** `npm run test -- tests/agents/test_claim_validation.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -858,7 +858,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13.
 
-  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `web/review/; src/aam/api/approvals/; tests/ui/`.
+  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `web/review/; src/aam/api/approvals/; tests/ui/; tests/e2e/edited-review.spec.ts`.
 
   **Positive acceptance:** An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.
 
@@ -868,7 +868,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** edited-draft validation and warning-acknowledgment approval UI (ui).
 
-  **Verification command (planned):** `uv run pytest tests/ui/test_edited_review.py -q`
+  **Verification command (planned):** `npm run test -- tests/ui/test_edited_review.test.ts && npm run test:e2e -- tests/e2e/edited-review.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -888,7 +888,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** candidate evaluation runner and actual final readiness report (evaluation).
 
-  **Verification command (planned):** `uv run pytest tests/evaluation/test_candidate_report.py -q`
+  **Verification command (planned):** `npm run test -- tests/evaluation/test_candidate_report.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T21.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -908,7 +908,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** actual work handler, output request, writer boundary and approval/delivery precondition checks (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_output_readiness.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_output_readiness.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -918,7 +918,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-13, D-16, D-18.
 
-  **Deliverables:** Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition. Planned locations: `web/workflows/; src/aam/configuration/; tests/integration/`.
+  **Deliverables:** Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition. Planned locations: `web/workflows/; src/aam/configuration/; tests/integration/; tests/e2e/sop-authoring.spec.ts`.
 
   **Positive acceptance:** AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.
 
@@ -928,7 +928,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** portal authoring, simulation, publication and version-pinned runtime (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_sop_authoring.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_sop_authoring.test.ts && npm run test:e2e -- tests/e2e/sop-authoring.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.4/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -950,7 +950,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM write-back adapter and command reconciliation (provider).
 
-  **Verification command (planned):** `uv run pytest tests/provider/test_crm_writeback.py -q`
+  **Verification command (planned):** `npm run test -- tests/provider/test_crm_writeback.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -970,7 +970,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** version migration API and synthetic extension interpreter (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_workflow_migration.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_workflow_migration.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -990,7 +990,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** operator repair/replay API through actual worker execution (integration).
 
-  **Verification command (planned):** `uv run pytest tests/integration/test_operator_recovery.py -q`
+  **Verification command (planned):** `npm run test -- tests/integration/test_operator_recovery.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T22.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1010,7 +1010,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** production IaC plan/deployment, grants and operating-policy checks (platform).
 
-  **Verification command (planned):** `uv run pytest tests/platform/test_production_environment.py -q`
+  **Verification command (planned):** `npm run test -- tests/platform/test_production_environment.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T23.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1030,7 +1030,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** data-policy admission/export/delete/retention across all stores (security).
 
-  **Verification command (planned):** `uv run pytest tests/security/test_data_lifecycle.py -q`
+  **Verification command (planned):** `npm run test -- tests/security/test_data_lifecycle.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T24.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1050,7 +1050,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** fenced restore runbook, upgrade/drain and dispatch-reopen gates (platform).
 
-  **Verification command (planned):** `uv run pytest tests/platform/test_restore.py -q`
+  **Verification command (planned):** `npm run test -- tests/platform/test_restore.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T23.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1070,7 +1070,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** composed API-to-provider journeys and all-boundary security suite (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_acceptance_faults.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_acceptance_faults.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T25.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1112,7 +1112,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** category gate evaluator on shadow evidence and approved metrics (evaluation).
 
-  **Verification command (planned):** `uv run pytest tests/evaluation/test_shadow_gates.py -q`
+  **Verification command (planned):** `npm run test -- tests/evaluation/test_shadow_gates.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T26.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1132,6 +1132,6 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** canary activation/kill-switch and rollback through policy API (journeys).
 
-  **Verification command (planned):** `uv run pytest tests/journeys/test_automation_canary.py -q`
+  **Verification command (planned):** `npm run test -- tests/journeys/test_automation_canary.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T26.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.

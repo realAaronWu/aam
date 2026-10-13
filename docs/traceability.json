@@ -875,16 +875,16 @@
         "QA-01",
         "OP-03"
       ],
-      "planned_locations": "src/aam/; contracts/; tests/; pyproject.toml",
+      "planned_locations": "app/; workers/; src/aam/; contracts/; tests/; package.json; package-lock.json; tsconfig.json",
       "status": "NOT RUN",
-      "deliverables": "Locked Python foundation, typed contracts and fixtures; Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored.",
-      "positive": "Clean checkout installs and validates a complete typed sample.",
-      "negative": "Unknown schema major version and missing required result are rejected.",
+      "deliverables": "Locked TypeScript/Node.js foundation with Next.js portal, separate worker entry points, shared Zod contracts, Vitest and Playwright; preserve useful demo business/UI modules through reviewed generic imports. Add test/typecheck/build scripts and reject empty test discovery. Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored.",
+      "positive": "Clean checkout installs from the lockfile, typechecks, builds and validates a complete typed sample; runtime schemas reject invalid external values.",
+      "negative": "Unknown schema major version, missing required result, empty test discovery or an undeclared non-TypeScript application runtime fails qualification.",
       "milestone": "M1",
       "entry_point": "contract schema loader / locked clean install",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_foundation.py",
-      "verification_command": "uv run pytest tests/contracts/test_foundation.py -q",
+      "test_file": "tests/contracts/test_foundation.test.ts",
+      "verification_command": "npm run test -- tests/contracts/test_foundation.test.ts",
       "closes": [],
       "contributes": [
         "AI-01-P",
@@ -917,8 +917,8 @@
       "milestone": "M1",
       "entry_point": "selected CI workflow dispatch and retained test report",
       "test_layer": "delivery",
-      "test_file": "tests/delivery/test_ci_discovery.py",
-      "verification_command": "Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run uv run pytest tests/delivery/test_ci_discovery.py -q for the local discovery contract.",
+      "test_file": "tests/delivery/test_ci_discovery.test.ts",
+      "verification_command": "Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run npm run test -- tests/delivery/test_ci_discovery.test.ts for the local discovery contract.",
       "business_gates": [
         "D-15"
       ],
@@ -943,7 +943,7 @@
       ],
       "planned_locations": "infra/dev/; docs/runbooks/dev-setup.md; tests/platform/",
       "status": "NOT RUN",
-      "deliverables": "Reproducible managed PostgreSQL, Blob, DTS, ACR, Key Vault, Monitor and test workload identity; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Document local emulator limits and test the managed backend before claiming provider qualification.",
+      "deliverables": "Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and test workload identities for the three TypeScript deployment roles; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Qualify managed database concurrency and failover rather than assuming local fixtures establish provider compatibility.",
       "positive": "A clean checkout deploys to the approved test resource group and allowed mailbox probes succeed; retain resource and grant inventory.",
       "negative": "Wrong subscription/tenant, unscoped mailbox or unrestricted test recipient fails admission/probe; no production connection is silently substituted.",
       "milestone": "M1",
@@ -952,8 +952,8 @@
       ],
       "entry_point": "dev/test IaC deployment and scoped test-identity probe",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_dev_environment.py",
-      "verification_command": "uv run pytest tests/platform/test_dev_environment.py -q",
+      "test_file": "tests/platform/test_dev_environment.test.ts",
+      "verification_command": "npm run test -- tests/platform/test_dev_environment.test.ts",
       "business_gates": [
         "D-05",
         "D-08",
@@ -989,8 +989,8 @@
       "milestone": "M1",
       "entry_point": "authenticated case API authorization middleware",
       "test_layer": "security",
-      "test_file": "tests/security/test_identity.py",
-      "verification_command": "uv run pytest tests/security/test_identity.py -q",
+      "test_file": "tests/security/test_identity.test.ts",
+      "verification_command": "npm run test -- tests/security/test_identity.test.ts",
       "closes": [],
       "contributes": [
         "OP-01-P",
@@ -1026,8 +1026,8 @@
       "milestone": "M1",
       "entry_point": "database migrations and case/obligation repository transactions",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_persistence.py",
-      "verification_command": "uv run pytest tests/integration/test_persistence.py -q",
+      "test_file": "tests/integration/test_persistence.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_persistence.test.ts",
       "closes": [],
       "contributes": [
         "AU-02-P",
@@ -1062,14 +1062,14 @@
       ],
       "planned_locations": "src/aam/persistence/; migrations/; contracts/events/",
       "status": "NOT RUN",
-      "deliverables": "Transactional inbox/outbox, stable case sequence, technical attempt ledger and lost-start-ack reconciliation; DB polling command queue is the sole dispatch authority.",
+      "deliverables": "Transactional inbox/outbox, stable case sequence, unique durable work rows and atomic outbox-to-work transfer with lost-commit-ack reconciliation; DB polling command queue is the sole delivery authority.",
       "positive": "Committed state and its event survive worker restart.",
-      "negative": "Fault between commit and publish neither loses the event nor repeats the business transition.",
+      "negative": "Fault during outbox transfer or after commit acknowledgement loss neither loses work nor repeats the business transition; querying the stable key distinguishes committed from unfinished work.",
       "milestone": "M1",
       "entry_point": "inbox/outbox transaction and work-ledger recovery harness",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_outbox.py",
-      "verification_command": "uv run pytest tests/integration/test_outbox.py -q",
+      "test_file": "tests/integration/test_outbox.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_outbox.test.ts",
       "closes": [
         "WF-02-N"
       ],
@@ -1097,8 +1097,8 @@
       "milestone": "M1",
       "entry_point": "folder delta adapter page commit/cursor boundary",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_mail_delta.py",
-      "verification_command": "uv run pytest tests/integration/test_mail_delta.py -q",
+      "test_file": "tests/integration/test_mail_delta.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_mail_delta.test.ts",
       "business_gates": [
         "D-05",
         "D-08",
@@ -1128,8 +1128,8 @@
       "milestone": "M1",
       "entry_point": "attachment admission, scan and extraction pipeline",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_attachments.py",
-      "verification_command": "uv run pytest tests/integration/test_attachments.py -q",
+      "test_file": "tests/integration/test_attachments.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_attachments.test.ts",
       "business_gates": [
         "D-08"
       ],
@@ -1158,8 +1158,8 @@
       "milestone": "M1",
       "entry_point": "CRM synchronization adapter read/freshness boundary",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_crm_read.py",
-      "verification_command": "uv run pytest tests/contracts/test_crm_read.py -q",
+      "test_file": "tests/contracts/test_crm_read.test.ts",
+      "verification_command": "npm run test -- tests/contracts/test_crm_read.test.ts",
       "business_gates": [
         "D-04"
       ],
@@ -1190,8 +1190,8 @@
       "milestone": "M1",
       "entry_point": "case link/split/merge command API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_case_links.py",
-      "verification_command": "uv run pytest tests/integration/test_case_links.py -q",
+      "test_file": "tests/integration/test_case_links.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_case_links.test.ts",
       "closes": [
         "CS-01-P",
         "CS-01-N"
@@ -1214,7 +1214,7 @@
       "requirements": [
         "CX-01"
       ],
-      "planned_locations": "src/aam/context/resolver.py; tests/context/",
+      "planned_locations": "src/aam/context/resolver.ts; tests/context/",
       "status": "NOT RUN",
       "deliverables": "Candidate matching, identifier checks and ambiguity queue.",
       "positive": "One broker with two clients resolves to the explicit authorized policy.",
@@ -1222,8 +1222,8 @@
       "milestone": "M1",
       "entry_point": "account/workstream resolver and ambiguity queue",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_resolution.py",
-      "verification_command": "uv run pytest tests/integration/test_resolution.py -q",
+      "test_file": "tests/integration/test_resolution.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_resolution.test.ts",
       "business_gates": [
         "D-16"
       ],
@@ -1255,8 +1255,8 @@
       "milestone": "M1",
       "entry_point": "inbound/Sent Items catch-up and request-disposition projection",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_mail_observation.py",
-      "verification_command": "uv run pytest tests/integration/test_mail_observation.py -q",
+      "test_file": "tests/integration/test_mail_observation.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_mail_observation.test.ts",
       "business_gates": [
         "D-05",
         "D-13",
@@ -1281,7 +1281,7 @@
       "requirements": [
         "CX-02"
       ],
-      "planned_locations": "src/aam/context/snapshots.py; contracts/context/",
+      "planned_locations": "src/aam/context/snapshots.ts; contracts/context/",
       "status": "NOT RUN",
       "deliverables": "Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction.",
       "positive": "Every specialist sees the same authoritative message/account identity.",
@@ -1289,8 +1289,8 @@
       "milestone": "M1",
       "entry_point": "context snapshot builder and specialist-input boundary",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_context_snapshot.py",
-      "verification_command": "uv run pytest tests/contracts/test_context_snapshot.py -q",
+      "test_file": "tests/contracts/test_context_snapshot.test.ts",
+      "verification_command": "npm run test -- tests/contracts/test_context_snapshot.test.ts",
       "closes": [
         "CX-02-P",
         "CX-02-N"
@@ -1308,7 +1308,7 @@
       "requirements": [
         "CX-03"
       ],
-      "planned_locations": "src/aam/context/snapshots.py; contracts/context/",
+      "planned_locations": "src/aam/context/snapshots.ts; contracts/context/",
       "status": "NOT RUN",
       "deliverables": "Ordered context selection and explicit truncation/unavailable flags.",
       "positive": "Recent complete context remains usable with omitted-history metadata.",
@@ -1316,8 +1316,8 @@
       "milestone": "M1",
       "entry_point": "context selection with unavailable-body/attachment states",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_context_limits.py",
-      "verification_command": "uv run pytest tests/contracts/test_context_limits.py -q",
+      "test_file": "tests/contracts/test_context_limits.test.ts",
+      "verification_command": "npm run test -- tests/contracts/test_context_limits.test.ts",
       "closes": [
         "CX-03-P",
         "CX-03-N"
@@ -1343,8 +1343,8 @@
       "milestone": "M1",
       "entry_point": "obligation completion and case-closure command handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_completion.py",
-      "verification_command": "uv run pytest tests/integration/test_completion.py -q",
+      "test_file": "tests/integration/test_completion.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_completion.test.ts",
       "business_gates": [
         "D-07",
         "D-12"
@@ -1373,8 +1373,8 @@
       ],
       "entry_point": "proposed-obligation decision command handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_proposal_promotion.py",
-      "verification_command": "uv run pytest tests/integration/test_proposal_promotion.py -q",
+      "test_file": "tests/integration/test_proposal_promotion.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_proposal_promotion.test.ts",
       "business_gates": [
         "D-16"
       ],
@@ -1395,7 +1395,7 @@
       "requirements": [
         "CS-03"
       ],
-      "planned_locations": "web/; src/aam/api/cases/; tests/ui/",
+      "planned_locations": "web/; src/aam/api/cases/; tests/ui/; tests/e2e/case-overview.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here.",
       "positive": "AM can inspect owner/deadline/evidence and record authorized resolution.",
@@ -1403,19 +1403,20 @@
       "milestone": "M1",
       "entry_point": "case query API and evidence timeline browser flow",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_case_overview.py",
-      "verification_command": "uv run pytest tests/ui/test_case_overview.py -q",
+      "test_file": "tests/ui/test_case_overview.test.ts",
+      "verification_command": "npm run test -- tests/ui/test_case_overview.test.ts && npm run test:e2e -- tests/e2e/case-overview.spec.ts",
       "closes": [
         "CS-03-N"
       ],
       "contributes": [
         "CS-03-P"
       ],
-      "business_gates": []
+      "business_gates": [],
+      "browser_test_file": "tests/e2e/case-overview.spec.ts"
     },
     {
       "id": "T16.1",
-      "title": "Implement durable activity and external-event contracts",
+      "title": "Implement bounded jobs, leases and business-wait recovery",
       "work_package": "T16",
       "dependencies": [
         "T03.2",
@@ -1426,16 +1427,16 @@
         "WF-01",
         "WF-02"
       ],
-      "planned_locations": "src/aam/workflows/; tests/workflows/",
+      "planned_locations": "workers/; src/aam/jobs/; src/aam/workflows/; tests/integration/",
       "status": "NOT RUN",
-      "deliverables": "DB-owned wait/timer persistence and short DTS executions; deterministic attempt IDs, outbox start reconciliation, watchdog, deadline and recovery-epoch fences.",
-      "positive": "Reply or approval after restart creates new bounded work against the original DB wait; duplicate/lost start acknowledgment does not lose or duplicate its committed result.",
-      "negative": "Missing type/interpreter version suspends the case; obsolete attempt/epoch cannot overwrite newer state; absent/expired DTS history cannot erase DB business deduplication.",
+      "deliverables": "DB-owned waits/timers and bounded Node.js jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership.",
+      "positive": "Reply or approval after restart creates new bounded work against the original DB wait; two worker replicas claim work safely and recover a lost commit acknowledgement without duplicate committed results.",
+      "negative": "Missing handler version suspends the case; expired lease, cancelled attempt or old epoch cannot commit late results; attempt-history cleanup preserves business deduplication; exhausted retries quarantine rather than loop indefinitely.",
       "milestone": "M1",
-      "entry_point": "DTS work dispatch, watchdog and DB-owned wait recovery",
+      "entry_point": "PostgreSQL job claim/commit, lease watchdog and DB-owned wait recovery",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_bounded_execution.py",
-      "verification_command": "uv run pytest tests/integration/test_bounded_execution.py -q",
+      "test_file": "tests/integration/test_bounded_execution.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_bounded_execution.test.ts",
       "closes": [
         "WF-01-P",
         "WF-01-N"
@@ -1465,8 +1466,8 @@
       "milestone": "M1",
       "entry_point": "due-row sweep and current-version transition handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_timers.py",
-      "verification_command": "uv run pytest tests/integration/test_timers.py -q",
+      "test_file": "tests/integration/test_timers.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_timers.test.ts",
       "business_gates": [
         "D-06",
         "D-14"
@@ -1500,8 +1501,8 @@
       "milestone": "M1",
       "entry_point": "workflow-type registry publish/activation API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_workflow_registry.py",
-      "verification_command": "uv run pytest tests/integration/test_workflow_registry.py -q",
+      "test_file": "tests/integration/test_workflow_registry.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_workflow_registry.test.ts",
       "business_gates": [
         "D-06",
         "D-07",
@@ -1528,7 +1529,7 @@
       "requirements": [
         "CFG-03"
       ],
-      "planned_locations": "src/aam/configuration/; web/configuration/; tests/integration/",
+      "planned_locations": "src/aam/configuration/; web/configuration/; tests/integration/; tests/e2e/client-parameters.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas.",
       "positive": "Approved cadence revision affects new cases only; previous revision remains retrievable.",
@@ -1539,8 +1540,8 @@
       ],
       "entry_point": "client-parameter publish and case-version pinning API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_client_parameters.py",
-      "verification_command": "uv run pytest tests/integration/test_client_parameters.py -q",
+      "test_file": "tests/integration/test_client_parameters.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_client_parameters.test.ts && npm run test:e2e -- tests/e2e/client-parameters.spec.ts",
       "business_gates": [
         "D-06",
         "D-13",
@@ -1550,7 +1551,8 @@
         "CFG-03-P",
         "CFG-03-N"
       ],
-      "contributes": []
+      "contributes": [],
+      "browser_test_file": "tests/e2e/client-parameters.spec.ts"
     },
     {
       "id": "T21.1",
@@ -1570,8 +1572,8 @@
       "milestone": "M1",
       "entry_point": "corpus manifest/label loader and dataset approval checks",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_corpus.py",
-      "verification_command": "uv run pytest tests/evaluation/test_corpus.py -q",
+      "test_file": "tests/evaluation/test_corpus.test.ts",
+      "verification_command": "npm run test -- tests/evaluation/test_corpus.test.ts",
       "business_gates": [
         "D-08"
       ],
@@ -1600,8 +1602,8 @@
       "milestone": "M1",
       "entry_point": "work ledger health/readiness and backlog diagnostic endpoints",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_observability.py",
-      "verification_command": "uv run pytest tests/integration/test_observability.py -q",
+      "test_file": "tests/integration/test_observability.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_observability.test.ts",
       "closes": [],
       "contributes": [
         "OP-02-P",
@@ -1632,8 +1634,8 @@
       "milestone": "M2",
       "entry_point": "shared action policy on deterministic proposals",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_action_policy.py",
-      "verification_command": "uv run pytest tests/integration/test_action_policy.py -q",
+      "test_file": "tests/integration/test_action_policy.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_action_policy.test.ts",
       "business_gates": [
         "D-13",
         "D-16"
@@ -1658,7 +1660,7 @@
       "requirements": [
         "AU-02"
       ],
-      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/",
+      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/; tests/e2e/approval-dependencies.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts.",
       "positive": "Unchanged approved content passes; an unrelated country event does not invalidate it; restart retains the pending approval.",
@@ -1666,8 +1668,8 @@
       "milestone": "M2",
       "entry_point": "approval API/UI and dispatch dependency-set validator",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_approval_dependencies.py",
-      "verification_command": "uv run pytest tests/integration/test_approval_dependencies.py -q",
+      "test_file": "tests/integration/test_approval_dependencies.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_approval_dependencies.test.ts && npm run test:e2e -- tests/e2e/approval-dependencies.spec.ts",
       "business_gates": [
         "D-13"
       ],
@@ -1677,7 +1679,8 @@
         "AU-02-N",
         "AU-02-P2",
         "AU-02-N2"
-      ]
+      ],
+      "browser_test_file": "tests/e2e/approval-dependencies.spec.ts"
     },
     {
       "id": "T15.1",
@@ -1701,8 +1704,8 @@
       "milestone": "M2",
       "entry_point": "DB command claim, draft creation and Graph sandbox dispatch",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_delivery.py",
-      "verification_command": "uv run pytest tests/provider/test_delivery.py -q",
+      "test_file": "tests/provider/test_delivery.test.ts",
+      "verification_command": "npm run test -- tests/provider/test_delivery.test.ts",
       "closes": [
         "AU-02-P",
         "AU-02-N",
@@ -1738,8 +1741,8 @@
       "milestone": "M2",
       "entry_point": "Graph reconciliation and stale-observation dispatch barrier",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_reconciliation.py",
-      "verification_command": "uv run pytest tests/provider/test_reconciliation.py -q",
+      "test_file": "tests/provider/test_reconciliation.test.ts",
+      "verification_command": "npm run test -- tests/provider/test_reconciliation.test.ts",
       "business_gates": [
         "D-05",
         "D-13",
@@ -1776,8 +1779,8 @@
       "milestone": "M2",
       "entry_point": "quarterly schedule-to-case command",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_quarterly_schedule.py",
-      "verification_command": "uv run pytest tests/journeys/test_quarterly_schedule.py -q",
+      "test_file": "tests/journeys/test_quarterly_schedule.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_quarterly_schedule.test.ts",
       "business_gates": [
         "D-06"
       ],
@@ -1807,8 +1810,8 @@
       "milestone": "M2",
       "entry_point": "quarterly reminder/evidence/closure journey using approved templates",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_quarterly_delivery.py",
-      "verification_command": "uv run pytest tests/journeys/test_quarterly_delivery.py -q",
+      "test_file": "tests/journeys/test_quarterly_delivery.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_quarterly_delivery.test.ts",
       "business_gates": [
         "D-07",
         "D-12",
@@ -1832,16 +1835,16 @@
       "requirements": [
         "AI-01"
       ],
-      "planned_locations": "src/aam/agents/; resources/agents/; resources/examples/; tests/agents/",
+      "planned_locations": "src/aam/agents/; contracts/; resources/agents/; resources/examples/; tests/agents/",
       "status": "NOT RUN",
-      "deliverables": "Locked Deep Agents/LangChain/LangGraph runtime adapter with typed schemas, approved skills, aggregate budgets, restricted main/child tool sets and versioned example loader/selector; retain immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation.",
+      "deliverables": "Locked Deep Agents TypeScript/LangChain/LangGraph adapter with Zod schemas, reviewed skills, shared model/tool/time budgets including child and summarization calls, cancellation propagation and restricted effective tools. Versioned example loader/selector retains immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation.",
       "positive": "Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.",
-      "negative": "Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, unrestricted writer delegation, malformed output and timeout fail explicitly; examples never displace mandatory current context.",
+      "negative": "Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, budget overshoot, swallowed cancellation, malformed output and timeout fail explicitly; examples never displace mandatory current context.",
       "milestone": "M3",
       "entry_point": "Deep Agents adapter, skill loader and effective main/child tool inventory",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_model_adapter.py",
-      "verification_command": "uv run pytest tests/agents/test_model_adapter.py -q",
+      "test_file": "tests/agents/test_model_adapter.test.ts",
+      "verification_command": "npm run test -- tests/agents/test_model_adapter.test.ts",
       "closes": [],
       "contributes": [
         "AI-01-P",
@@ -1860,7 +1863,7 @@
       "requirements": [
         "CS-03"
       ],
-      "planned_locations": "web/; src/aam/api/cases/; tests/ui/",
+      "planned_locations": "web/; src/aam/api/cases/; tests/ui/; tests/e2e/summary-freshness.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Event-triggered summary job and freshness display.",
       "positive": "Committed structured changes appear while a narrative refresh is pending.",
@@ -1868,15 +1871,16 @@
       "milestone": "M3",
       "entry_point": "summary generation job plus case-view freshness presentation",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_summary_freshness.py",
-      "verification_command": "uv run pytest tests/ui/test_summary_freshness.py -q",
+      "test_file": "tests/ui/test_summary_freshness.test.ts",
+      "verification_command": "npm run test -- tests/ui/test_summary_freshness.test.ts && npm run test:e2e -- tests/e2e/summary-freshness.spec.ts",
       "closes": [
         "CS-03-P"
       ],
       "contributes": [
         "CS-03-N"
       ],
-      "business_gates": []
+      "business_gates": [],
+      "browser_test_file": "tests/e2e/summary-freshness.spec.ts"
     },
     {
       "id": "T12.1",
@@ -1891,14 +1895,14 @@
       ],
       "planned_locations": "src/aam/retrieval/; tests/retrieval/",
       "status": "NOT RUN",
-      "deliverables": "Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Search top-k does not establish exhaustive business evidence.",
+      "deliverables": "Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Evidence registry rejects unknown IDs and conflicting content for an existing ID; search top-k does not establish exhaustive business evidence.",
       "positive": "Applicable evidence for two questions is returned with source locations.",
-      "negative": "Model-supplied filters cannot retrieve another client or unpublished/expired SOP.",
+      "negative": "Model-supplied filters cannot retrieve another client or unpublished/expired SOP; fabricated evidence IDs and collisions with different source contents are rejected.",
       "milestone": "M3",
       "entry_point": "knowledge indexer and scoped Search adapter",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_retrieval.py",
-      "verification_command": "uv run pytest tests/integration/test_retrieval.py -q",
+      "test_file": "tests/integration/test_retrieval.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_retrieval.test.ts",
       "closes": [],
       "contributes": [
         "AI-02-P",
@@ -1926,8 +1930,8 @@
       "milestone": "M3",
       "entry_point": "CRM eligibility sweep and renewal case creation",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_schedule.py",
-      "verification_command": "uv run pytest tests/journeys/test_renewal_schedule.py -q",
+      "test_file": "tests/journeys/test_renewal_schedule.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_renewal_schedule.test.ts",
       "business_gates": [
         "D-04",
         "D-06"
@@ -1958,8 +1962,8 @@
       "milestone": "M3",
       "entry_point": "pricing/terms version acceptance and release command boundary",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_terms.py",
-      "verification_command": "uv run pytest tests/journeys/test_renewal_terms.py -q",
+      "test_file": "tests/journeys/test_renewal_terms.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_renewal_terms.test.ts",
       "business_gates": [
         "D-12",
         "D-13",
@@ -1989,8 +1993,8 @@
       "milestone": "M3",
       "entry_point": "negotiation event processing and finalization command",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_finalization.py",
-      "verification_command": "uv run pytest tests/journeys/test_renewal_finalization.py -q",
+      "test_file": "tests/journeys/test_renewal_finalization.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_renewal_finalization.test.ts",
       "business_gates": [
         "D-12",
         "D-17"
@@ -2021,8 +2025,8 @@
       "milestone": "M3",
       "entry_point": "program-change notice intake with configured authority policy",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_program_trigger.py",
-      "verification_command": "uv run pytest tests/journeys/test_program_trigger.py -q",
+      "test_file": "tests/journeys/test_program_trigger.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_program_trigger.test.ts",
       "business_gates": [
         "D-17"
       ],
@@ -2051,8 +2055,8 @@
       "milestone": "M3",
       "entry_point": "approved notice and next-action closure journey",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_program_actions.py",
-      "verification_command": "uv run pytest tests/journeys/test_program_actions.py -q",
+      "test_file": "tests/journeys/test_program_actions.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_program_actions.test.ts",
       "business_gates": [
         "D-12",
         "D-13"
@@ -2084,8 +2088,8 @@
       "milestone": "M3",
       "entry_point": "connection registration API and guarded read gateway including provider qualification",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_connections.py",
-      "verification_command": "uv run pytest tests/integration/test_connections.py -q",
+      "test_file": "tests/integration/test_connections.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_connections.test.ts",
       "closes": [
         "CX-04-P",
         "CX-04-N",
@@ -2115,14 +2119,14 @@
       ],
       "planned_locations": "src/aam/agents/; resources/agents/; tests/agents/",
       "status": "NOT RUN",
-      "deliverables": "Application-owned context and mandatory boundary hooks around dynamic Deep Agents planning; record evidence, example IDs and typed proposals; restart bounded attempts from durable state instead of maintaining a second business workflow store.",
+      "deliverables": "Application-owned immutable context and typed handoff records around dynamic Deep Agents planning; children receive server-built snapshot references and cannot rewrite upstream results. Record evidence/example IDs and proposals; restart bounded attempts from durable state without a second business workflow store.",
       "positive": "Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.",
       "negative": "Planner prose, forged readiness, premature writer calls or injected source instructions cannot bypass application boundaries; child outputs cannot mutate scope or directly create obligations.",
       "milestone": "M3",
       "entry_point": "bounded Deep Agents work handler and guarded output/tool entry points",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_stage_coordinator.py",
-      "verification_command": "uv run pytest tests/agents/test_stage_coordinator.py -q",
+      "test_file": "tests/agents/test_stage_coordinator.test.ts",
+      "verification_command": "npm run test -- tests/agents/test_stage_coordinator.test.ts",
       "closes": [
         "AI-01-P",
         "AI-01-N"
@@ -2152,8 +2156,8 @@
       "milestone": "M3",
       "entry_point": "research loop evidence registry and coverage evaluator",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_research_coverage.py",
-      "verification_command": "uv run pytest tests/agents/test_research_coverage.py -q",
+      "test_file": "tests/agents/test_research_coverage.test.ts",
+      "verification_command": "npm run test -- tests/agents/test_research_coverage.test.ts",
       "closes": [
         "AI-02-P",
         "AI-02-N"
@@ -2180,8 +2184,8 @@
       "milestone": "M3",
       "entry_point": "writer adapter on final language/continuity and disclosure rules",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_drafting.py",
-      "verification_command": "uv run pytest tests/agents/test_drafting.py -q",
+      "test_file": "tests/agents/test_drafting.test.ts",
+      "verification_command": "npm run test -- tests/agents/test_drafting.test.ts",
       "closes": [
         "AI-04-P",
         "AI-04-N"
@@ -2211,8 +2215,8 @@
       "milestone": "M3",
       "entry_point": "final-text claim extraction/coverage and critical-span validator",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_claim_validation.py",
-      "verification_command": "uv run pytest tests/agents/test_claim_validation.py -q",
+      "test_file": "tests/agents/test_claim_validation.test.ts",
+      "verification_command": "npm run test -- tests/agents/test_claim_validation.test.ts",
       "closes": [
         "AI-03-P",
         "AI-03-N",
@@ -2232,7 +2236,7 @@
         "AI-03",
         "AU-02"
       ],
-      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/",
+      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/; tests/e2e/edited-review.spec.ts",
       "status": "NOT RUN",
       "deliverables": "New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden.",
       "positive": "An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.",
@@ -2244,8 +2248,8 @@
       ],
       "entry_point": "edited-draft validation and warning-acknowledgment approval UI",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_edited_review.py",
-      "verification_command": "uv run pytest tests/ui/test_edited_review.py -q",
+      "test_file": "tests/ui/test_edited_review.test.ts",
+      "verification_command": "npm run test -- tests/ui/test_edited_review.test.ts && npm run test:e2e -- tests/e2e/edited-review.spec.ts",
       "business_gates": [
         "D-13"
       ],
@@ -2261,7 +2265,8 @@
         "AI-03-P",
         "AI-03-N",
         "AI-03-N2"
-      ]
+      ],
+      "browser_test_file": "tests/e2e/edited-review.spec.ts"
     },
     {
       "id": "T21.2",
@@ -2282,8 +2287,8 @@
       "milestone": "M3",
       "entry_point": "candidate evaluation runner and actual final readiness report",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_candidate_report.py",
-      "verification_command": "uv run pytest tests/evaluation/test_candidate_report.py -q",
+      "test_file": "tests/evaluation/test_candidate_report.test.ts",
+      "verification_command": "npm run test -- tests/evaluation/test_candidate_report.test.ts",
       "business_gates": [
         "D-10"
       ],
@@ -2316,8 +2321,8 @@
       "milestone": "M3",
       "entry_point": "actual work handler, output request, writer boundary and approval/delivery precondition checks",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_output_readiness.py",
-      "verification_command": "uv run pytest tests/integration/test_output_readiness.py -q",
+      "test_file": "tests/integration/test_output_readiness.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_output_readiness.test.ts",
       "closes": [
         "AI-05-P",
         "AI-05-N",
@@ -2342,7 +2347,7 @@
       "requirements": [
         "CFG-04"
       ],
-      "planned_locations": "web/workflows/; src/aam/configuration/; tests/integration/",
+      "planned_locations": "web/workflows/; src/aam/configuration/; tests/integration/; tests/e2e/sop-authoring.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition.",
       "positive": "AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.",
@@ -2350,8 +2355,8 @@
       "milestone": "M3",
       "entry_point": "portal authoring, simulation, publication and version-pinned runtime",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_sop_authoring.py",
-      "verification_command": "uv run pytest tests/integration/test_sop_authoring.py -q",
+      "test_file": "tests/integration/test_sop_authoring.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_sop_authoring.test.ts && npm run test:e2e -- tests/e2e/sop-authoring.spec.ts",
       "closes": [
         "CFG-04-P",
         "CFG-04-N",
@@ -2364,7 +2369,8 @@
         "D-13",
         "D-16",
         "D-18"
-      ]
+      ],
+      "browser_test_file": "tests/e2e/sop-authoring.spec.ts"
     },
     {
       "id": "T06.2",
@@ -2385,8 +2391,8 @@
       "milestone": "M4",
       "entry_point": "CRM write-back adapter and command reconciliation",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_crm_writeback.py",
-      "verification_command": "uv run pytest tests/provider/test_crm_writeback.py -q",
+      "test_file": "tests/provider/test_crm_writeback.test.ts",
+      "verification_command": "npm run test -- tests/provider/test_crm_writeback.test.ts",
       "business_gates": [
         "D-04"
       ],
@@ -2415,8 +2421,8 @@
       "milestone": "M4",
       "entry_point": "version migration API and synthetic extension interpreter",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_workflow_migration.py",
-      "verification_command": "uv run pytest tests/integration/test_workflow_migration.py -q",
+      "test_file": "tests/integration/test_workflow_migration.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_workflow_migration.test.ts",
       "closes": [
         "CFG-02-P",
         "CFG-02-N"
@@ -2444,8 +2450,8 @@
       "milestone": "M4",
       "entry_point": "operator repair/replay API through actual worker execution",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_operator_recovery.py",
-      "verification_command": "uv run pytest tests/integration/test_operator_recovery.py -q",
+      "test_file": "tests/integration/test_operator_recovery.test.ts",
+      "verification_command": "npm run test -- tests/integration/test_operator_recovery.test.ts",
       "closes": [
         "OP-02-P",
         "OP-02-N"
@@ -2472,8 +2478,8 @@
       "milestone": "M4",
       "entry_point": "production IaC plan/deployment, grants and operating-policy checks",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_production_environment.py",
-      "verification_command": "uv run pytest tests/platform/test_production_environment.py -q",
+      "test_file": "tests/platform/test_production_environment.test.ts",
+      "verification_command": "npm run test -- tests/platform/test_production_environment.test.ts",
       "business_gates": [
         "D-05",
         "D-08",
@@ -2509,8 +2515,8 @@
       "milestone": "M4",
       "entry_point": "data-policy admission/export/delete/retention across all stores",
       "test_layer": "security",
-      "test_file": "tests/security/test_data_lifecycle.py",
-      "verification_command": "uv run pytest tests/security/test_data_lifecycle.py -q",
+      "test_file": "tests/security/test_data_lifecycle.test.ts",
+      "verification_command": "npm run test -- tests/security/test_data_lifecycle.test.ts",
       "business_gates": [
         "D-08",
         "D-16"
@@ -2545,8 +2551,8 @@
       "milestone": "M4",
       "entry_point": "fenced restore runbook, upgrade/drain and dispatch-reopen gates",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_restore.py",
-      "verification_command": "uv run pytest tests/platform/test_restore.py -q",
+      "test_file": "tests/platform/test_restore.test.ts",
+      "verification_command": "npm run test -- tests/platform/test_restore.test.ts",
       "business_gates": [
         "D-09",
         "D-15"
@@ -2590,8 +2596,8 @@
       "milestone": "M4",
       "entry_point": "composed API-to-provider journeys and all-boundary security suite",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_acceptance_faults.py",
-      "verification_command": "uv run pytest tests/journeys/test_acceptance_faults.py -q",
+      "test_file": "tests/journeys/test_acceptance_faults.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_acceptance_faults.test.ts",
       "closes": [
         "OP-01-P",
         "OP-01-N"
@@ -2634,7 +2640,7 @@
       "milestone": "M4",
       "entry_point": "independent correctness/delivery review of qualified revision",
       "test_layer": "review",
-      "test_file": "tests/review/test_independent_review.py",
+      "test_file": "tests/review/test_independent_review.test.ts",
       "verification_command": "Independent reviewer executes the documented correctness and delivery protocol against the exact qualified commit; retain signed/attributed findings and closure in docs/reviews/. Silence is NOT RUN.",
       "closes": [],
       "contributes": [
@@ -2670,8 +2676,8 @@
       "milestone": "M5",
       "entry_point": "category gate evaluator on shadow evidence and approved metrics",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_shadow_gates.py",
-      "verification_command": "uv run pytest tests/evaluation/test_shadow_gates.py -q",
+      "test_file": "tests/evaluation/test_shadow_gates.test.ts",
+      "verification_command": "npm run test -- tests/evaluation/test_shadow_gates.test.ts",
       "business_gates": [
         "D-10",
         "D-13"
@@ -2700,8 +2706,8 @@
       "milestone": "M5",
       "entry_point": "canary activation/kill-switch and rollback through policy API",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_automation_canary.py",
-      "verification_command": "uv run pytest tests/journeys/test_automation_canary.py -q",
+      "test_file": "tests/journeys/test_automation_canary.test.ts",
+      "verification_command": "npm run test -- tests/journeys/test_automation_canary.test.ts",
       "business_gates": [
         "D-13"
       ],

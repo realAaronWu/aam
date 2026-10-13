@@ -17,6 +17,8 @@ Provision environment/identity foundations and start corpus preparation in M1. A
 
 Initial production activation is gated by M4 qualification and applicable business decisions. If an optional feature such as CRM write-back is excluded from a release, split its requirements/tasks into a separate active change with explicit scope before qualifying that release. Do not tick an unbuilt feature or bypass its scenario to shorten the plan. Automatic categories can use different evidence profiles, but share security, recovery and delivery gates.
 
+Implementation is TypeScript throughout. T01.1 prepares the shared Next.js/Node.js modules; T03.2/T16.1 provide durable PostgreSQL jobs; T11.1 qualifies the TypeScript agent runtime. Three deployment roles share the codebase, with delivery isolated by identity. Additional orchestration or broker services are deferred until justified by measured needs.
+
 ## Extensions and slicing
 
 US-09 consolidated reporting; US-10 health talks; US-11 pool reports; US-12 client meetings; US-13 SLA reviews; US-14 renewal timeline agreement; US-15 renewal meetings each receive a future change and source-specific acceptance. Their outlines remain in [extension workflows](../product/extension-workflows.md).

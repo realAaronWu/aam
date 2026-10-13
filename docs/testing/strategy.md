@@ -13,12 +13,12 @@ A task is complete only when its deliverables exist, positive and negative accep
 | Layer | What it proves | Key examples | Proposed execution |
 | --- | --- | --- | --- |
 | Specification checks | Artifact structure, links, requirement/task coverage, no lost stories | Missing scenario/task, invalid dependency, duplicated ID | `npm run spec:validate` now; additional traceability automation in T01 |
-| Domain unit tests | Deterministic business rules | Obligation completion, policy, calendars, stale versions | `uv run pytest tests/unit -q` after T01 |
-| Contract tests | Valid/invalid API, event, tool and provider envelopes | Wrong schema/types, absent evidence, malformed output, unexpected headers | `uv run pytest tests/contracts -q` after T01 |
+| Domain unit tests | Deterministic business rules | Obligation completion, policy, calendars, stale versions | `npm run test -- tests/unit` after T01 |
+| Contract tests | Valid/invalid API, event, tool and provider envelopes | Wrong schema/types, absent evidence, malformed output, unexpected headers | `npm run test -- tests/contracts` after T01 |
 | PostgreSQL integration | Real transactions, constraints, outbox/inbox and concurrent state updates | Crash around commit/publication, duplicate events, cancellation race | Required integration suite; SQLite is not a substitute |
 | Agent component tests | Deep Agents tool boundaries, typed handoffs, readiness, scopes, budgets and failure handling | Original-email substitution, unknown evidence IDs, partial outputs | Scripted model/tool responses; does not establish model accuracy |
 | Live-model evaluation | Measured behavior on a labeled corpus | Coverage, contradiction, broker ambiguity, language, injection | Explicit controlled evaluation job; pin model and corpus |
-| Workflow integration | Durable runtime behavior | DB wait/timer reconstruction, bounded DTS retry, stale epoch fencing, timer cancellation and type compatibility | Worker/emulator tests plus managed scheduler qualification |
+| Workflow integration | Durable runtime behavior | DB wait/timer reconstruction, bounded job retry, stale epoch fencing, timer cancellation and type compatibility | Real PostgreSQL concurrency/crash tests plus Azure deployment qualification |
 | Provider sandbox tests | Actual connector contracts | Graph per-folder delta and Sent Items, scoped draft/send, lost-response reconciliation, optional CRM write-back | Approved isolated identities and destinations only |
 | Full journey tests | Composed final behavior | Inbound/CRM trigger through case, proposal, approval, send and obligation outcome | Three priority journeys with observable external effects |
 | Operational qualification | Deployment, protection, restore and incident handling | Cold deploy, replica failover, restore pending commands, retention | Isolated Azure environment; attributable runbooks/results |
@@ -50,7 +50,7 @@ The commands other than `npm run spec:validate` describe future test layout, not
 | Deliver duplicate/out-of-order callbacks or cancel during dispatch preparation | Idempotent outcome and current-state enforcement |
 | Provider accepts send but response is lost | Uncertain outcome and reconciliation; no blind resend |
 | Change an unrelated country event versus a referenced term version | Preserve approval for the former; invalidate it for the latter |
-| Restore DB behind DTS/provider side effects | Fence old execution; reconcile post-backup sends; unknown state keeps dispatch disabled |
+| Restore DB behind worker/provider side effects | Fence old execution; reconcile post-backup sends; unknown state keeps dispatch disabled |
 | Exceed Graph/model quota during node drain | Bounded retry honors provider delay; work persists, shutdown stops claims and recovery retains uncertainty |
 | Bypass test worker recipient allowlist in an isolated negative probe | Independent provider transport restriction blocks outside destinations |
 | Two causally ordered events share a timestamp | Stable causal ordering in case history |
@@ -100,7 +100,7 @@ These are initial design targets for D-09 review, not source requirements or an 
 | Business-store recovery | Proposed RPO at most 15 minutes and RTO at most 4 hours; validate database, Blob, scheduler and external-action reconciliation as one recovery procedure |
 | Cost and capacity | Establish expected messages/day, attachment size, active cases, concurrent waits and burst load; report token/tool budgets and saturation behavior before sizing |
 
-Do not claim zero cross-service data loss from one service's HA setting. Restore tests follow the design runbook: fence old identities/workers; restore DB into a new recovery epoch/task hub; verify Blob/package references; rebuild authorized Search; rebuild waits/timers/work; reconcile inbound and Sent Items plus commands accepted after the backup; only then qualify reopening. Missing provider history holds affected dispatch. Test AKS upgrade/node drain during model activities, queue saturation, outbox start acknowledgment loss, DTS history expiration and unavailable package versions.
+Do not claim zero cross-service data loss from one service's HA setting. Restore tests follow the design runbook: fence old identities/workers; restore DB into a new recovery epoch; verify Blob/package references; rebuild authorized Search; rebuild waits/timers/work; reconcile inbound and Sent Items plus commands accepted after the backup; only then qualify reopening. Missing provider history holds affected dispatch. Test AKS upgrade/node drain during model activities, queue saturation, outbox transfer acknowledgement loss, job lease expiry, attempt-history cleanup and unavailable package versions.
 
 ## CI and delivery gates
 
@@ -115,3 +115,13 @@ The current revision is assessed for strict OpenSpec syntax, unique IDs, story/r
 ## Rollout
 
 Offline fixtures → provider sandbox → review-assisted journeys → live-model shadow evaluation → approved low-risk canary → monitored expansion. Keep a policy kill switch and reviewed operation available throughout. Reverting automation does not discard case history or rewind external actions. Each stage has a recorded owner and evidence decision; elapsed time alone never advances a gate.
+
+## TypeScript runtime and reuse qualification
+
+T01.1 establishes the locked Node.js/TypeScript toolchain and `npm run test` (Vitest run), `npm run typecheck`, `npm run build` and `npm run test:e2e` (Playwright) scripts. Commands in tasks are planned after that foundation exists; the present planning package does not yet implement them. Fail on empty test discovery. Vitest covers contracts, application modules and provider integration harnesses; real browser flows use Playwright with isolated identities and controlled adapters. Live provider and model tests require their explicitly qualified environments.
+
+T11.1 verifies the actual locked Deep Agents TypeScript runtime, including child and summarization calls sharing budgets, aborted calls, hidden default tools and malformed output. A fixture-only runtime cannot satisfy that gate. T12.1 rejects unknown evidence IDs and same-ID/different-content collisions. T11.2 verifies immutable server-built handoffs and dynamic valid collection order; T11.3 verifies the per-output writer boundary. Cross-language reference tests are porting inputs, not TypeScript compatibility evidence.
+
+T03.2 and T16.1 run against real PostgreSQL with two worker processes: atomic outbox transfer, competing claims, lease renewal/loss, cancellation, lost commit acknowledgements, late results from fenced owners, bounded retry/quarantine, recovery epochs and retained business deduplication after attempt cleanup. T22.1 fails readiness and stops new admissions/claims on critical persistence faults. T23.2 exercises the same controls during AKS drain/restore; delivery uncertainty still uses provider reconciliation, never blind job retry. All new application checks are NOT RUN.
+
+Browser acceptance ownership is explicit: T10.1 case overview/evidence, T10.2 summary freshness, T14.2 exact approvals, T14.3 edited review, T17.3 parameter publication and T17.4 SOP authoring each retain module/API tests and run their named `tests/e2e/*.spec.ts` Playwright flow. Their traceability records include `browser_test_file` and both commands; CI discovery must include both runners and retain failed browser traces. Module success alone does not close browser acceptance.

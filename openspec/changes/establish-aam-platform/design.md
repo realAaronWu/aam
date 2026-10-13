@@ -12,7 +12,7 @@ Status: proposed architecture, not an implemented system. See [proposal](proposa
 
 ### Components and data flow
 
-There are still four deployables: portal/API, intake/synchronization, workflow/agent workers, and delivery workers. Deep Agents runs as a Python library inside the existing workflow/agent worker. The connection gateway and readiness evaluator are application modules, not new services. PostgreSQL remains the business-state authority; Blob holds immutable workflow/skill packages and evidence. Azure Durable Task handles bounded technical execution. AI Search is a derived knowledge index, not the source of truth.
+The product uses TypeScript throughout: Next.js portal/API, a Node.js background worker combining intake/synchronization and workflow/agent modules, and a separate Node.js delivery worker with send permissions. These are three deployment roles from one codebase; intake can be split later if load or permissions justify it. Deep Agents runs as a TypeScript library inside the background worker. Connections, readiness and validation are modules, not services. Managed PostgreSQL owns business state and durable jobs; Blob holds immutable workflow packages, attachments and evidence. AI Search is a derived knowledge index. No separate agent API, callback service or second business database is required.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "15px", "edgeLabelBackground": "#ffffff"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 35, "rankSpacing": 45}}}%%
@@ -22,7 +22,7 @@ flowchart TB
   INTAKE[Intake and synchronization]
   SOURCES[D365 CRM / Dataverse<br/>Outlook / Graph<br/>Approved knowledge and databases]
   DB[(PostgreSQL<br/>Cases, waits, connections and approvals)]
-  EXEC[Outbox relay and managed Durable Task]
+  EXEC[Durable DB job dispatcher]
   BLOB[(Blob<br/>Versioned evidence and packages)]
   subgraph WORKER[Workflow and agent worker]
     AGENT[Deep Agents<br/>Interpret SOP and plan data gathering]
@@ -77,13 +77,13 @@ flowchart TB
   linkStyle 19,20 stroke:#c2410c,stroke-width:4px,color:#9a3412
 ```
 
-Blue = authoring/intake/review; violet = dynamic planning and tool calls; teal = durable state/evidence; thick amber = mandatory readiness and validation; dashed rose = hold; orange = external delivery. The graph groups external systems for readability: approved writes still use distinct delivery identities, never the agent's read tools. Approval records return through the API to the same state/policy library; they do not bypass the readiness check. Entra, Key Vault, ACR and Azure Monitor support the four deployables as described below.
+Blue = authoring/intake/review; violet = dynamic planning and tool calls; teal = durable state/evidence; thick amber = mandatory readiness and validation; dashed rose = hold; orange = external delivery. Intake and the workflow/agent box are modules of the same background deployment. The graph groups external systems for readability: approved writes still use distinct delivery identities, never the agent's read tools. Approval records return through the API to the same state/policy library; they do not bypass the readiness check. Entra, Key Vault, ACR and Azure Monitor support the three deployment roles as described below.
 
-**ADR-01 Specialist implementation — revised:** select Deep Agents (LangChain tools and LangGraph execution) for dynamic SOP interpretation and bounded data gathering, with typed Pydantic contracts. AAM owns tool permissions, readiness predicates, guarded writing, independent validation and action authorization. ADR-11–14 below define the new boundaries. Simple deterministic template workflows can run without a model.
+**ADR-01 Specialist implementation — revised:** TypeScript only, with Next.js for portal/API, Node.js workers, Deep Agents TypeScript for dynamic SOP interpretation and bounded data gathering, and shared Zod runtime schemas with inferred types. LangChain/LangGraph remain internal implementation dependencies behind an AAM runtime interface. AAM owns tool permissions, readiness predicates, guarded writing, independent validation and action authorization. Simple deterministic template workflows can run without a model. Qualify and lock actual TypeScript dependencies; a reference implementation in another language is not SDK compatibility evidence.
 
-**ADR-02 Execution ownership — superseded in part by ADR-06:** Durable Task runs bounded technical work with activity retry/checkpoints. No orchestration waits for a business reply or approval for months. Model calls and external I/O occur in activities, not deterministic orchestration code. Technical checkpoints never become authoritative case state. Process-local scheduling alone is insufficient for restart/replica safety.
+**ADR-02 Execution ownership — revised:** PostgreSQL-backed jobs execute bounded technical work in Node.js workers. No task remains active while waiting days for a business reply or approval. Model calls and reads can repeat after interruption; effects remain persisted delivery commands. The initial runner restarts a bounded attempt from authoritative state rather than replaying an arbitrary program or implementing durable activity checkpoints. Process-local timers may wake a scan, but database ownership and due records determine work.
 
-**ADR-03 Persistence and event path — revised:** one managed PostgreSQL business store, Blob for originals/artifacts, DTS for short-lived execution, AI Search as a derived index for the intelligence slice. Outbox relay → DTS → transition activities is the sole general event-processing path. Delivery workers claim persisted command rows directly; a command-ready outbox event is only a latency hint, not a second dispatch authority. Service Bus is deferred until external consumers or independently scaled fan-out justify it. PostgreSQL full-text/pgvector is an alternative to AI Search, not an assumed improvement: compare retrieval quality, indexing operations and DB load before substituting it. The deterministic slice needs neither search nor a broker.
+**ADR-03 Persistence and event path — revised:** one managed PostgreSQL business store and job queue, Blob for originals/artifacts, and AI Search for the intelligence slice. Business changes and outbox events commit together; a relay atomically materializes idempotent work rows and marks each outbox event transferred. Workers claim those rows. Delivery workers independently claim persisted command rows; command-ready events are hints, never a second dispatch authority. A broker, generic callback service and external orchestrator are deferred. PostgreSQL full-text/pgvector remains an alternative to AI Search to assess through retrieval quality and operations. Deterministic workflows need neither search nor a broker.
 
 **ADR-04 Authorization — strengthened:** specialists propose; shared deterministic code authorizes. Approval dependencies include the exact rendered message, request disposition and referenced business versions. Unrelated case changes do not invalidate approval. Unknown policy disables the affected action. Human acknowledgment of factual warnings requires approved override authority and never bypasses account/recipient scope, stale-state checks or prohibited actions. There is no blanket “human approved, therefore safe” path.
 
@@ -91,9 +91,9 @@ Blue = authoring/intake/review; violet = dynamic planning and tool calls; teal =
 
 **ADR-06 Single long-lived state owner — accepted:** PostgreSQL owns cases, obligations, waits, approvals and due timers. A timer row contains timer ID, obligation ID/version, due UTC instant, business calendar and parameter versions, status, lease and attempt metadata. The due sweep atomically claims due rows and creates a versioned work item/outbox record. The handler rechecks current DB state before any transition. Approval and reply arrivals create new work; they do not resume a months-old orchestration.
 
-DTS instances are bounded work attempts: logical keys `msg:<mailbox>:<immutable-id>:<processing-revision>`, `evt:<event-id>` and `tmr:<timer-id>:<version>`. The SDK-facing ID uses a stable hash of this key plus recovery epoch and attempt number to fit provider limits. Attempt changes never change the business event/command ID. A work ledger records pending/started/completed/failed, DTS instance and attempt, deadline, lease and committed result. A watchdog compares expired attempts with DTS status and recorded DB results before retrying; it quarantines poison work. Lost start acknowledgments are resolved by querying the same deterministic instance, not inventing a new business event. DB inbox keys and command uniqueness still protect duplicates after scheduler history expires.
+Work rows have stable logical keys `msg:<mailbox>:<immutable-id>:<processing-revision>`, `evt:<event-id>` and `tmr:<timer-id>:<version>`. Record pending/running/completed/failed/quarantined status, attempt, owner, lease expiry, fencing token, deadline, recovery epoch, pinned versions and result. Claim eligible rows in a short transaction with `FOR UPDATE SKIP LOCKED`; execute external I/O outside that transaction. Renew leases and commit results only while the same attempt, unexpired lease and recovery epoch still own the row. Combine result, state transition and resulting outbox/command records in one transaction. A late or cancelled worker cannot commit after losing ownership. Retry an expired read/planning attempt only after checking committed results, current policy and retry budget; quarantine exhausted work. Keep stable business deduplication keys even after technical attempt cleanup. On a lost commit acknowledgement, query the same work key before deciding whether work is unfinished.
 
-Alternatives: long-lived DTS per case is viable with explicit replay/version routing and coordinated restore, but adds unnecessary cross-store recovery/version retention for these human-paced workflows. Pure DB workers would remove DTS but require us to implement technical activity retry/checkpoint infrastructure. Selected approach keeps managed execution and a single business authority; it does not make external side effects disposable. Old code compatibility remains necessary for active workflow types and short in-flight activities, with explicit migration before removal.
+External orchestration is deferred: Microsoft currently lists its standalone JavaScript/TypeScript Durable Task SDK as preview. Introduce a managed executor only when measured workload or checkpoint needs justify it and a TypeScript implementation is qualified; do not introduce another application language. Database jobs require explicit lease, deadline, cancellation, retry and recovery tests, not an assumption that a polling loop is durable. Active workflow versions and bounded attempts still require compatible handlers or explicit migration.
 
 **ADR-07 Intake transport — accepted:** folder delta polling is the primary and only initial Graph intake path. Keep a cursor and health watermark per approved mailbox/folder, including Inbox, Sent Items and additional folders required by mailbox rules. Discover/approve folder changes; a move out of a polled folder is not proof a business message was deleted. Persist a page's durable records and cursor together. Invalid cursors trigger a controlled rescan with the same mailbox-scoped immutable-ID deduplication. Notifications are a future latency accelerator requiring a separately designed public ingress/Event Hubs path; there is no initial webhook or public machine ingress requirement. Portal access uses the organization's approved ingress independently. [Graph delta queries are per folder](https://learn.microsoft.com/en-us/graph/delta-query-messages).
 
@@ -109,11 +109,11 @@ Engineering owns the reusable capability schemas, predicate operators and connec
 
 **ADR-12 Selected agent harness:** Deep Agents interprets the published SOP, plans bounded evidence collection and may delegate research/extraction to restricted specialists. Its LangChain tools and LangGraph execution are internal to the worker. The business sequence can adapt to new replies and missing data; application code enforces the invariant boundaries: trusted context → authorized collection → readiness PASS → guarded output → independent validation → action authorization. This replaces a fixed analyzer/research/writer business sequence, not those boundaries.
 
-Each bounded work attempt reconstructs its context from PostgreSQL and immutable artifacts. Initial implementation uses no separate durable LangGraph store: agent execution state is local to the attempt, with durable observations and resulting decisions recorded in AAM. After interruption, restart the bounded read/planning work against current state; reads may repeat, external side effects cannot. Business waits and approvals end the attempt and are stored in PostgreSQL; a later event starts new work through the existing outbox/DTS path. Deep Agents checklists, skill memory and subagent results cannot complete obligations. Long-term agent memory is not an alternative business database.
+Each bounded work attempt reconstructs its context from PostgreSQL and immutable artifacts. Initial implementation uses no separate durable LangGraph store: agent execution state is local to the attempt, with durable observations and resulting decisions recorded in AAM. After interruption, restart the bounded read/planning work against current state; reads may repeat, external side effects cannot. Business waits and approvals end the attempt and are stored in PostgreSQL; a later event starts new work through the existing outbox/job path. Deep Agents checklists, skill memory and subagent results cannot complete obligations. Long-term agent memory is not an alternative business database.
 
 The main planner and all child agents receive only the effective read-tool set and authorized skill files. Disable shell/execute, arbitrary network/SQL, unregistered tools, writable SOP/memory and unconstrained delegation; qualify the effective main and child tool sets in tests rather than relying on defaults. Bound total calls, time, tokens and delegation depth across the entire attempt. Skills and retrieved content remain data with distinct trust levels; only published workflows supply operating instructions. Planner prose is internal and never promoted to a customer draft. The writer is an application-invoked stage behind the readiness evaluator, not an unrestricted subagent the planner can spawn to bypass it.
 
-Deep Agents provides skills, tool use, context management and delegation, and accepts function/LangChain/MCP tools. Use a tested, locked library version at T11.1; this design does not assume the current documentation's optional features exist in an older package. [Deep Agents documentation](https://docs.langchain.com/oss/python/deepagents/overview).
+Deep Agents provides skills, tool use, context management and delegation, and accepts function/LangChain/MCP tools. Use a tested, locked library version at T11.1; this design does not assume the current documentation's optional features exist in an older package. [Deep Agents documentation](https://docs.langchain.com/oss/javascript/deepagents/overview).
 
 ### Connections and authorized tools
 
@@ -130,7 +130,7 @@ An AM chooses existing connections and operations for a workflow. A model call s
 
 For D365 Sales, Dataverse is the selected interface; other Dynamics product families require their own adapter assessment. Microsoft documents the [Dataverse Web API](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/overview) and [application-user authentication](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-single-tenant-server-server-authentication). Outlook uses [Microsoft Graph mail APIs](https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview). Tenant consent, roles and actual field mappings remain deployment prerequisites.
 
-Use ordinary in-process Python adapters first. An approved existing MCP server may supply tools through a wrapper with the same connection policy and result contract; MCP is an optional transport, not an authorization boundary or a requirement to deploy a new server per source. Pin/validate its tool schemas, constrain destinations and deny unregistered tool discovery changes. [LangChain MCP integration](https://docs.langchain.com/oss/python/langchain/mcp).
+Use ordinary in-process TypeScript adapters first. An approved existing MCP server may supply tools through a wrapper with the same connection policy and result contract; MCP is an optional transport, not an authorization boundary or a requirement to deploy a new server per source. Pin/validate its tool schemas, constrain destinations and deny unregistered tool discovery changes. [LangChain MCP integration](https://docs.langchain.com/oss/javascript/langchain/mcp).
 
 Every tool result carries `connection_id/version`, operation, authorized scope, source record IDs/versions, effective and observed times, field presence, data-use disposition, pagination/completeness and status (`ok`, `not_found`, `partial`, `unavailable`, `denied`). Empty results differ from errors and from a proved empty business set. Cache entries are scope/version keyed and obey freshness requirements. A failed refresh cannot silently promote an old cache value to current truth. Audit metadata is stored with the run; sensitive payloads remain in permitted DB/Blob locations. Tokens and raw secrets never enter prompts, checkpoints or diagnostic logs. Actual freshness is bounded by the provider observation contract, not a claim of a cross-system atomic snapshot.
 
@@ -140,7 +140,7 @@ The same adapters serve intake synchronization and controlled on-demand reads, w
 
 **ADR-14 No substantive output from incomplete mandatory inputs:** each published workflow declares one or more named output contracts. Each contract specifies required inputs, their authority and applicability, minimum fields, freshness, collection completeness, cross-source consistency, and the output schema. The workflow has an entry predicate for safe start/scope; each substantive output has its own readiness predicate; completion has a separate evidence predicate. A ready draft is neither an approved send nor a completed case.
 
-Predicates use a small typed declarative expression set: `all`, `any`, `exists`, `equals`, `fresh`, `complete`, `covers`, and registered domain checks. No embedded Python, SQL or arbitrary evaluation code. Natural-language authoring can propose these expressions, but an authorized publisher must review their readable form. Publication rejects undefined fields, empty required-input contracts, unknown operators, unavailable evidence sources and predicates that contradict mandatory controls. Models cannot silently relax a predicate during execution or treat unknown as true.
+Predicates use a small typed declarative expression set: `all`, `any`, `exists`, `equals`, `fresh`, `complete`, `covers`, and registered domain checks. No embedded JavaScript, SQL or arbitrary evaluation code. Natural-language authoring can propose these expressions, but an authorized publisher must review their readable form. Publication rejects undefined fields, empty required-input contracts, unknown operators, unavailable evidence sources and predicates that contradict mandatory controls. Models cannot silently relax a predicate during execution or treat unknown as true.
 
 A readiness result has one of four states:
 
@@ -186,8 +186,60 @@ If one required country's quote is missing, the result is `NEEDS_DATA` with that
 | Connection gateway | Bind typed tools to approved adapters/identities, enforce account and field scope, normalize completeness/provenance and handle bounded retries |
 | Readiness evaluator | Independently evaluate entry/output predicates; hold missing/conflicting evidence and guard every output invocation |
 | Writer and validator | Generate only from a PASS snapshot, then independently check factual claims, output schema and action policy |
-| PostgreSQL, Blob and managed execution | Retain case state, waits, grants, predicate decisions and evidence; dispatch bounded work and recover after interruption |
+| PostgreSQL, Blob and job runner | Retain case state, waits, grants, predicate decisions and evidence; dispatch bounded work and recover after interruption |
 | Delivery worker | Recheck current predicate dependencies, scope and approval; submit and reconcile authorized external commands |
+
+
+### TypeScript structure and selective reuse
+
+**ADR-15 One TypeScript product:** retain useful Next.js portal components and case/task/draft concepts from the demo, then refactor the business runner behind shared TypeScript modules. Reuse engineering patterns and negative test cases from the reference agent scaffold; do not copy its separate service topology, language runtime or fixed customer-support sequence. Source imports require provenance/license review and removal of private fixtures, identifiers, prompts and documentation. This planning repository contains no imported application code.
+
+Proposed layout (modules and worker entry points, not independently deployed services):
+
+```text
+app/                         Next.js pages and thin API handlers
+workers/
+  background.ts              Intake scans, durable jobs, timers and agent attempts
+  delivery.ts                Authorized external effects under a separate identity
+src/aam/
+  cases/                     Case commands, obligations and business transitions
+  workflows/                 Dynamic SOP interpretation and business waits
+  configuration/             Workflow/bundle registry and publication
+  agents/                    Deep Agents adapter, run context and budgets
+  connections/               Scoped tool gateway and provider adapters
+  evidence/                  Evidence registry and immutable handoffs
+  readiness/                 Typed predicate evaluation and guarded output requests
+  persistence/               PostgreSQL repositories and transactions
+  jobs/                      Claims, leases, fencing, retries and recovery
+  delivery/                  Approval rechecks and provider reconciliation
+  operations/                Trace context, readiness, metrics and diagnostics
+contracts/                   Shared Zod schemas with inferred TypeScript types
+resources/                   Reviewed SOPs, prompts, examples and templates
+migrations/                  Versioned PostgreSQL schema changes
+```
+
+Runtime dependencies point inward: portal and workers call application modules; application modules use narrow repository, connection and agent interfaces. UI components do not import Deep Agents internals. `AgentRuntime.execute(context)` returns a validated proposal or explicit failure; the framework does not own case transitions. Adapters are asynchronous and return a typed result; changing provider transport does not change business rules. Zod validates network, database-JSON and model boundaries; compile-time TypeScript types alone do not validate external data. Domain and contract code is shared between entry points, including delivery.
+
+| Reusable pattern | AAM TypeScript implementation | Acceptance owner |
+| --- | --- | --- |
+| Validated agent manifests, prompts and skills | Registry validates allowed models/tools/schemas, hashes the full bundle and retains immutable bytes; server binds published workflow configuration | T11.1, T17.1 |
+| Structured outputs | Shared Zod schemas for inputs, proposals, tool results and failures; reject absent or malformed output instead of treating it as success | T01.1, T11.1 |
+| Run-scoped execution context | `RunContext` holds authorized scope, snapshot references, trace IDs, deadline and shared call budget; one AbortSignal tree propagates cancellation | T11.1, T11.2 |
+| Shared execution budgets | Atomically reserve model/tool calls before invocation; include child, retry and summarization calls; limits span the entire attempt rather than reset per child | T11.1 |
+| Evidence registry | Register adapter-observed evidence IDs, scope, hashes and source versions; reject forged IDs and same-ID/different-content collisions; retain underlying evidence outside model summaries | T12.1, T06.3 |
+| Typed, immutable handoffs | Application constructs child context from stored snapshots; upstream result references/hashes cannot be replaced by supervisor prose or copied JSON labels | T08.1, T11.2 |
+| Conditional writer invocation | Generalize the reference workflow guard to per-output application predicates; keep collection order dynamic, but require PASS before every writer/template call | T11.3, T17.1 |
+| Durable run state and transactional outbox | Bounded job ledger with unique work/effect keys, leases/fencing, cancellation and atomic result/event commit; business cases and long waits remain separate from technical attempts | T03.2, T16.1 |
+| Honest health and diagnostics | Structured failures, trace IDs, queue age and rejected-control metrics; persistence failure stops admissions/claims and makes readiness unhealthy | T22.1 |
+| Fixture and runtime separation | Deterministic fixtures test contracts; actual locked TypeScript runtime tests verify effective tool boundaries; live-model holdout tests assess quality separately | T11.1, T21.2, T25.1 |
+
+A generic HTTP callback subsystem is unnecessary between modules of the same product. Use the existing DB event/outbox contracts; add authenticated external integration events only for an actual external consumer. A default supervisor need not delegate every simple operation. Delegate only for scoped expertise or context isolation, and keep arbitrary scripts, web browsing and writable long-term agent memory disabled unless separately justified and qualified.
+
+Workflow definitions are distinct from agent manifests: an AM changes workflow goals, steps, allowed registered connections and readiness/completion rules through publication; engineering registers new capabilities and adapters. A new scenario using existing capabilities should require configuration and acceptance examples, not a new service, agent class or bespoke branch in a giant journey runner. Definitions cannot invent tools, loosen permissions or override organization-level prerequisites. A safe handoff and an existing evidence ID still do not prove semantic sufficiency; the readiness and final-claim checks remain mandatory.
+
+### Qualification of reused patterns
+
+Before activating the first model-assisted workflow, use the actual TypeScript runtime and one synthetic renewal scenario to prove: authorized connection reads; main/child tool restriction; shared budget and cancellation; unknown-evidence rejection; no writer invocation when a required quote is missing; successful drafting on a complete snapshot; stale result rejection after lease/evidence expiry; and restart without duplicate business effects. Reference tests in another language are examples to port, not proof of SDK parity. These are additional cases within the existing task owners above; runtime tests remain NOT RUN until implemented.
 
 
 ### Transaction and trigger ownership
@@ -198,7 +250,7 @@ If one required country's quote is missing, the result is `NEEDS_DATA` with that
 | CRM facts | Intake connector polls approved CRM read mappings and stores source version/time plus outbox | Retain explicit stale facts on outage; dependent actions hold; write-back is optional and separate |
 | Renewal eligibility | Workflow worker scan uses due scan rows and authoritative cached CRM facts | Unique account/program/cycle key and outbox prevent duplicates; stale mandatory facts hold |
 | Timers | Workflow due sweep uses DB leases and versioned rows | Recheck cancellation/version at handler and dispatch; overdue work recovered after downtime |
-| Event relay | Workflow workers claim outbox and start recorded DTS instances | Mark completion only from durable handler result; duplicate start/event is harmless; watchdog resolves abandoned attempts |
+| Event relay and job dispatch | Background workers atomically transfer outbox to unique work rows and claim due work with leases/fences | Mark completion only with durable handler result; duplicate transfer/event is harmless; watchdog reclaims expired attempts; late results fail the ownership check |
 | Knowledge indexing | Workflow indexer consumes approved knowledge revision jobs; reads Blob, applies account/effective-date metadata, updates derived Search index | Versioned upsert/delete, bounded retry and quarantine; stale/removed knowledge excluded by final DB authorization/version check |
 | Package registry | API validates workflow definition/parameter versions, predicates and connection bindings, writes immutable Blob artifact then DB registry/hash and audit transaction | Unreferenced object GC as above; activation requires retrievable artifacts and approved business inputs |
 | Delivery | Separate worker leases authorized command rows, rechecks using shared policy, persists attempt and draft ID, then calls provider | Fenced attempts, uncertainty state, correlated reconciliation; no generic retry of a possibly accepted send |
@@ -380,7 +432,7 @@ Blue = preparation/context; violet = illustrative examples; amber = current evid
 | Command/attempt | Unique business effect key; authorization; claim/fence; provider draft/stamp; prepared/submitting/submitted/failed/uncertain states |
 | Event/inbox/outbox | Per-case sequence, causation, received/observed times, schema and deduplication; one transaction with state changes |
 
-DB row locking/optimistic versions serialize transitions per case/obligation. DTS ordering is not relied on. Approval dependencies use specific request/obligation/fact versions, not blanket equality to the entire case version. Request disposition changes (including correlated human replies) invalidate pending responses. Every authorization and dispatch reads current control state.
+DB row locking/optimistic versions serialize transitions per case/obligation. Job claim order is not business ordering. Approval dependencies use specific request/obligation/fact versions, not blanket equality to the entire case version. Request disposition changes (including correlated human replies) invalidate pending responses. Every authorization and dispatch reads current control state.
 
 Before dispatch, synchronize required observation scopes through a recorded freshness barrier and re-evaluate the command. Stale intake, uncertain correlation, revoked scope or changed content/dependencies holds it. An external human can still send after that barrier or after provider dispatch starts. Record this unavoidable race, expose lag and reconcile later; do not claim global atomicity with Outlook. Cadence effects of a human follow-up are configurable business rules, not inferred completion.
 
@@ -398,21 +450,21 @@ Before dispatch, synchronize required observation scopes through a recorded fres
 
 Renewal scanning, quarterly scheduling and program-change triggers all create cases/obligations through the same transitions. Renewal keeps country inputs and term versions; quarterly tracks local deck delivery; program changes track notices and next actions. Whether an obligation is observable, what confirms completion, who approves release, and what consolidation means remain D-12/D-13/D-17 inputs. Synthetic policies permit engineering tests without representing business sign-off. Missing required inputs block activation of the affected workflow. An evidence-policy slot must resolve to an approved registered source/confirmation adapter with declared observable fields and actor scope; an arbitrary label such as "accepted evidence" is insufficient. Engineering validates the configured source contract, while the owner decides whether its evidence is sufficient.
 
-Workflow definition versions (including SOP, tool bindings and predicates) and client parameter versions are separately published and pinned. Validate compatibility and decision completeness before activation. Keep actual definitions, skill/prompt/schema/example bundles and compatible images by digest, not just hashes. Retain interpreter compatibility for active types or migrate explicitly with approval/timer impact analysis; short DTS runs reduce replay debt but do not eliminate domain compatibility obligations. Parameter publication cannot create steps or permissions. US-09–US-15 remain separate future changes; the synthetic health-talk extension is a compatibility test, not a prerequisite to initial journeys.
+Workflow definition versions (including SOP, tool bindings and predicates) and client parameter versions are separately published and pinned. Validate compatibility and decision completeness before activation. Keep actual definitions, skill/prompt/schema/example bundles and compatible images by digest, not just hashes. Retain interpreter compatibility for active types or migrate explicitly with approval/timer impact analysis; bounded attempts avoid long-lived execution replay but do not eliminate domain compatibility obligations. Parameter publication cannot create steps or permissions. US-09–US-15 remain separate future changes; the synthetic health-talk extension is a compatibility test, not a prerequisite to initial journeys.
 
 ### Security, platform operation and restore
 
 Use Entra for user access and workload identity for managed services. Map Graph workloads to least-privilege Exchange application roles: intake read; delivery draft-write and send; no model identity has mail privileges. Use Exchange RBAC scopes and remove overlapping unscoped Entra grants for those permissions. Test actual allowed/denied Graph calls as well as the RBAC test command, because the latter excludes Entra grants. Record effective grants and propagation/refresh evidence. Non-production worker allowlists plus an Exchange transport rule independently restrict destinations. [Microsoft documents additive permission grants](https://learn.microsoft.com/en-us/exchange/permissions-exo/application-rbac).
 
-Relevance and monitored mailbox selection remain business inputs. Engineering enforces policy before durable content retention/model/index use; metadata-only holding is a possible configured disposition, not a silently imposed relevance algorithm. Unknown attachment classification denies downstream model/search use. Retention and deletion apply to DB, Blob, Search, logs, DTS payloads and backups; carry minimal references in execution history.
+Relevance and monitored mailbox selection remain business inputs. Engineering enforces policy before durable content retention/model/index use; metadata-only holding is a possible configured disposition, not a silently imposed relevance algorithm. Unknown attachment classification denies downstream model/search use. Retention and deletion apply to DB, Blob, Search, logs, job payloads and backups; carry minimal references in execution history.
 
 Use Key Vault for residual secrets, ACR immutable image digests, Monitor/App Insights correlation and protected diagnostics. Private endpoints where supported and restricted outbound connectivity coexist with outbound Graph polling. No Graph webhook ingress is deployed initially. T01.3 provisions isolated dev/test resources and test-mailbox grants before provider-dependent work. T23 hardens production, including approved region/SKU availability, HA/backup, image scanning, supported AKS release/patch cadence and maintenance ownership.
 
-Bound per-provider concurrency and admission, honor [Graph Retry-After guidance](https://learn.microsoft.com/en-us/graph/throttling), monitor age/throughput and shed optional work before losing required events. Configure HPA/KEDA from an explicitly qualified backlog metric (DB work age/count or supported DTS metric), not an assumed Service Bus queue. PodDisruptionBudgets, termination grace and activity checkpoint/idempotence tests cover node drains. Rate limits, Foundry TPM, mailbox send limits and replica budgets are D-09 capacity inputs. Shutdown stops new claims; abandoned/uncertain attempts remain durable for safe recovery.
+Bound per-provider concurrency and admission, honor [Graph Retry-After guidance](https://learn.microsoft.com/en-us/graph/throttling), monitor age/throughput and shed optional work before losing required events. Configure HPA/KEDA from an explicitly qualified backlog metric (DB work age/count), not an assumed Service Bus queue. PodDisruptionBudgets, termination grace and attempt recovery/idempotence tests cover node drains. Rate limits, Foundry TPM, mailbox send limits and replica budgets are D-09 capacity inputs. Shutdown stops new claims; abandoned/uncertain attempts remain durable for safe recovery.
 
 Restore runbook, in order:
 
-1. Disable admissions/dispatch and revoke or fence old workers at the infrastructure/identity boundary. Restore PostgreSQL while keeping old execution unable to write or send. Create a new recovery epoch and DTS task hub; do not attach old orchestrations to restored state.
+1. Disable admissions/dispatch and revoke or fence old workers at the infrastructure/identity boundary. Restore PostgreSQL while keeping old execution unable to write or send. Create a new recovery epoch; reject every old lease and prevent old workers from acquiring new ones until explicitly restarted under the new epoch.
 2. Reconcile DB Blob references against retained immutable objects and package artifacts. Missing sources suspend affected cases. Apply deletion/retention policy rather than resurrecting deleted data.
 3. Rebuild authorized Search indexes from the restored approved registry and Blob; keep model/knowledge paths unavailable until consistent.
 4. Rebuild timers, waits and work-ledger entries from DB business state. Duplicate wake-ups still recheck version/epoch. Reset/reconcile folder cursors conservatively and observe inbound and sent mail since the recovery point.
@@ -422,7 +474,7 @@ Restore runbook, in order:
 ## Risks / Trade-offs
 
 - DB timer sweeping adds application logic → indexed due rows, leases, missed-sweep recovery, bounded transactions and concurrency tests.
-- Short DTS execution still has replay/retry constraints → pinned technical versions, work ledger, watchdog and idempotent effects; no “disposable” external sends.
+- DB job execution adds recovery logic → qualified leases/fencing, bounded retry, cancellation, work ledger and idempotent effects; uncertain external sends require reconciliation.
 - Model validation can miss semantics → independent extraction, conservative span checks, corpus-driven tuning, human review and no claim of perfect detection.
 - Polling cannot eliminate simultaneous human/AAM sends → monitored scopes, freshness barriers, visible lag and an explicit race boundary.
 - AI Search adds derived-state operations → delay it until needed; authorize current evidence after retrieval; index deletion/restore tests.
@@ -440,6 +492,6 @@ Rollback disables new automatic authorizations, fences incompatible workers and 
 
 ## References
 
-- [Durable Task Python SDK and managed backend](https://learn.microsoft.com/en-us/azure/durable-task/sdks/durable-task-overview); Python listed GA when checked 2026-10-05, not target-region qualification.
-- [Orchestration versioning](https://learn.microsoft.com/en-us/azure/durable-task/common/durable-orchestration-versioning).
+- [Durable Task SDK status](https://learn.microsoft.com/en-us/azure/durable-task/sdks/durable-task-overview): standalone JavaScript/TypeScript SDK listed as preview when checked 2026-10-13; deferred from the initial architecture.
+- [Deep Agents TypeScript](https://docs.langchain.com/oss/javascript/deepagents/overview): qualify a locked release and effective main/child tools before activation.
 - [Product scope and assumptions](../../../docs/product/sources.md).

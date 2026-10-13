@@ -13,7 +13,7 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 - Small reviewed example libraries for tuning intent recognition and response quality.
 - Controlled automation with explicit approval, factual checks and delivery safeguards.
 
-The proposed architecture uses four deployables: portal/API, intake/synchronization, workflow/agent workers, and delivery workers. Managed Azure services provide hosting, storage, identity and execution. Models propose actions; application policy controls authorization and sending.
+The proposed implementation is TypeScript throughout: Next.js portal/API, a Node.js background worker for intake and workflow/agent execution, and a separate delivery worker. Shared application modules use Deep Agents TypeScript, Zod contracts and managed PostgreSQL/Blob. PostgreSQL-backed jobs provide initial execution; additional orchestration services are deferred. Models propose actions; application policy controls authorization and sending.
 
 ## Review the design
 
