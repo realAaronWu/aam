@@ -792,6 +792,76 @@
       "negative_scenario": "WF-03-N",
       "verification_status": "NOT RUN",
       "evidence": []
+    },
+    {
+      "id": "CX-04",
+      "capability": "account-context",
+      "spec": "openspec/changes/establish-aam-platform/specs/account-context/spec.md",
+      "stories": [
+        "US-02",
+        "US-06",
+        "US-08"
+      ],
+      "tasks": [
+        "T06.3"
+      ],
+      "scenarios": [
+        "CX-04-P",
+        "CX-04-N",
+        "CX-04-P2",
+        "CX-04-N2"
+      ],
+      "positive_scenario": "CX-04-P",
+      "negative_scenario": "CX-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-05",
+      "capability": "agent-mail-response",
+      "spec": "openspec/changes/establish-aam-platform/specs/agent-mail-response/spec.md",
+      "stories": [
+        "US-02",
+        "US-06",
+        "US-07"
+      ],
+      "tasks": [
+        "T17.1",
+        "T14.1",
+        "T13.1",
+        "T11.3"
+      ],
+      "scenarios": [
+        "AI-05-P",
+        "AI-05-N",
+        "AI-05-P2",
+        "AI-05-N2"
+      ],
+      "positive_scenario": "AI-05-P",
+      "negative_scenario": "AI-05-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-04",
+      "capability": "workflow-configuration",
+      "spec": "openspec/changes/establish-aam-platform/specs/workflow-configuration/spec.md",
+      "stories": [
+        "US-06"
+      ],
+      "tasks": [
+        "T17.4"
+      ],
+      "scenarios": [
+        "CFG-04-P",
+        "CFG-04-N",
+        "CFG-04-P2",
+        "CFG-04-N2"
+      ],
+      "positive_scenario": "CFG-04-P",
+      "negative_scenario": "CFG-04-N",
+      "verification_status": "NOT RUN",
+      "evidence": []
     }
   ],
   "tasks": [
@@ -807,7 +877,7 @@
       ],
       "planned_locations": "src/aam/; contracts/; tests/; pyproject.toml",
       "status": "NOT RUN",
-      "deliverables": "Locked Python modules, typed contracts and fixtures; no agent framework required. The CI host is selected through D-15 before provider-specific workflow files are authored.",
+      "deliverables": "Locked Python foundation, typed contracts and fixtures; Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored.",
       "positive": "Clean checkout installs and validates a complete typed sample.",
       "negative": "Unknown schema major version and missing required result are rejected.",
       "milestone": "M1",
@@ -1082,7 +1152,7 @@
       ],
       "planned_locations": "src/aam/integrations/crm/; tests/contracts/crm/",
       "status": "NOT RUN",
-      "deliverables": "Versioned connector interface, fixtures and approved field mapping.",
+      "deliverables": "Versioned Dynamics 365 Sales / Dataverse read adapter, approved environment/table/field mapping and source freshness; provider identity roles plus application account/field filtering. Other Dynamics families require separate adapter qualification.",
       "positive": "Account, owner, contacts and renewal dates retain source time/version.",
       "negative": "Unavailable or stale mandatory facts block dependent actions.",
       "milestone": "M1",
@@ -1419,13 +1489,14 @@
         "T16.1"
       ],
       "requirements": [
-        "CFG-01"
+        "CFG-01",
+        "AI-05"
       ],
       "planned_locations": "resources/workflows/; src/aam/configuration/; tests/configuration/",
       "status": "NOT RUN",
-      "deliverables": "Workflow type schema and registry with retrievable artifacts, case pinning, compatibility declaration and required business-policy slots. No model-runtime or extension-example prerequisite.",
-      "positive": "New case pins version two while active version-one case remains reproducible.",
-      "negative": "Missing completion rule, unregistered tool or incompatible schema blocks publication.",
+      "deliverables": "Registered capability schemas, versioned workflow-definition registry and common typed predicate evaluator; immutable artifacts, case pinning, readiness/completion contracts and mandatory policy slots. Supports deterministic templates without requiring the model runtime.",
+      "positive": "New case pins version two while active version one remains reproducible; complete template inputs pass their output predicate.",
+      "negative": "Missing completion/readiness contracts, undefined fields, empty required-input sets, arbitrary predicate code, unregistered tools or incompatible schema block publication; unknown inputs cannot evaluate true.",
       "milestone": "M1",
       "entry_point": "workflow-type registry publish/activation API",
       "test_layer": "integration",
@@ -1443,7 +1514,12 @@
         "CFG-01-P",
         "CFG-01-N"
       ],
-      "contributes": []
+      "contributes": [
+        "AI-05-P",
+        "AI-05-N",
+        "AI-05-P2",
+        "AI-05-N2"
+      ]
     },
     {
       "id": "T17.3",
@@ -1545,13 +1621,14 @@
         "T17.3"
       ],
       "requirements": [
-        "AU-01"
+        "AU-01",
+        "AI-05"
       ],
       "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/",
       "status": "NOT RUN",
-      "deliverables": "Shared configurable action/recipient/authority policy with explicit missing-policy holds; accepts typed deterministic template proposals independently of model pipeline.",
+      "deliverables": "Shared configurable action/recipient/authority policy with explicit missing-policy holds; deterministic template proposals must first pass the common output-readiness evaluator before render and authorization.",
       "positive": "Approved low-risk policy permits only its scoped action type.",
-      "negative": "Matched knowledge alone cannot authorize terms, commitments or ambiguous accounts.",
+      "negative": "Matched knowledge alone cannot authorize terms, commitments or ambiguous accounts; a human approval cannot bypass a missing mandatory template input.",
       "milestone": "M2",
       "entry_point": "shared action policy on deterministic proposals",
       "test_layer": "integration",
@@ -1565,7 +1642,10 @@
         "AU-01-P",
         "AU-01-N"
       ],
-      "contributes": []
+      "contributes": [
+        "AI-05-N",
+        "AI-05-N2"
+      ]
     },
     {
       "id": "T14.2",
@@ -1754,11 +1834,11 @@
       ],
       "planned_locations": "src/aam/agents/; resources/agents/; resources/examples/; tests/agents/",
       "status": "NOT RUN",
-      "deliverables": "Direct structured-output provider adapter, typed schemas, versioned prompts and reviewed workflow-example YAML loader/selector; bundle digest covers example bytes, schema and selector settings, with retrievable immutable contents. No extra service/index or mandatory agent framework; tool loop restricted to research.",
-      "positive": "Pinned bundle produces typed output within budget; identical inputs select identical example IDs; unknown-workflow analysis uses balanced examples, writer selection respects intent/language, and valid zero matches are explicit.",
-      "negative": "Missing/corrupt bundle, duplicate IDs, unknown labels, unregistered tool, malformed result and timeout fail explicitly. Token limits drop complete examples without displacing current context; mutable files cannot change a pinned run.",
+      "deliverables": "Locked Deep Agents/LangChain/LangGraph runtime adapter with typed schemas, approved skills, aggregate budgets, restricted main/child tool sets and versioned example loader/selector; retain immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation.",
+      "positive": "Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.",
+      "negative": "Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, unrestricted writer delegation, malformed output and timeout fail explicitly; examples never displace mandatory current context.",
       "milestone": "M3",
-      "entry_point": "structured-model adapter with typed result/budget checks",
+      "entry_point": "Deep Agents adapter, skill loader and effective main/child tool inventory",
       "test_layer": "agents",
       "test_file": "tests/agents/test_model_adapter.py",
       "verification_command": "uv run pytest tests/agents/test_model_adapter.py -q",
@@ -1799,38 +1879,6 @@
       "business_gates": []
     },
     {
-      "id": "T11.2",
-      "title": "Replace supervisor delegation with deterministic coordination",
-      "work_package": "T11",
-      "dependencies": [
-        "T11.1",
-        "T16.1"
-      ],
-      "requirements": [
-        "AI-01",
-        "CS-04"
-      ],
-      "planned_locations": "src/aam/agents/; resources/agents/; tests/agents/",
-      "status": "NOT RUN",
-      "deliverables": "Application-owned stage order and frozen inputs; persisted outputs and selected example IDs/settings per stage; proposed obligations route through T09.3 policy rather than creating tasks implicitly.",
-      "positive": "Actual coordinator executes analysis selection, analysis, current evidence retrieval, writing selection and drafting in order, including known/unknown workflow, multi-question and valid zero-example paths.",
-      "negative": "Skipped, duplicate or premature stage, invalid bundle or substituted context cannot produce an authorized proposal; examples cannot resolve account scope or enter the evidence registry.",
-      "milestone": "M3",
-      "entry_point": "deterministic stage coordinator and persisted stage results",
-      "test_layer": "agents",
-      "test_file": "tests/agents/test_stage_coordinator.py",
-      "verification_command": "uv run pytest tests/agents/test_stage_coordinator.py -q",
-      "closes": [
-        "AI-01-P",
-        "AI-01-N"
-      ],
-      "contributes": [
-        "CS-04-P",
-        "CS-04-N"
-      ],
-      "business_gates": []
-    },
-    {
       "id": "T12.1",
       "title": "Implement approved scoped retrieval",
       "work_package": "T12",
@@ -1843,7 +1891,7 @@
       ],
       "planned_locations": "src/aam/retrieval/; tests/retrieval/",
       "status": "NOT RUN",
-      "deliverables": "Approved-knowledge registry/indexer with versioned Search upsert/delete, account/effective-date filters and DB revalidation after retrieval; provision Search in the isolated environment at this slice.",
+      "deliverables": "Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Search top-k does not establish exhaustive business evidence.",
       "positive": "Applicable evidence for two questions is returned with source locations.",
       "negative": "Model-supplied filters cannot retrieve another client or unpublished/expired SOP.",
       "milestone": "M3",
@@ -1857,131 +1905,6 @@
         "AI-02-N"
       ],
       "business_gates": []
-    },
-    {
-      "id": "T12.2",
-      "title": "Implement evidence registration and question coverage",
-      "work_package": "T12",
-      "dependencies": [
-        "T12.1",
-        "T11.2"
-      ],
-      "requirements": [
-        "AI-02"
-      ],
-      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
-      "status": "NOT RUN",
-      "deliverables": "Evidence versions, coverage states and bounded multi-query retrieval.",
-      "positive": "Per-question support distinguishes sufficient from partial coverage.",
-      "negative": "Unknown IDs, conflicting evidence and budget exhaustion never become sufficient coverage.",
-      "milestone": "M3",
-      "entry_point": "research loop evidence registry and coverage evaluator",
-      "test_layer": "agents",
-      "test_file": "tests/agents/test_research_coverage.py",
-      "verification_command": "uv run pytest tests/agents/test_research_coverage.py -q",
-      "closes": [
-        "AI-02-P",
-        "AI-02-N"
-      ],
-      "contributes": [],
-      "business_gates": []
-    },
-    {
-      "id": "T13.1",
-      "title": "Draft typed responses and internal claim maps",
-      "work_package": "T13",
-      "dependencies": [
-        "T12.2"
-      ],
-      "requirements": [
-        "AI-04"
-      ],
-      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
-      "status": "NOT RUN",
-      "deliverables": "Typed writer with language/continuity checks, distinctly labeled current facts and illustrative examples, rendered message and draft claim map; no model-generated content enters deterministic reminder path.",
-      "positive": "Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.",
-      "negative": "Customer output excludes internal IDs and secrets, does not copy example dates/amounts or claim illustrative completed actions, and makes no unsupported action promise.",
-      "milestone": "M3",
-      "entry_point": "writer adapter on final language/continuity and disclosure rules",
-      "test_layer": "agents",
-      "test_file": "tests/agents/test_drafting.py",
-      "verification_command": "uv run pytest tests/agents/test_drafting.py -q",
-      "closes": [
-        "AI-04-P",
-        "AI-04-N"
-      ],
-      "contributes": [],
-      "business_gates": []
-    },
-    {
-      "id": "T13.2",
-      "title": "Validate factual claims and commitments",
-      "work_package": "T13",
-      "dependencies": [
-        "T13.1"
-      ],
-      "requirements": [
-        "AI-03"
-      ],
-      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
-      "status": "NOT RUN",
-      "deliverables": "Independent final-text claim extraction, union with writer map and deterministic critical spans; coverage gaps and missing evidence block automation.",
-      "positive": "Applicable 30-day claim is supported by its actual source.",
-      "negative": "An unmapped 999-day claim, unsupported commitment paraphrase, failed extraction, unknown source or copied illustrative fact blocks automation even when the writer map appears valid; example IDs cannot qualify as current evidence.",
-      "milestone": "M3",
-      "entry_point": "final-text claim extraction/coverage and critical-span validator",
-      "test_layer": "agents",
-      "test_file": "tests/agents/test_claim_validation.py",
-      "verification_command": "uv run pytest tests/agents/test_claim_validation.py -q",
-      "closes": [
-        "AI-03-P",
-        "AI-03-N",
-        "AI-03-N2"
-      ],
-      "contributes": [
-        "AI-03-P2",
-        "AI-03-N3"
-      ],
-      "business_gates": []
-    },
-    {
-      "id": "T14.3",
-      "title": "Review validated model drafts and controlled factual warnings",
-      "work_package": "T14",
-      "requirements": [
-        "AI-03",
-        "AU-02"
-      ],
-      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/",
-      "status": "NOT RUN",
-      "deliverables": "New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden.",
-      "positive": "An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.",
-      "negative": "Absent override policy, changed content or forbidden recipient prevents approval/dispatch; no generic human-approval bypass.",
-      "milestone": "M3",
-      "dependencies": [
-        "T14.2",
-        "T13.2"
-      ],
-      "entry_point": "edited-draft validation and warning-acknowledgment approval UI",
-      "test_layer": "ui",
-      "test_file": "tests/ui/test_edited_review.py",
-      "verification_command": "uv run pytest tests/ui/test_edited_review.py -q",
-      "business_gates": [
-        "D-13"
-      ],
-      "closes": [
-        "AI-03-P2",
-        "AI-03-N3"
-      ],
-      "contributes": [
-        "AU-02-P",
-        "AU-02-N",
-        "AU-02-P2",
-        "AU-02-N2",
-        "AI-03-P",
-        "AI-03-N",
-        "AI-03-N2"
-      ]
     },
     {
       "id": "T18.1",
@@ -2141,6 +2064,206 @@
       "contributes": []
     },
     {
+      "id": "T06.3",
+      "title": "Register connections and enforce scoped agent reads",
+      "work_package": "T06",
+      "dependencies": [
+        "T06.1",
+        "T04.2",
+        "T08.1",
+        "T12.1"
+      ],
+      "requirements": [
+        "CX-04"
+      ],
+      "planned_locations": "src/aam/connections/; src/aam/integrations/; tests/integration/",
+      "status": "NOT RUN",
+      "deliverables": "Connection administration, credential references, operation catalogue, adapter/MCP wrapper and revocable per-call scope checks; normalized evidence envelope and scoped cache. Validate D365, Outlook and knowledge adapters in isolated provider environments.",
+      "positive": "Approved main/child reads return only permitted account fields with provenance; complete paginated results retain membership evidence and provider access probes succeed.",
+      "negative": "Revoked grants, cross-account cache hits, forged arguments, partial pages, failed refreshes, changed MCP schemas or child write attempts hold/deny rather than yield complete evidence; no secrets enter prompts/logs.",
+      "milestone": "M3",
+      "entry_point": "connection registration API and guarded read gateway including provider qualification",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_connections.py",
+      "verification_command": "uv run pytest tests/integration/test_connections.py -q",
+      "closes": [
+        "CX-04-P",
+        "CX-04-N",
+        "CX-04-P2",
+        "CX-04-N2"
+      ],
+      "contributes": [],
+      "business_gates": [
+        "D-04",
+        "D-05",
+        "D-08"
+      ]
+    },
+    {
+      "id": "T11.2",
+      "title": "Run dynamic SOP planning with mandatory application gates",
+      "work_package": "T11",
+      "dependencies": [
+        "T11.1",
+        "T16.1",
+        "T17.1",
+        "T06.3"
+      ],
+      "requirements": [
+        "AI-01",
+        "CS-04"
+      ],
+      "planned_locations": "src/aam/agents/; resources/agents/; tests/agents/",
+      "status": "NOT RUN",
+      "deliverables": "Application-owned context and mandatory boundary hooks around dynamic Deep Agents planning; record evidence, example IDs and typed proposals; restart bounded attempts from durable state instead of maintaining a second business workflow store.",
+      "positive": "Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.",
+      "negative": "Planner prose, forged readiness, premature writer calls or injected source instructions cannot bypass application boundaries; child outputs cannot mutate scope or directly create obligations.",
+      "milestone": "M3",
+      "entry_point": "bounded Deep Agents work handler and guarded output/tool entry points",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_stage_coordinator.py",
+      "verification_command": "uv run pytest tests/agents/test_stage_coordinator.py -q",
+      "closes": [
+        "AI-01-P",
+        "AI-01-N"
+      ],
+      "contributes": [
+        "CS-04-P",
+        "CS-04-N"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T12.2",
+      "title": "Implement evidence registration and question coverage",
+      "work_package": "T12",
+      "dependencies": [
+        "T12.1",
+        "T11.2"
+      ],
+      "requirements": [
+        "AI-02"
+      ],
+      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
+      "status": "NOT RUN",
+      "deliverables": "Evidence registry with versions, scope, provenance, field presence, completeness, coverage states and bounded multi-query retrieval; distinguish source failure, partial results, confirmed absence and a proved complete collection.",
+      "positive": "Per-question support distinguishes sufficient from partial coverage.",
+      "negative": "Unknown IDs, conflicting evidence and budget exhaustion never become sufficient coverage.",
+      "milestone": "M3",
+      "entry_point": "research loop evidence registry and coverage evaluator",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_research_coverage.py",
+      "verification_command": "uv run pytest tests/agents/test_research_coverage.py -q",
+      "closes": [
+        "AI-02-P",
+        "AI-02-N"
+      ],
+      "contributes": [],
+      "business_gates": []
+    },
+    {
+      "id": "T13.1",
+      "title": "Draft typed responses and internal claim maps",
+      "work_package": "T13",
+      "dependencies": [
+        "T12.2"
+      ],
+      "requirements": [
+        "AI-04",
+        "AI-05"
+      ],
+      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "status": "NOT RUN",
+      "deliverables": "Application-invoked typed writer guarded by an exact readiness PASS snapshot; distinct current facts and examples, language/continuity checks, rendered message and claim map. Internal planner text cannot become recipient-visible output.",
+      "positive": "Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.",
+      "negative": "Missing, expired or mismatched PASS prevents writer invocation; copied illustrative facts, secrets and unsupported commitments are rejected; parent or child agents cannot directly publish drafts.",
+      "milestone": "M3",
+      "entry_point": "writer adapter on final language/continuity and disclosure rules",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_drafting.py",
+      "verification_command": "uv run pytest tests/agents/test_drafting.py -q",
+      "closes": [
+        "AI-04-P",
+        "AI-04-N"
+      ],
+      "contributes": [
+        "AI-05-P",
+        "AI-05-N",
+        "AI-05-N2"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T13.2",
+      "title": "Validate factual claims and commitments",
+      "work_package": "T13",
+      "dependencies": [
+        "T13.1"
+      ],
+      "requirements": [
+        "AI-03"
+      ],
+      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "status": "NOT RUN",
+      "deliverables": "Independent final-text extraction, union with writer map and deterministic critical spans; validate the readiness evidence binding and final claims, and discard generation if relevant evidence changed while writing.",
+      "positive": "Applicable 30-day claim is supported by its actual source.",
+      "negative": "An unmapped 999-day claim, unsupported commitment paraphrase, failed extraction, unknown source or copied illustrative fact blocks automation even when the writer map appears valid; example IDs cannot qualify as current evidence.",
+      "milestone": "M3",
+      "entry_point": "final-text claim extraction/coverage and critical-span validator",
+      "test_layer": "agents",
+      "test_file": "tests/agents/test_claim_validation.py",
+      "verification_command": "uv run pytest tests/agents/test_claim_validation.py -q",
+      "closes": [
+        "AI-03-P",
+        "AI-03-N",
+        "AI-03-N2"
+      ],
+      "contributes": [
+        "AI-03-P2",
+        "AI-03-N3"
+      ],
+      "business_gates": []
+    },
+    {
+      "id": "T14.3",
+      "title": "Review validated model drafts and controlled factual warnings",
+      "work_package": "T14",
+      "requirements": [
+        "AI-03",
+        "AU-02"
+      ],
+      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/",
+      "status": "NOT RUN",
+      "deliverables": "New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden.",
+      "positive": "An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.",
+      "negative": "Absent override policy, changed content or forbidden recipient prevents approval/dispatch; no generic human-approval bypass.",
+      "milestone": "M3",
+      "dependencies": [
+        "T14.2",
+        "T13.2"
+      ],
+      "entry_point": "edited-draft validation and warning-acknowledgment approval UI",
+      "test_layer": "ui",
+      "test_file": "tests/ui/test_edited_review.py",
+      "verification_command": "uv run pytest tests/ui/test_edited_review.py -q",
+      "business_gates": [
+        "D-13"
+      ],
+      "closes": [
+        "AI-03-P2",
+        "AI-03-N3"
+      ],
+      "contributes": [
+        "AU-02-P",
+        "AU-02-N",
+        "AU-02-P2",
+        "AU-02-N2",
+        "AI-03-P",
+        "AI-03-N",
+        "AI-03-N2"
+      ]
+    },
+    {
       "id": "T21.2",
       "title": "Implement candidate evaluation and honest reports",
       "work_package": "T21",
@@ -2153,7 +2276,7 @@
       ],
       "planned_locations": "evals/; tests/evaluation/",
       "status": "NOT RUN",
-      "deliverables": "Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output.",
+      "deliverables": "Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Add workflow/predicate/connection versions and false-readiness, blocked-writer invocation and unsafe-tool-selection metrics; an unknown source cannot become an empty successful sample.",
       "positive": "Reports identify exact model/bundle/corpus, selected-example configuration and comparable per-slice outcomes; no-example baseline and prior bundle can be reproduced without altering the holdout.",
       "negative": "Partial logs, skipped live execution, crashed model, unreviewed examples or tuning/holdout leakage cannot be summarized as a successful accuracy run; no automatic promotion from favorable aggregate scores.",
       "milestone": "M3",
@@ -2169,6 +2292,79 @@
         "QA-01-N"
       ],
       "contributes": []
+    },
+    {
+      "id": "T11.3",
+      "title": "Enforce output readiness through generation and resume",
+      "work_package": "T11",
+      "dependencies": [
+        "T13.2",
+        "T06.3",
+        "T17.1",
+        "T14.1",
+        "T14.3",
+        "T15.2"
+      ],
+      "requirements": [
+        "AI-05"
+      ],
+      "planned_locations": "src/aam/readiness/; src/aam/agents/; tests/integration/",
+      "status": "NOT RUN",
+      "deliverables": "End-to-end guard integration across planner, children, writer, templates, human review and resume; PASS evidence bindings, typed gap/conflict decisions and durable wake conditions. Recheck relevant dependencies before output exposure and delivery.",
+      "positive": "Complete evidence invokes the writer once with its exact snapshot; missing-data case survives restart, receives valid evidence and passes on a new attempt without duplicate commands.",
+      "negative": "Missing country, unknown inventory, truncated extraction, conflicting source, forged PASS, stale evidence, direct child-writer call or human bypass creates no substantive draft; assert writer-call count zero before PASS and reject stale results after generation.",
+      "milestone": "M3",
+      "entry_point": "actual work handler, output request, writer boundary and approval/delivery precondition checks",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_output_readiness.py",
+      "verification_command": "uv run pytest tests/integration/test_output_readiness.py -q",
+      "closes": [
+        "AI-05-P",
+        "AI-05-N",
+        "AI-05-P2",
+        "AI-05-N2"
+      ],
+      "contributes": [],
+      "business_gates": [
+        "D-12",
+        "D-13",
+        "D-16"
+      ]
+    },
+    {
+      "id": "T17.4",
+      "title": "Author and simulate dynamic SOPs in the portal",
+      "work_package": "T17",
+      "dependencies": [
+        "T17.3",
+        "T11.3"
+      ],
+      "requirements": [
+        "CFG-04"
+      ],
+      "planned_locations": "web/workflows/; src/aam/configuration/; tests/integration/",
+      "status": "NOT RUN",
+      "deliverables": "Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition.",
+      "positive": "AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.",
+      "negative": "Unregistered connection, unknown field/operator, empty predicate contract, privilege escalation or prompt-injected publication is rejected; a new definition cannot silently change an active case.",
+      "milestone": "M3",
+      "entry_point": "portal authoring, simulation, publication and version-pinned runtime",
+      "test_layer": "integration",
+      "test_file": "tests/integration/test_sop_authoring.py",
+      "verification_command": "uv run pytest tests/integration/test_sop_authoring.py -q",
+      "closes": [
+        "CFG-04-P",
+        "CFG-04-N",
+        "CFG-04-P2",
+        "CFG-04-N2"
+      ],
+      "contributes": [],
+      "business_gates": [
+        "D-12",
+        "D-13",
+        "D-16",
+        "D-18"
+      ]
     },
     {
       "id": "T06.2",
@@ -2375,7 +2571,8 @@
         "T23.2",
         "T10.2",
         "T14.3",
-        "T06.2"
+        "T06.2",
+        "T17.4"
       ],
       "requirements": [
         "QA-01",
@@ -2561,7 +2758,9 @@
         "IN-04",
         "OP-01",
         "QA-01",
-        "WF-02"
+        "WF-02",
+        "CX-04",
+        "AI-05"
       ],
       "acceptance_outline": null,
       "status": "PROPOSED_NOT_IMPLEMENTED"
@@ -2615,7 +2814,10 @@
       "requirements": [
         "CFG-01",
         "CFG-02",
-        "CFG-03"
+        "CFG-03",
+        "CX-04",
+        "AI-05",
+        "CFG-04"
       ],
       "acceptance_outline": null,
       "status": "PROPOSED_NOT_IMPLEMENTED"
@@ -2637,7 +2839,8 @@
         "IN-04",
         "OP-04",
         "QA-01",
-        "QA-02"
+        "QA-02",
+        "AI-05"
       ],
       "acceptance_outline": null,
       "status": "PROPOSED_NOT_IMPLEMENTED"
@@ -2657,7 +2860,8 @@
         "QA-01",
         "QA-02",
         "WF-01",
-        "WF-02"
+        "WF-02",
+        "CX-04"
       ],
       "acceptance_outline": null,
       "status": "PROPOSED_NOT_IMPLEMENTED"
@@ -3312,6 +3516,90 @@
       "id": "WF-03-P2",
       "requirement": "WF-03",
       "closing_task": "T16.2",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-04-P",
+      "requirement": "CX-04",
+      "closing_task": "T06.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-04-N",
+      "requirement": "CX-04",
+      "closing_task": "T06.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-04-P2",
+      "requirement": "CX-04",
+      "closing_task": "T06.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CX-04-N2",
+      "requirement": "CX-04",
+      "closing_task": "T06.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-05-P",
+      "requirement": "AI-05",
+      "closing_task": "T11.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-05-N",
+      "requirement": "AI-05",
+      "closing_task": "T11.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-05-P2",
+      "requirement": "AI-05",
+      "closing_task": "T11.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "AI-05-N2",
+      "requirement": "AI-05",
+      "closing_task": "T11.3",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-04-P",
+      "requirement": "CFG-04",
+      "closing_task": "T17.4",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-04-N",
+      "requirement": "CFG-04",
+      "closing_task": "T17.4",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-04-P2",
+      "requirement": "CFG-04",
+      "closing_task": "T17.4",
+      "status": "NOT RUN",
+      "evidence": []
+    },
+    {
+      "id": "CFG-04-N2",
+      "requirement": "CFG-04",
+      "closing_task": "T17.4",
       "status": "NOT RUN",
       "evidence": []
     }

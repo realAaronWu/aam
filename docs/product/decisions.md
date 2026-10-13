@@ -6,7 +6,7 @@ Architecture is an engineering proposal. Business owners define the stories and 
 
 | ID | Decision/input | Treatment | Owner and gate |
 | --- | --- | --- | --- |
-| D-01 | Specialist implementation | ADR-01: Python structured calls, bounded research loop; no mandatory Deep Agents/LangChain/LangGraph | Engineering, T11 |
+| D-01 | Specialist implementation | ADR-01/12: Deep Agents with LangChain tools and LangGraph attempt-local execution; AAM owns readiness, authorization and long-lived business state | Engineering, T11 |
 | D-02 | Business persistence | ADR-06: PostgreSQL owns cases, waits and timers; DTS bounded execution | Engineering/platform, before T03.1 |
 | D-03 | Initial action mode | Review-assisted; automatic production permissions require D-13 and qualification | Business owner, before action activation |
 | D-04 | CRM API/fields/write-back | Read contract first; field ownership and write-back mappings require CRM owner. Write-back is optional and does not block read-only journeys | CRM owner, T06.1/T06.2 |
@@ -29,6 +29,7 @@ All rows below are **OPEN**. A fixture choosing one option is not an answer. Rec
 | D-13 | Which action categories may automate, require approval, or remain prohibited? Who can approve each action and precondition? May factual warnings be acknowledged, by whom, with what evidence? What are expiry/freshness limits? | AU/AI-03/QA-02 activation |
 | D-14 | How and when should AMs receive upcoming/overdue notifications? Which channels, audiences and cadence? Does a human follow-up defer/cancel a reminder? | WF-03 activation |
 | D-16 | How are proposed obligations promoted and owners/dates confirmed? How should legitimate multi-client mail and ambiguous local team messages be handled? How are to/cc/bcc, reply-all and new contacts computed? Which manual case creation, attestation, takeover/mute and schedule overrides are needed? What defines relevant versus unrelated mail? | affected case commands, recipient policy and intake paths stay unconfigured |
+| D-18 | Who may author/publish SOPs, select each connection and attest to missing facts? Which input predicates are mandatory, who may revise them, what freshness/source-precedence rules apply, and which changes may migrate active cases? | CFG-04/AI-05/CX-04; definition activation and predicate changes require declared authority |
 | D-17 | Does consolidation mean collecting documents/status or authoring commercial/numeric terms? What confirms renewal finalization? Who is authoritative for a program-change notice and what confirmation is acceptable? | commercial consolidation/finalization and program trigger activation |
 
 Engineering provides typed policy slots, validation, provenance, access controls and explicit holds. It does not assume that mail authentication proves underwriting authority, that Bcc is always prohibited, that every internal reminder may auto-send, or that every AM can attest/override. Those would be business decisions. Mandatory security controls remain enforced regardless of the selected policy.

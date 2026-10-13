@@ -1,12 +1,12 @@
 # AAM implementation tasks
 
-Status: all application tasks remain unchecked and **NOT RUN**. This plan has 53 tasks in 26 stable work packages. Section numbers denote milestone order, not work-package IDs. Paths, test files and commands are future deliverables; no application test exists yet.
+Status: all application tasks remain unchecked and **NOT RUN**. This plan has 56 tasks in 26 stable work packages. Section numbers denote milestone order, not work-package IDs. Paths, test files and commands are future deliverables; no application test exists yet.
 
 Each scenario has exactly one **Closes** task responsible for its complete acceptance proof. **Contributes** means partial support only; it does not claim the scenario passed. A closing task must exercise all listed scenarios through its concrete entry point (or composed test harness) and retain final statuses. Every task also needs its own positive/negative checks and the [common gate](../../../docs/testing/strategy.md).
 
 Business gates identify owner decisions needed before the affected production behavior. Engineering may implement contracts with labeled synthetic policies, but cannot count these as business sign-off. Conditional features and unknown decisions must be explicitly split into a later change if omitted from a qualified release; never mark them passed.
 
-## 1. M1 Foundation, early environment and durable state
+## 1. M1 Foundation and early evaluation
 
 - [ ] 1.1 T01.1 Scaffold typed modules and contract tests
 
@@ -14,7 +14,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Locked Python modules, typed contracts and fixtures; no agent framework required. The CI host is selected through D-15 before provider-specific workflow files are authored. Planned locations: `src/aam/; contracts/; tests/; pyproject.toml`.
+  **Deliverables:** Locked Python foundation, typed contracts and fixtures; Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored. Planned locations: `src/aam/; contracts/; tests/; pyproject.toml`.
 
   **Positive acceptance:** Clean checkout installs and validates a complete typed sample.
 
@@ -174,7 +174,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-04.
 
-  **Deliverables:** Versioned connector interface, fixtures and approved field mapping. Planned locations: `src/aam/integrations/crm/; tests/contracts/crm/`.
+  **Deliverables:** Versioned Dynamics 365 Sales / Dataverse read adapter, approved environment/table/field mapping and source freshness; provider identity roles plus application account/field filtering. Other Dynamics families require separate adapter qualification. Planned locations: `src/aam/integrations/crm/; tests/contracts/crm/`.
 
   **Positive acceptance:** Account, owner, contacts and renewal dates retain source time/version.
 
@@ -390,17 +390,17 @@ Business gates identify owner decisions needed before the affected production be
 
 - [ ] 1.20 T17.1 Validate and publish versioned packages
 
-  **Milestone:** M1. **Requirements:** CFG-01. **Depends on:** T16.1.
+  **Milestone:** M1. **Requirements:** CFG-01, AI-05. **Depends on:** T16.1.
 
   **Business gates:** D-06, D-07, D-12, D-13, D-16, D-17.
 
-  **Deliverables:** Workflow type schema and registry with retrievable artifacts, case pinning, compatibility declaration and required business-policy slots. No model-runtime or extension-example prerequisite. Planned locations: `resources/workflows/; src/aam/configuration/; tests/configuration/`.
+  **Deliverables:** Registered capability schemas, versioned workflow-definition registry and common typed predicate evaluator; immutable artifacts, case pinning, readiness/completion contracts and mandatory policy slots. Supports deterministic templates without requiring the model runtime. Planned locations: `resources/workflows/; src/aam/configuration/; tests/configuration/`.
 
-  **Positive acceptance:** New case pins version two while active version-one case remains reproducible.
+  **Positive acceptance:** New case pins version two while active version one remains reproducible; complete template inputs pass their output predicate.
 
-  **Negative acceptance:** Missing completion rule, unregistered tool or incompatible schema blocks publication.
+  **Negative acceptance:** Missing completion/readiness contracts, undefined fields, empty required-input sets, arbitrary predicate code, unregistered tools or incompatible schema block publication; unknown inputs cannot evaluate true.
 
-  **Closes:** CFG-01-P, CFG-01-N. **Contributes:** none.
+  **Closes:** CFG-01-P, CFG-01-N. **Contributes:** AI-05-P, AI-05-N, AI-05-P2, AI-05-N2.
 
   **Entry point and layer:** workflow-type registry publish/activation API (integration).
 
@@ -472,17 +472,17 @@ Business gates identify owner decisions needed before the affected production be
 
 - [ ] 2.1 T14.1 Evaluate independent action policy
 
-  **Milestone:** M2. **Requirements:** AU-01. **Depends on:** T09.2, T09.3, T04.2, T16.1, T17.3.
+  **Milestone:** M2. **Requirements:** AU-01, AI-05. **Depends on:** T09.2, T09.3, T04.2, T16.1, T17.3.
 
   **Business gates:** D-13, D-16.
 
-  **Deliverables:** Shared configurable action/recipient/authority policy with explicit missing-policy holds; accepts typed deterministic template proposals independently of model pipeline. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/`.
+  **Deliverables:** Shared configurable action/recipient/authority policy with explicit missing-policy holds; deterministic template proposals must first pass the common output-readiness evaluator before render and authorization. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/`.
 
   **Positive acceptance:** Approved low-risk policy permits only its scoped action type.
 
-  **Negative acceptance:** Matched knowledge alone cannot authorize terms, commitments or ambiguous accounts.
+  **Negative acceptance:** Matched knowledge alone cannot authorize terms, commitments or ambiguous accounts; a human approval cannot bypass a missing mandatory template input.
 
-  **Closes:** AU-01-P, AU-01-N. **Contributes:** none.
+  **Closes:** AU-01-P, AU-01-N. **Contributes:** AI-05-N, AI-05-N2.
 
   **Entry point and layer:** shared action policy on deterministic proposals (integration).
 
@@ -590,7 +590,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T19.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-## 3. M3 Mail intelligence and remaining priority journeys
+## 3. M3 Dynamic mail intelligence and remaining priority journeys
 
 - [ ] 3.1 T11.1 Adapt registry and bounded specialist invocation
 
@@ -598,15 +598,15 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Direct structured-output provider adapter, typed schemas, versioned prompts and reviewed workflow-example YAML loader/selector; bundle digest covers example bytes, schema and selector settings, with retrievable immutable contents. No extra service/index or mandatory agent framework; tool loop restricted to research. Planned locations: `src/aam/agents/; resources/agents/; resources/examples/; tests/agents/`.
+  **Deliverables:** Locked Deep Agents/LangChain/LangGraph runtime adapter with typed schemas, approved skills, aggregate budgets, restricted main/child tool sets and versioned example loader/selector; retain immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation. Planned locations: `src/aam/agents/; resources/agents/; resources/examples/; tests/agents/`.
 
-  **Positive acceptance:** Pinned bundle produces typed output within budget; identical inputs select identical example IDs; unknown-workflow analysis uses balanced examples, writer selection respects intent/language, and valid zero matches are explicit.
+  **Positive acceptance:** Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.
 
-  **Negative acceptance:** Missing/corrupt bundle, duplicate IDs, unknown labels, unregistered tool, malformed result and timeout fail explicitly. Token limits drop complete examples without displacing current context; mutable files cannot change a pinned run.
+  **Negative acceptance:** Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, unrestricted writer delegation, malformed output and timeout fail explicitly; examples never displace mandatory current context.
 
   **Closes:** none. **Contributes:** AI-01-P, AI-01-N.
 
-  **Entry point and layer:** structured-model adapter with typed result/budget checks (agents).
+  **Entry point and layer:** Deep Agents adapter, skill loader and effective main/child tool inventory (agents).
 
   **Verification command (planned):** `uv run pytest tests/agents/test_model_adapter.py -q`
 
@@ -632,33 +632,13 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T10.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.3 T11.2 Replace supervisor delegation with deterministic coordination
-
-  **Milestone:** M3. **Requirements:** AI-01, CS-04. **Depends on:** T11.1, T16.1.
-
-  **Business gates:** none.
-
-  **Deliverables:** Application-owned stage order and frozen inputs; persisted outputs and selected example IDs/settings per stage; proposed obligations route through T09.3 policy rather than creating tasks implicitly. Planned locations: `src/aam/agents/; resources/agents/; tests/agents/`.
-
-  **Positive acceptance:** Actual coordinator executes analysis selection, analysis, current evidence retrieval, writing selection and drafting in order, including known/unknown workflow, multi-question and valid zero-example paths.
-
-  **Negative acceptance:** Skipped, duplicate or premature stage, invalid bundle or substituted context cannot produce an authorized proposal; examples cannot resolve account scope or enter the evidence registry.
-
-  **Closes:** AI-01-P, AI-01-N. **Contributes:** CS-04-P, CS-04-N.
-
-  **Entry point and layer:** deterministic stage coordinator and persisted stage results (agents).
-
-  **Verification command (planned):** `uv run pytest tests/agents/test_stage_coordinator.py -q`
-
-  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
-
-- [ ] 3.4 T12.1 Implement approved scoped retrieval
+- [ ] 3.3 T12.1 Implement approved scoped retrieval
 
   **Milestone:** M3. **Requirements:** AI-02. **Depends on:** T08.1, T01.3.
 
   **Business gates:** none.
 
-  **Deliverables:** Approved-knowledge registry/indexer with versioned Search upsert/delete, account/effective-date filters and DB revalidation after retrieval; provision Search in the isolated environment at this slice. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
+  **Deliverables:** Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Search top-k does not establish exhaustive business evidence. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
 
   **Positive acceptance:** Applicable evidence for two questions is returned with source locations.
 
@@ -672,87 +652,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.5 T12.2 Implement evidence registration and question coverage
-
-  **Milestone:** M3. **Requirements:** AI-02. **Depends on:** T12.1, T11.2.
-
-  **Business gates:** none.
-
-  **Deliverables:** Evidence versions, coverage states and bounded multi-query retrieval. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
-
-  **Positive acceptance:** Per-question support distinguishes sufficient from partial coverage.
-
-  **Negative acceptance:** Unknown IDs, conflicting evidence and budget exhaustion never become sufficient coverage.
-
-  **Closes:** AI-02-P, AI-02-N. **Contributes:** none.
-
-  **Entry point and layer:** research loop evidence registry and coverage evaluator (agents).
-
-  **Verification command (planned):** `uv run pytest tests/agents/test_research_coverage.py -q`
-
-  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
-
-- [ ] 3.6 T13.1 Draft typed responses and internal claim maps
-
-  **Milestone:** M3. **Requirements:** AI-04. **Depends on:** T12.2.
-
-  **Business gates:** none.
-
-  **Deliverables:** Typed writer with language/continuity checks, distinctly labeled current facts and illustrative examples, rendered message and draft claim map; no model-generated content enters deterministic reminder path. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
-
-  **Positive acceptance:** Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.
-
-  **Negative acceptance:** Customer output excludes internal IDs and secrets, does not copy example dates/amounts or claim illustrative completed actions, and makes no unsupported action promise.
-
-  **Closes:** AI-04-P, AI-04-N. **Contributes:** none.
-
-  **Entry point and layer:** writer adapter on final language/continuity and disclosure rules (agents).
-
-  **Verification command (planned):** `uv run pytest tests/agents/test_drafting.py -q`
-
-  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
-
-- [ ] 3.7 T13.2 Validate factual claims and commitments
-
-  **Milestone:** M3. **Requirements:** AI-03. **Depends on:** T13.1.
-
-  **Business gates:** none.
-
-  **Deliverables:** Independent final-text claim extraction, union with writer map and deterministic critical spans; coverage gaps and missing evidence block automation. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
-
-  **Positive acceptance:** Applicable 30-day claim is supported by its actual source.
-
-  **Negative acceptance:** An unmapped 999-day claim, unsupported commitment paraphrase, failed extraction, unknown source or copied illustrative fact blocks automation even when the writer map appears valid; example IDs cannot qualify as current evidence.
-
-  **Closes:** AI-03-P, AI-03-N, AI-03-N2. **Contributes:** AI-03-P2, AI-03-N3.
-
-  **Entry point and layer:** final-text claim extraction/coverage and critical-span validator (agents).
-
-  **Verification command (planned):** `uv run pytest tests/agents/test_claim_validation.py -q`
-
-  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
-
-- [ ] 3.8 T14.3 Review validated model drafts and controlled factual warnings
-
-  **Milestone:** M3. **Requirements:** AI-03, AU-02. **Depends on:** T14.2, T13.2.
-
-  **Business gates:** D-13.
-
-  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `web/review/; src/aam/api/approvals/; tests/ui/`.
-
-  **Positive acceptance:** An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.
-
-  **Negative acceptance:** Absent override policy, changed content or forbidden recipient prevents approval/dispatch; no generic human-approval bypass.
-
-  **Closes:** AI-03-P2, AI-03-N3. **Contributes:** AU-02-P, AU-02-N, AU-02-P2, AU-02-N2, AI-03-P, AI-03-N, AI-03-N2.
-
-  **Entry point and layer:** edited-draft validation and warning-acknowledgment approval UI (ui).
-
-  **Verification command (planned):** `uv run pytest tests/ui/test_edited_review.py -q`
-
-  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
-
-- [ ] 3.9 T18.1 Create proactive regional and country cases
+- [ ] 3.4 T18.1 Create proactive regional and country cases
 
   **Milestone:** M3. **Requirements:** RN-01. **Depends on:** T06.1, T17.3, T16.2.
 
@@ -772,7 +672,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.10 T18.2 Coordinate pricing terms and release
+- [ ] 3.5 T18.2 Coordinate pricing terms and release
 
   **Milestone:** M3. **Requirements:** RN-02. **Depends on:** T18.1, T15.2, T05.1.
 
@@ -792,7 +692,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.11 T18.3 Track negotiation rounds and finalization
+- [ ] 3.6 T18.3 Track negotiation rounds and finalization
 
   **Milestone:** M3. **Requirements:** RN-03. **Depends on:** T18.2.
 
@@ -812,7 +712,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.12 T20.1 Resolve underwriting notice and affected entities
+- [ ] 3.7 T20.1 Resolve underwriting notice and affected entities
 
   **Milestone:** M3. **Requirements:** PC-01. **Depends on:** T06.1, T07.1, T17.3.
 
@@ -832,7 +732,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.13 T20.2 Coordinate approved notices and next actions
+- [ ] 3.8 T20.2 Coordinate approved notices and next actions
 
   **Milestone:** M3. **Requirements:** PC-02. **Depends on:** T20.1, T15.2.
 
@@ -852,13 +752,133 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-- [ ] 3.14 T21.2 Implement candidate evaluation and honest reports
+- [ ] 3.9 T06.3 Register connections and enforce scoped agent reads
+
+  **Milestone:** M3. **Requirements:** CX-04. **Depends on:** T06.1, T04.2, T08.1, T12.1.
+
+  **Business gates:** D-04, D-05, D-08.
+
+  **Deliverables:** Connection administration, credential references, operation catalogue, adapter/MCP wrapper and revocable per-call scope checks; normalized evidence envelope and scoped cache. Validate D365, Outlook and knowledge adapters in isolated provider environments. Planned locations: `src/aam/connections/; src/aam/integrations/; tests/integration/`.
+
+  **Positive acceptance:** Approved main/child reads return only permitted account fields with provenance; complete paginated results retain membership evidence and provider access probes succeed.
+
+  **Negative acceptance:** Revoked grants, cross-account cache hits, forged arguments, partial pages, failed refreshes, changed MCP schemas or child write attempts hold/deny rather than yield complete evidence; no secrets enter prompts/logs.
+
+  **Closes:** CX-04-P, CX-04-N, CX-04-P2, CX-04-N2. **Contributes:** none.
+
+  **Entry point and layer:** connection registration API and guarded read gateway including provider qualification (integration).
+
+  **Verification command (planned):** `uv run pytest tests/integration/test_connections.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.10 T11.2 Run dynamic SOP planning with mandatory application gates
+
+  **Milestone:** M3. **Requirements:** AI-01, CS-04. **Depends on:** T11.1, T16.1, T17.1, T06.3.
+
+  **Business gates:** none.
+
+  **Deliverables:** Application-owned context and mandatory boundary hooks around dynamic Deep Agents planning; record evidence, example IDs and typed proposals; restart bounded attempts from durable state instead of maintaining a second business workflow store. Planned locations: `src/aam/agents/; resources/agents/; tests/agents/`.
+
+  **Positive acceptance:** Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.
+
+  **Negative acceptance:** Planner prose, forged readiness, premature writer calls or injected source instructions cannot bypass application boundaries; child outputs cannot mutate scope or directly create obligations.
+
+  **Closes:** AI-01-P, AI-01-N. **Contributes:** CS-04-P, CS-04-N.
+
+  **Entry point and layer:** bounded Deep Agents work handler and guarded output/tool entry points (agents).
+
+  **Verification command (planned):** `uv run pytest tests/agents/test_stage_coordinator.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.11 T12.2 Implement evidence registration and question coverage
+
+  **Milestone:** M3. **Requirements:** AI-02. **Depends on:** T12.1, T11.2.
+
+  **Business gates:** none.
+
+  **Deliverables:** Evidence registry with versions, scope, provenance, field presence, completeness, coverage states and bounded multi-query retrieval; distinguish source failure, partial results, confirmed absence and a proved complete collection. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
+
+  **Positive acceptance:** Per-question support distinguishes sufficient from partial coverage.
+
+  **Negative acceptance:** Unknown IDs, conflicting evidence and budget exhaustion never become sufficient coverage.
+
+  **Closes:** AI-02-P, AI-02-N. **Contributes:** none.
+
+  **Entry point and layer:** research loop evidence registry and coverage evaluator (agents).
+
+  **Verification command (planned):** `uv run pytest tests/agents/test_research_coverage.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.12 T13.1 Draft typed responses and internal claim maps
+
+  **Milestone:** M3. **Requirements:** AI-04, AI-05. **Depends on:** T12.2.
+
+  **Business gates:** none.
+
+  **Deliverables:** Application-invoked typed writer guarded by an exact readiness PASS snapshot; distinct current facts and examples, language/continuity checks, rendered message and claim map. Internal planner text cannot become recipient-visible output. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
+
+  **Positive acceptance:** Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.
+
+  **Negative acceptance:** Missing, expired or mismatched PASS prevents writer invocation; copied illustrative facts, secrets and unsupported commitments are rejected; parent or child agents cannot directly publish drafts.
+
+  **Closes:** AI-04-P, AI-04-N. **Contributes:** AI-05-P, AI-05-N, AI-05-N2.
+
+  **Entry point and layer:** writer adapter on final language/continuity and disclosure rules (agents).
+
+  **Verification command (planned):** `uv run pytest tests/agents/test_drafting.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.13 T13.2 Validate factual claims and commitments
+
+  **Milestone:** M3. **Requirements:** AI-03. **Depends on:** T13.1.
+
+  **Business gates:** none.
+
+  **Deliverables:** Independent final-text extraction, union with writer map and deterministic critical spans; validate the readiness evidence binding and final claims, and discard generation if relevant evidence changed while writing. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
+
+  **Positive acceptance:** Applicable 30-day claim is supported by its actual source.
+
+  **Negative acceptance:** An unmapped 999-day claim, unsupported commitment paraphrase, failed extraction, unknown source or copied illustrative fact blocks automation even when the writer map appears valid; example IDs cannot qualify as current evidence.
+
+  **Closes:** AI-03-P, AI-03-N, AI-03-N2. **Contributes:** AI-03-P2, AI-03-N3.
+
+  **Entry point and layer:** final-text claim extraction/coverage and critical-span validator (agents).
+
+  **Verification command (planned):** `uv run pytest tests/agents/test_claim_validation.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.14 T14.3 Review validated model drafts and controlled factual warnings
+
+  **Milestone:** M3. **Requirements:** AI-03, AU-02. **Depends on:** T14.2, T13.2.
+
+  **Business gates:** D-13.
+
+  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `web/review/; src/aam/api/approvals/; tests/ui/`.
+
+  **Positive acceptance:** An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.
+
+  **Negative acceptance:** Absent override policy, changed content or forbidden recipient prevents approval/dispatch; no generic human-approval bypass.
+
+  **Closes:** AI-03-P2, AI-03-N3. **Contributes:** AU-02-P, AU-02-N, AU-02-P2, AU-02-N2, AI-03-P, AI-03-N, AI-03-N2.
+
+  **Entry point and layer:** edited-draft validation and warning-acknowledgment approval UI (ui).
+
+  **Verification command (planned):** `uv run pytest tests/ui/test_edited_review.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.15 T21.2 Implement candidate evaluation and honest reports
 
   **Milestone:** M3. **Requirements:** QA-01. **Depends on:** T21.1, T13.2.
 
   **Business gates:** D-10.
 
-  **Deliverables:** Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Planned locations: `evals/; tests/evaluation/`.
+  **Deliverables:** Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Add workflow/predicate/connection versions and false-readiness, blocked-writer invocation and unsafe-tool-selection metrics; an unknown source cannot become an empty successful sample. Planned locations: `evals/; tests/evaluation/`.
 
   **Positive acceptance:** Reports identify exact model/bundle/corpus, selected-example configuration and comparable per-slice outcomes; no-example baseline and prior bundle can be reproduced without altering the holdout.
 
@@ -872,7 +892,47 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T21.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-## 4. M4 Extensions, production hardening and full qualification
+- [ ] 3.16 T11.3 Enforce output readiness through generation and resume
+
+  **Milestone:** M3. **Requirements:** AI-05. **Depends on:** T13.2, T06.3, T17.1, T14.1, T14.3, T15.2.
+
+  **Business gates:** D-12, D-13, D-16.
+
+  **Deliverables:** End-to-end guard integration across planner, children, writer, templates, human review and resume; PASS evidence bindings, typed gap/conflict decisions and durable wake conditions. Recheck relevant dependencies before output exposure and delivery. Planned locations: `src/aam/readiness/; src/aam/agents/; tests/integration/`.
+
+  **Positive acceptance:** Complete evidence invokes the writer once with its exact snapshot; missing-data case survives restart, receives valid evidence and passes on a new attempt without duplicate commands.
+
+  **Negative acceptance:** Missing country, unknown inventory, truncated extraction, conflicting source, forged PASS, stale evidence, direct child-writer call or human bypass creates no substantive draft; assert writer-call count zero before PASS and reject stale results after generation.
+
+  **Closes:** AI-05-P, AI-05-N, AI-05-P2, AI-05-N2. **Contributes:** none.
+
+  **Entry point and layer:** actual work handler, output request, writer boundary and approval/delivery precondition checks (integration).
+
+  **Verification command (planned):** `uv run pytest tests/integration/test_output_readiness.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+- [ ] 3.17 T17.4 Author and simulate dynamic SOPs in the portal
+
+  **Milestone:** M3. **Requirements:** CFG-04. **Depends on:** T17.3, T11.3.
+
+  **Business gates:** D-12, D-13, D-16, D-18.
+
+  **Deliverables:** Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition. Planned locations: `web/workflows/; src/aam/configuration/; tests/integration/`.
+
+  **Positive acceptance:** AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.
+
+  **Negative acceptance:** Unregistered connection, unknown field/operator, empty predicate contract, privilege escalation or prompt-injected publication is rejected; a new definition cannot silently change an active case.
+
+  **Closes:** CFG-04-P, CFG-04-N, CFG-04-P2, CFG-04-N2. **Contributes:** none.
+
+  **Entry point and layer:** portal authoring, simulation, publication and version-pinned runtime (integration).
+
+  **Verification command (planned):** `uv run pytest tests/integration/test_sop_authoring.py -q`
+
+  **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.4/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
+
+## 4. M4 Production qualification
 
 - [ ] 4.1 T06.2 Implement approved idempotent write-back
 
@@ -996,7 +1056,7 @@ Business gates identify owner decisions needed before the affected production be
 
 - [ ] 4.7 T25.1 Exercise actual acceptance paths under faults
 
-  **Milestone:** M4. **Requirements:** QA-01, WF-01, WF-02, AU-03, CS-02, OP-01. **Depends on:** T18.3, T19.2, T20.2, T21.2, T22.2, T23.2, T10.2, T14.3, T06.2.
+  **Milestone:** M4. **Requirements:** QA-01, WF-01, WF-02, AU-03, CS-02, OP-01. **Depends on:** T18.3, T19.2, T20.2, T21.2, T22.2, T23.2, T10.2, T14.3, T06.2, T17.4.
 
   **Business gates:** none.
 
@@ -1034,7 +1094,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T25.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
-## 5. M5 Scoped automation qualification and canary
+## 5. M5 Scoped automation
 
 - [ ] 5.1 T26.1 Run shadow and approve category thresholds
 

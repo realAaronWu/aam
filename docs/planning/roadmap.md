@@ -7,7 +7,7 @@ This is dependency order, not a calendar estimate. Stable task IDs do not imply 
 | M0 Reviewed planning | Specs, decisions and acceptance contracts | Engineering revisions reviewed; business questions assigned. Unresolved owner decisions do not become assumed answers |
 | M1 Foundation | T01–T09 foundations (CRM read only), T10.1, T16.1/.2, T17.1/.3, T21.1, T22.1 | Scoped dev/test environment, early corpus, authoritative state/waits/timers, mail observation, parameter publication and case view work with explicit synthetic policy |
 | M2 Deterministic quarterly slice | T14.1/.2, T15.1/.2, T19.1/.2 | Review-assisted templated follow-up, approved-policy evidence processing, restart and human-reply suppression pass in isolated provider tests |
-| M3 Intelligence and other journeys | T11–T13, T14.3, T10.2, T18.1/.2/.3, T20.1/.2, T21.2 | Bounded model-response pipeline and renewal/program journeys tested; branches need not wait for each other |
+| M3 Intelligence and other journeys | T06.3, T11–T13, T14.3, T17.4, T10.2, T18.1/.2/.3, T20.1/.2, T21.2 | Deep Agents, scoped connections, AM SOP authoring and mandatory output-readiness checks tested alongside renewal/program journeys |
 | M4 Production qualification | T06.2, T17.2, T22.2, T23.1/.2, T24.1, T25.1/.2 | Qualified release scope, data controls, cold deploy/restore, real CI and completed independent correctness/delivery review |
 | M5 Scoped automation | T26.1/.2 | Business-approved categories satisfy their own evidence gates; shadow/canary, disablement and rollback verified |
 

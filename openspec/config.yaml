@@ -5,11 +5,13 @@ context: |
   Priorities: renewal monitoring; quarterly claims-deck delivery (local delivery);
   program changes; email understanding and controlled responses.
   The broker may represent multiple clients. A case may span multiple threads.
-  Proposed stack: Python/FastAPI, direct structured-output specialists and bounded research,
+  Proposed stack: Python/FastAPI, Deep Agents with scoped connection tools and bounded dynamic planning,
   DB-owned business state/timers, short-lived Azure Durable Task workers on AKS,
   managed PostgreSQL, Blob, later-slice AI Search and Foundry model deployments.
   Service Bus is deferred. Business policy gaps require owner decisions, not invented defaults.
   All backend infrastructure is managed Azure. No production application exists yet.
+  AMs publish SOPs and per-output predicates using registered capabilities and connections.
+  Missing mandatory inputs prevent substantive drafting; only application-evaluated PASS permits writing.
   Agents propose; trusted application code authorizes changes and external actions.
   Sending a reply does not satisfy a business obligation or close a case.
   Initial specs are proposed deltas, not a claim of implemented behavior.

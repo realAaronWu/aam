@@ -6,7 +6,7 @@ Define the observable agent mail response behavior of AAM, including failure han
 
 ### Requirement: AI-01 Typed bounded specialist processing
 
-The system SHALL extract current-message intent, substantive questions, entities and proposed obligations into validated structured outputs. A deterministic coordinator SHALL enforce permitted stage dependencies and model/tool budgets. Missing, malformed, timed-out or interrupted output SHALL not become success or an executable proposal. Reviewed demonstrations SHALL come from the pinned, validated bundle and be selected deterministically within stage budgets. Analysis selection SHALL support unknown workflow without depending on the intent being predicted. Stage records SHALL retain selected example IDs and bundle/selection versions; a valid zero-match selection SHALL be distinguishable from an unavailable or invalid bundle.
+The system SHALL extract current-message intent, substantive questions, entities and proposed obligations into validated structured outputs. A guarded runtime SHALL allow dynamic planning within the pinned SOP while enforcing permitted tool capabilities, mandatory readiness/validation boundaries and aggregate model/tool budgets. Missing, malformed, timed-out or interrupted output SHALL not become success or an executable proposal. Reviewed demonstrations SHALL come from the pinned, validated bundle and be selected deterministically within stage budgets. Analysis selection SHALL support unknown workflow without depending on the intent being predicted. Stage records SHALL retain selected example IDs and bundle/selection versions; a valid zero-match selection SHALL be distinguishable from an unavailable or invalid bundle.
 
 Source stories: US-02, US-07.
 
@@ -42,7 +42,7 @@ Source stories: US-02, US-07.
 
 ### Requirement: AI-03 Factual draft validation
 
-The system SHALL independently extract consequential claims from the final recipient-visible text and compare their coverage with writer-supplied mappings. Deterministic critical-value and commitment-span checks SHALL supplement semantic checks. Missing mappings, unknown evidence IDs, unsupported or refuted consequential claims SHALL block automatic sending. Human edits SHALL receive a new validation report tied to their content hash. Any human override of factual warnings SHALL require an explicitly configured authority and recorded acknowledgment; missing override policy SHALL hold the action. No override SHALL bypass account scope, recipient authorization, freshness, or prohibited-action controls. Model review alone SHALL not grant authority.
+The system SHALL independently extract consequential claims from the final recipient-visible text and compare their coverage with writer-supplied mappings. Deterministic critical-value and commitment-span checks SHALL supplement semantic checks. Missing mappings, unknown evidence IDs, unsupported or refuted consequential claims SHALL block automatic sending. Human edits SHALL receive a new validation report tied to their content hash. Any human override of factual warnings SHALL require an explicitly configured authority and recorded acknowledgment; missing override policy SHALL hold the action. No override SHALL bypass mandatory output readiness, account scope, recipient authorization, freshness, or prohibited-action controls. Model review alone SHALL not grant authority.
 
 Source stories: US-02, US-07.
 
@@ -68,7 +68,7 @@ Source stories: US-02, US-07.
 
 - **GIVEN** an authorized reviewer supplies an externally learned fact and an approved policy permits acknowledging its factual warning
 - **WHEN** the edited text is validated and approved
-- **THEN** the warning and acknowledgment bind to the exact content; the action stays reviewed and all non-overridable controls still apply
+- **THEN** the fact is recorded under its permitted attestation rule, readiness is reevaluated, and the warning and acknowledgment bind to the exact content; the action stays reviewed and all non-overridable controls still apply
 
 #### Scenario: AI-03-N3 Human approval is not a universal bypass
 
@@ -93,3 +93,33 @@ Source stories: US-02, US-07.
 - **GIVEN** a prior message contains secrets, the knowledge result is insufficient, or a selected illustrative reply contains a date, amount or completed-action statement unsupported for the current case
 - **WHEN** a clarification is prepared
 - **THEN** it neither repeats secrets nor disguises an unsupported policy answer as an acknowledgment, and it does not copy illustrative facts or claim completion from an example
+
+### Requirement: AI-05 Mandatory output readiness
+
+Every workflow SHALL declare a validated entry predicate and a readiness predicate for each named substantive output, separate from action approval and case completion. Application code SHALL evaluate required presence, scope, authority, freshness, collection completeness and consistency from registered evidence. Only PASS SHALL allow the corresponding writer invocation and release of its draft. Missing, unknown, partial or conflicting mandatory information SHALL hold that output without guessing or silently narrowing its scope. PASS SHALL bind the output contract and exact evidence/workflow/predicate versions and SHALL be reevaluated after relevant changes or expiry. Models, subagents, retries, templates and human approvals SHALL not bypass this boundary. Permitted requests for missing information SHALL use a separate output contract and SHALL not contain the blocked substantive answer.
+
+Source stories: US-02, US-06, US-07.
+
+#### Scenario: AI-05-P Complete input permits generation
+
+- **GIVEN** a configured output has current authorized facts for every mandatory field and expected country
+- **WHEN** application code evaluates its predicate
+- **THEN** a version-bound PASS permits the writer to use exactly that evidence snapshot and the later validation/approval gates still apply
+
+#### Scenario: AI-05-N Missing or unknown information
+
+- **GIVEN** one required quote is missing, an inventory is unknown, extraction is incomplete or applicable sources conflict
+- **WHEN** any path requests the substantive output
+- **THEN** the writer is not invoked, no substantive draft is exposed, and a recorded gap/conflict determines collection, review or waiting
+
+#### Scenario: AI-05-P2 Resume after resolving gaps
+
+- **GIVEN** a held case receives the missing authorized evidence after a restart
+- **WHEN** its recorded wake condition starts a new work attempt
+- **THEN** readiness is reevaluated on current evidence and only a new PASS permits output; duplicate wakeups do not create duplicate commands
+
+#### Scenario: AI-05-N2 Bypass or stale decision
+
+- **GIVEN** an agent claims ready, a child invokes the writer directly, an approver attempts to waive a missing required input or evidence changes after PASS
+- **WHEN** generation or delivery is attempted
+- **THEN** the bypass or stale decision is rejected, affected output is withheld and current readiness must be established again

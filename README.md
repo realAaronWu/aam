@@ -9,6 +9,7 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 - Email understanding, account/case matching and reviewed response drafting.
 - Renewal coordination, periodic report delivery and insurance program changes.
 - Case status, evidence-linked obligations and follow-up reminders.
+- AM-authored SOPs, scoped external connections and mandatory input-readiness predicates.
 - Small reviewed example libraries for tuning intent recognition and response quality.
 - Controlled automation with explicit approval, factual checks and delivery safeguards.
 
@@ -17,9 +18,9 @@ The proposed architecture uses four deployables: portal/API, intake/synchronizat
 ## Review the design
 
 1. [User stories](docs/product/user-stories.md) and [scope assumptions](docs/product/sources.md).
-2. [Capability specifications](openspec/changes/establish-aam-platform/specs/): 12 capabilities, 37 requirements and 84 scenarios.
+2. [Capability specifications](openspec/changes/establish-aam-platform/specs/): 12 capabilities, 40 requirements and 96 scenarios.
 3. [Architecture and data-flow diagrams](openspec/changes/establish-aam-platform/design.md), including example ingestion and retrieval.
-4. [Roadmap](docs/planning/roadmap.md) and [implementation tasks](openspec/changes/establish-aam-platform/tasks.md): 53 planned tasks.
+4. [Roadmap](docs/planning/roadmap.md) and [implementation tasks](openspec/changes/establish-aam-platform/tasks.md): 56 planned tasks.
 5. [Testing strategy](docs/testing/strategy.md), [traceability](docs/traceability.json) and [decisions](docs/product/decisions.md).
 
 ## Validate the specifications

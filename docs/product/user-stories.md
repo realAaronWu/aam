@@ -20,7 +20,7 @@ Initial delivery includes US-01 through US-08 in review-assisted operation, foll
 - **Story:** As Account Manager, I want to understand current client or broker requests, resolve the right account, apply its SOP and prepare the appropriate response, so that less reading and coordination with human oversight.
 - **Trigger and timing:** Incoming authorized client/broker email.
 - **Typical workflow:** Analyze sender, recipients, subject, body and authorized history → resolve account/case → retrieve CRM and approved SOP → identify action/owner/due date → draft or route ambiguity → link subsequent correspondence.
-- **Acceptance contracts:** CX-01, CX-02, CX-03, AU-01, AU-02, AI-01, AI-02, AI-03, AI-04, CS-01, CS-03, CS-04, IN-01, IN-02, IN-03, IN-04, OP-01, QA-01, WF-02 in the [traceability index](../traceability.json); each has positive and negative scenarios.
+- **Acceptance contracts:** CX-01, CX-02, CX-03, AU-01, AU-02, AI-01, AI-02, AI-03, AI-04, CS-01, CS-03, CS-04, IN-01, IN-02, IN-03, IN-04, OP-01, QA-01, WF-02, CX-04, AI-05 in the [traceability index](../traceability.json); each has positive and negative scenarios.
 
 ## US-03 Quarterly local claims deck delivery
 
@@ -49,10 +49,10 @@ Initial delivery includes US-01 through US-08 in review-assisted operation, foll
 ## US-06 Extensible workflow administration
 
 - **Scope:** Initial.
-- **Story:** As Workflow administrator, I want to publish versioned client workflow packages and extend reusable steps, so that new clients and processes can be added without rewriting the core.
+- **Story:** As an authorized Account Manager, I want to describe and revise SOPs, select approved data connections/tools and define sufficient-input conditions for each output, so that changing client workflows do not require code releases.
 - **Trigger and timing:** New or revised SOP/workflow.
-- **Typical workflow:** Draft configuration → validate → review → publish → pin new cases → explicitly migrate existing cases if authorized.
-- **Acceptance contracts:** CFG-01, CFG-02, CFG-03 in the [traceability index](../traceability.json); each has positive and negative scenarios.
+- **Typical workflow:** Describe SOP → select authorized connections → review output predicates → simulate complete and missing-input cases → publish → pin new cases → explicitly migrate active cases if authorized.
+- **Acceptance contracts:** CFG-01, CFG-02, CFG-03, CX-04, AI-05, CFG-04 in the [traceability index](../traceability.json); each has positive and negative scenarios.
 
 ## US-07 Controlled automatic responses
 
@@ -60,7 +60,7 @@ Initial delivery includes US-01 through US-08 in review-assisted operation, foll
 - **Story:** As Account Manager, I want to delegate approved low-risk acknowledgments, clarifications and reminders while reviewing sensitive responses, so that routine coordination is faster without losing authority.
 - **Trigger and timing:** Validated proposal and an enabled action policy.
 - **Typical workflow:** Validate facts and recipients → apply policy → review where required → authorize exact content → send → reconcile outcome.
-- **Acceptance contracts:** CX-02, AU-01, AU-02, AU-03, AI-01, AI-02, AI-03, AI-04, IN-04, OP-04, QA-01, QA-02 in the [traceability index](../traceability.json); each has positive and negative scenarios.
+- **Acceptance contracts:** CX-02, AU-01, AU-02, AU-03, AI-01, AI-02, AI-03, AI-04, IN-04, OP-04, QA-01, QA-02, AI-05 in the [traceability index](../traceability.json); each has positive and negative scenarios.
 
 ## US-08 Reliable managed operation
 
@@ -68,7 +68,7 @@ Initial delivery includes US-01 through US-08 in review-assisted operation, foll
 - **Story:** As Service owner, I want to operate, observe, recover and update AAM with managed cloud services, so that failures do not lose obligations or create uncontrolled actions.
 - **Trigger and timing:** Deployment, incident, version change or operational review.
 - **Typical workflow:** Monitor → diagnose → pause/repair/replay safely → verify recovery → retain attributable evidence.
-- **Acceptance contracts:** AU-03, IN-04, OP-01, OP-02, OP-03, OP-04, QA-01, QA-02, WF-01, WF-02 in the [traceability index](../traceability.json); each has positive and negative scenarios.
+- **Acceptance contracts:** AU-03, IN-04, OP-01, OP-02, OP-03, OP-04, QA-01, QA-02, WF-01, WF-02, CX-04 in the [traceability index](../traceability.json); each has positive and negative scenarios.
 
 ## US-09 Quarterly consolidated reporting
 

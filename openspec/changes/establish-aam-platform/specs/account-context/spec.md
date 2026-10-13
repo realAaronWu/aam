@@ -71,3 +71,33 @@ Source stories: US-02.
 - **GIVEN** the current body is truncated or an earlier reply asserted an unrecorded approval
 - **WHEN** drafting runs
 - **THEN** the system abstains from a complete answer or unsupported approval claim and routes the issue to review
+
+### Requirement: CX-04 Authorized external connections
+
+The system SHALL let integration administrators register versioned connections and let authorized workflow publishers select permitted tools from them. Credentials SHALL remain outside model inputs. Each read SHALL enforce current connection, actor and account scope, including child agents and cached results, and return provenance, freshness and explicit completeness/status. Connection revocation SHALL override workflow pins. A denied, failed or partially paginated read SHALL not become successful complete evidence. Dynamic tool discovery SHALL not grant unregistered operations. Agent tools SHALL not directly send mail or execute business writes.
+
+Source stories: US-02, US-06, US-08.
+
+#### Scenario: CX-04-P Scoped connected reads
+
+- **GIVEN** a workflow binds approved CRM, mail and knowledge operations for one account
+- **WHEN** the main agent or an authorized child requests data
+- **THEN** adapters enforce the same account/field scope and return source versions, freshness and completeness without exposing credentials
+
+#### Scenario: CX-04-N Permission widening or revocation
+
+- **GIVEN** a tool request changes the account, a connection was revoked or a child requests an unregistered operation
+- **WHEN** execution or cache access is attempted
+- **THEN** it is denied and no restricted data or direct external write is released
+
+#### Scenario: CX-04-P2 Complete collection evidence
+
+- **GIVEN** an authorized provider returns multiple pages for an approved record set
+- **WHEN** all required pages and membership checks complete
+- **THEN** the result records the complete set and its source/query provenance for readiness evaluation
+
+#### Scenario: CX-04-N2 Partial or failed source read
+
+- **GIVEN** a source times out, returns only one page, provides stale data or an MCP schema changes unexpectedly
+- **WHEN** evidence is normalized
+- **THEN** unavailable, partial, stale or incompatible state remains explicit and cannot satisfy a complete-current-input requirement

@@ -6,7 +6,7 @@ Define the observable workflow configuration behavior of AAM, including failure 
 
 ### Requirement: CFG-01 Versioned client workflow packages
 
-The system SHALL publish reviewed workflow types defining steps, schemas, completion-policy slots, allowed actions and source SOP references, separately from versioned per-client parameters. Active cases SHALL pin both versions unless an authorized, audited migration is applied. Publication/activation SHALL reject missing required business decisions rather than supplying unstated evidence, authority or recipient rules.
+The system SHALL publish reviewed workflow definitions within registered capability schemas, defining SOP instructions, output readiness predicates, steps, completion-policy slots, allowed tool/connection bindings, actions and source references, separately from versioned per-client parameters. Active cases SHALL pin both versions unless an authorized, audited migration is applied. Publication/activation SHALL reject missing required business decisions rather than supplying unstated evidence, authority or recipient rules.
 
 Source stories: US-06.
 
@@ -24,7 +24,7 @@ Source stories: US-06.
 
 ### Requirement: CFG-02 Composable extensions and compatibility
 
-The system SHALL support composing collect, request, wait, evaluate, approve, remind, escalate and consolidate steps through documented contracts. New workflow types SHALL declare schemas, tools, authorization and tests. Existing workflow behavior SHALL remain unchanged unless its version is explicitly migrated.
+The system SHALL support composing collect, request, wait, evaluate, approve, remind, escalate and consolidate steps through documented contracts. New workflow definitions SHALL declare compatible schemas, tools, authorization, output prerequisites and tests; new capability code remains engineering-owned. Existing workflow behavior SHALL remain unchanged unless its version is explicitly migrated.
 
 Source stories: US-06.
 
@@ -57,3 +57,33 @@ Source stories: US-06.
 - **GIVEN** a parameter payload attempts to add a tool or modify the authority schema
 - **WHEN** publication is requested
 - **THEN** validation rejects it without changing active cases
+
+### Requirement: CFG-04 Account manager authored dynamic SOPs
+
+Authorized account managers SHALL be able to describe and revise SOP steps, branches, registered tool/connection selections and named-output predicates without an application code deployment. Natural-language interpretation SHALL produce a draft with a readable preview, unresolved questions and positive/missing-input simulations before authorized publication. Definitions SHALL use registered schemas/capabilities and SHALL not grant permissions, execute arbitrary code or weaken mandatory organizational controls. Publication SHALL retain versioned instructions, predicate contracts and resource bindings; active cases SHALL change only through explicit migration. Retrieved documents and inbound messages SHALL not publish definitions.
+
+Source stories: US-06.
+
+#### Scenario: CFG-04-P Publish a configured renewal SOP
+
+- **GIVEN** an authorized AM describes a renewal sequence and selects existing allowed CRM and knowledge tools
+- **WHEN** its readable definition and input-sufficiency simulations pass and publication is authorized
+- **THEN** new cases can use the SOP, tool bindings and predicates without a code deployment
+
+#### Scenario: CFG-04-N Invalid or overprivileged definition
+
+- **GIVEN** a draft includes an undefined predicate, empty mandatory-input contract, unsupported connector or permission beyond the publisher's authority
+- **WHEN** validation or publication runs
+- **THEN** publication is rejected with actionable diagnostics and no credentials or extra tools are granted
+
+#### Scenario: CFG-04-P2 Dynamic adaptation within the SOP
+
+- **GIVEN** a pinned SOP permits collecting a missing quote and reconsidering revised terms
+- **WHEN** new evidence changes the case's next useful action
+- **THEN** the agent can choose the permitted next collection action while readiness and approval rules remain enforced
+
+#### Scenario: CFG-04-N2 No silent active workflow change
+
+- **GIVEN** an AM publishes a new SOP or an inbound email instructs the agent to remove a required quote
+- **WHEN** an older active case resumes
+- **THEN** it retains its approved definition unless explicitly migrated and untrusted instructions cannot remove prerequisites

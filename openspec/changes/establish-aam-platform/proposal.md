@@ -6,10 +6,11 @@ Account Managers manually coordinate renewals, local reporting and program chang
 
 - Establish a case-centered platform covering generic account-management stories and three priority workflows.
 - Resolve client and case context, track correspondence across threads, and provide current summaries.
-- Use specialist agents for interpretation, knowledge retrieval and drafting with explicit abstention and action authorization.
+- Use Deep Agents for dynamic SOP interpretation and bounded data gathering, with application-owned output readiness, guarded writing and action authorization.
+- Let authorized AMs publish SOP steps, branches and output predicates using approved connections and tools, including D365 CRM, Outlook and knowledge sources.
 - Tune interpretation and drafting with small reviewed workflow-example files shipped in the existing agent bundle, deterministic local selection and separate held-out evaluation; no separate example service or vector index.
 - Keep long-lived cases, waits and timers in one authoritative business store; use bounded technical execution.
-- Separate reviewed workflow types from bounded client parameters; add category-specific evaluation gates and managed Azure deployment.
+- Separate AM-authored workflow definitions within registered capability schemas from bounded client parameters; add category-specific evaluation gates and managed Azure deployment.
 - Deliver deterministic quarterly tracking before model-generated responses; preserve unresolved business decisions as activation gates.
 - Enforce trusted context, factual validation, evidence-based case closure and restart-safe execution.
 
