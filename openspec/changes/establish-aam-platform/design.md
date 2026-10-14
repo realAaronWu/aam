@@ -12,76 +12,75 @@ Status: proposed architecture, not an implemented system. See [proposal](proposa
 
 ### Components and data flow
 
-The product uses TypeScript throughout: Next.js portal/API, a Node.js background worker combining intake/synchronization and workflow/agent modules, and a separate Node.js delivery worker with send permissions. These are three deployment roles from one codebase; intake can be split later if load or permissions justify it. Deep Agents runs as a TypeScript library inside the background worker. Connections, readiness and validation are modules, not services. Managed PostgreSQL owns business state and durable jobs; Blob holds immutable workflow packages, attachments and evidence. AI Search is a derived knowledge index. No separate agent API, callback service or second business database is required.
+The core backend uses Java/Spring Boot for API, cases, workflow execution, intake, connections, evidence, readiness, approvals and delivery. Next.js/TypeScript remains the presentation layer. Deep Agents TypeScript runs as a bounded companion to the Java background worker, with no direct business database access or external write credentials. Four deployment roles share one product repository: portal, Java API, Java background with agent companion, and Java delivery. The Java backend is a modular application with shared domain modules and separate launch profiles/identities, not a service per module. Managed PostgreSQL owns business state and durable jobs; Blob holds evidence and versioned packages; AI Search is derived knowledge data.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "15px", "edgeLabelBackground": "#ffffff"}, "flowchart": {"htmlLabels": false, "curve": "linear", "nodeSpacing": 35, "rankSpacing": 45}}}%%
 flowchart TB
-  API[Portal and API<br/>AM authors SOP and output requirements]
-  PACKAGE[Published workflow and skill package]
-  INTAKE[Intake and synchronization]
-  SOURCES[D365 CRM / Dataverse<br/>Outlook / Graph<br/>Approved knowledge and databases]
-  DB[(PostgreSQL<br/>Cases, waits, connections and approvals)]
-  EXEC[Durable DB job dispatcher]
-  BLOB[(Blob<br/>Versioned evidence and packages)]
-  subgraph WORKER[Workflow and agent worker]
-    AGENT[Deep Agents<br/>Interpret SOP and plan data gathering]
-    TOOLS[Connection gateway<br/>Authorize and execute scoped tools]
-    GATE{Readiness predicate<br/>Are all required inputs sufficient?}
-    WRITER[Guarded writer<br/>Generate requested output]
-    VALID[Independent validation<br/>and action authorization]
-    HOLD[Missing inputs or conflict<br/>Ask AM, collect or wait]
+  PORTAL[Next.js portal<br/>Presentation and review]
+  API[Java Spring Boot API<br/>Cases, SOP publication and approvals]
+  DB[(Azure PostgreSQL<br/>Business state, jobs and commands)]
+  BLOB[(Azure Blob<br/>Evidence and published packages)]
+  EXT[Outlook / Graph<br/>D365 / Dataverse<br/>Approved knowledge]
+  subgraph POD[Background deployment on AKS]
+    subgraph JAVA[Java worker — authoritative application logic]
+      INTAKE[Intake and synchronization]
+      JOB[Job and workflow runner]
+      TOOLS[Connection gateway<br/>Scoped reads and evidence registry]
+      GATE{Output readiness<br/>Required inputs sufficient?}
+      VALID[Final validation<br/>and action authorization]
+      HOLD[Persist gaps and wait]
+    end
+    AGENT[TypeScript Deep Agents companion<br/>Bounded planning / drafting / model checks]
   end
-  DELIVERY[Delivery worker<br/>Recheck and submit authorized commands]
-  API -->|Validate and publish| PACKAGE
-  PACKAGE -->|Pinned SOP, tools and predicates| AGENT
-  SOURCES -->|Mail changes and source updates| INTAKE
-  INTAKE -->|Durable observations| DB
-  DB -->|Pending events and due timers| EXEC
-  EXEC -->|Bounded work attempt| AGENT
-  AGENT -->|Approved tool request| TOOLS
-  TOOLS <-->|Scoped reads through adapters| SOURCES
-  TOOLS -->|Provenance and completeness| BLOB
-  AGENT -->|Request named output| GATE
-  BLOB -->|Verified evidence snapshot| GATE
-  PACKAGE -->|Required inputs and checks| GATE
-  GATE -->|PASS only| WRITER
-  GATE -->|Missing, unknown or conflict| HOLD
-  HOLD -->|Persist gaps and wake conditions| DB
-  HOLD -->|Actionable gap list| API
-  WRITER --> VALID
-  VALID -->|Approval when required| API
-  VALID -->|Authorized command| DB
+  DELIVERY[Java delivery worker<br/>Recheck, send and reconcile]
+  PORTAL <-->|API contracts| API
+  API <-->|Authorized commands and queries| DB
+  API -->|Published immutable versions| BLOB
+  EXT -->|Observed changes| INTAKE
+  INTAKE -->|Atomic observations and jobs| DB
+  DB -->|Claim with lease and fence| JOB
+  JOB -->|Scoped planning attempt| AGENT
+  AGENT -->|Authenticated read-tool calls| TOOLS
+  TOOLS <-->|Approved provider APIs| EXT
+  TOOLS -->|Register immutable evidence| BLOB
+  AGENT -->|Typed output proposal| JOB
+  JOB -->|Evaluate output contract| GATE
+  BLOB -->|Current evidence snapshot| GATE
+  GATE ==>|PASS-bound drafting invocation| AGENT
+  GATE -.->|Missing or conflicting inputs| HOLD
+  HOLD -->|End attempt; retain wake condition| DB
+  AGENT -->|Candidate output; no authority| VALID
+  VALID -->|Review draft / authorized command| DB
   DB -->|Claim and recheck| DELIVERY
-  DELIVERY -->|Outlook send or approved write-back| SOURCES
-
-  classDef default fill:#f8fafc,stroke:#94a3b8,color:#172033,stroke-width:1.5px
-  classDef control fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:2px
+  DELIVERY -->|Authorized send / write| EXT
+  classDef ui fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:2px
+  classDef core fill:#ccfbf1,stroke:#0f766e,color:#134e4a,stroke-width:3px
   classDef agent fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:3px
   classDef gate fill:#fef3c7,stroke:#b45309,color:#78350f,stroke-width:4px
-  classDef state fill:#ccfbf1,stroke:#0f766e,color:#134e4a,stroke-width:3px
   classDef hold fill:#fff1f2,stroke:#be123c,color:#881337,stroke-width:2px
   classDef delivery fill:#ffedd5,stroke:#c2410c,color:#7c2d12,stroke-width:3px
-  class API,PACKAGE,INTAKE,SOURCES control
-  class AGENT,TOOLS,WRITER agent
-  class GATE gate
-  class DB,EXEC,BLOB,VALID state
+  class PORTAL,EXT ui
+  class API,INTAKE,JOB,TOOLS,DB,BLOB core
+  class AGENT agent
+  class GATE,VALID gate
   class HOLD hold
   class DELIVERY delivery
-  style WORKER fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px
-  linkStyle 0,2,3,15,17 stroke:#2563eb,stroke-width:2px,color:#1e40af
-  linkStyle 1,6,7,9 stroke:#7c3aed,stroke-width:2.5px,color:#5b21b6
-  linkStyle 4,5,8,18 stroke:#0f766e,stroke-width:3px,color:#115e59
-  linkStyle 10,11,12,16 stroke:#b45309,stroke-width:4px,color:#92400e
-  linkStyle 13,14 stroke:#be123c,stroke-width:2.5px,stroke-dasharray:5 4,color:#9f1239
-  linkStyle 19,20 stroke:#c2410c,stroke-width:4px,color:#9a3412
+  style POD fill:#f8fafc,stroke:#94a3b8,stroke-width:2px
+  style JAVA fill:#f0fdfa,stroke:#0f766e,stroke-width:2px
+  linkStyle 0,2,3 stroke:#2563eb,stroke-width:2px,color:#1e40af
+  linkStyle 1,4,5,9,17 stroke:#0f766e,stroke-width:2.5px,color:#115e59
+  linkStyle 6,7,8,10 stroke:#7c3aed,stroke-width:2.5px,color:#5b21b6
+  linkStyle 11,12,13,16 stroke:#b45309,stroke-width:4px,color:#92400e
+  linkStyle 14,15 stroke:#be123c,stroke-width:2.5px,stroke-dasharray:5 4,color:#9f1239
+  linkStyle 18,19 stroke:#c2410c,stroke-width:4px,color:#9a3412
 ```
 
-Blue = authoring/intake/review; violet = dynamic planning and tool calls; teal = durable state/evidence; thick amber = mandatory readiness and validation; dashed rose = hold; orange = external delivery. Intake and the workflow/agent box are modules of the same background deployment. The graph groups external systems for readability: approved writes still use distinct delivery identities, never the agent's read tools. Approval records return through the API to the same state/policy library; they do not bypass the readiness check. Entra, Key Vault, ACR and Azure Monitor support the three deployment roles as described below.
+Blue = portal/publication/intake; teal = Java-owned state and evidence; violet = bounded agent execution and scoped read calls; thick amber = readiness, drafting and final validation; dashed rose = hold; orange = external delivery. The background pod contains the Java worker and its TypeScript agent companion. The portal and companion have no direct business-state mutation authority. Entra, Key Vault, ACR and Azure Monitor support the four deployment roles. The graph groups external systems for readability; read and delivery identities remain separate.
 
-**ADR-01 Specialist implementation — revised:** TypeScript only, with Next.js for portal/API, Node.js workers, Deep Agents TypeScript for dynamic SOP interpretation and bounded data gathering, and shared Zod runtime schemas with inferred types. LangChain/LangGraph remain internal implementation dependencies behind an AAM runtime interface. AAM owns tool permissions, readiness predicates, guarded writing, independent validation and action authorization. Simple deterministic template workflows can run without a model. Qualify and lock actual TypeScript dependencies; a reference implementation in another language is not SDK compatibility evidence.
+**ADR-01 Specialist implementation — revised:** Java/Spring Boot owns the business core and safety controls; retain Deep Agents TypeScript for bounded planning, drafting and model-assisted validation behind a private schema-defined interface. LangChain/LangGraph are internal to that runtime. Shared JSON schemas/OpenAPI define cross-language contracts; Java evaluates readiness and action policy. Simple deterministic templates run entirely in Java. A runtime replacement must satisfy the same contracts; no second agent orchestration framework is added.
 
-**ADR-02 Execution ownership — revised:** PostgreSQL-backed jobs execute bounded technical work in Node.js workers. No task remains active while waiting days for a business reply or approval. Model calls and reads can repeat after interruption; effects remain persisted delivery commands. The initial runner restarts a bounded attempt from authoritative state rather than replaying an arbitrary program or implementing durable activity checkpoints. Process-local timers may wake a scan, but database ownership and due records determine work.
+**ADR-02 Execution ownership — revised:** PostgreSQL-backed jobs execute bounded technical work in Java workers. No task remains active while waiting days for a business reply or approval. Model calls and reads can repeat after interruption; effects remain persisted delivery commands. The initial runner restarts a bounded attempt from authoritative state rather than replaying an arbitrary program or implementing durable activity checkpoints. Process-local timers may wake a scan, but database ownership and due records determine work.
 
 **ADR-03 Persistence and event path — revised:** one managed PostgreSQL business store and job queue, Blob for originals/artifacts, and AI Search for the intelligence slice. Business changes and outbox events commit together; a relay atomically materializes idempotent work rows and marks each outbox event transferred. Workers claim those rows. Delivery workers independently claim persisted command rows; command-ready events are hints, never a second dispatch authority. A broker, generic callback service and external orchestrator are deferred. PostgreSQL full-text/pgvector remains an alternative to AI Search to assess through retrieval quality and operations. Deterministic workflows need neither search nor a broker.
 
@@ -93,7 +92,7 @@ Blue = authoring/intake/review; violet = dynamic planning and tool calls; teal =
 
 Work rows have stable logical keys `msg:<mailbox>:<immutable-id>:<processing-revision>`, `evt:<event-id>` and `tmr:<timer-id>:<version>`. Record pending/running/completed/failed/quarantined status, attempt, owner, lease expiry, fencing token, deadline, recovery epoch, pinned versions and result. Claim eligible rows in a short transaction with `FOR UPDATE SKIP LOCKED`; execute external I/O outside that transaction. Renew leases and commit results only while the same attempt, unexpired lease and recovery epoch still own the row. Combine result, state transition and resulting outbox/command records in one transaction. A late or cancelled worker cannot commit after losing ownership. Retry an expired read/planning attempt only after checking committed results, current policy and retry budget; quarantine exhausted work. Keep stable business deduplication keys even after technical attempt cleanup. On a lost commit acknowledgement, query the same work key before deciding whether work is unfinished.
 
-External orchestration is deferred: Microsoft currently lists its standalone JavaScript/TypeScript Durable Task SDK as preview. Introduce a managed executor only when measured workload or checkpoint needs justify it and a TypeScript implementation is qualified; do not introduce another application language. Database jobs require explicit lease, deadline, cancellation, retry and recovery tests, not an assumption that a polling loop is durable. Active workflow versions and bounded attempts still require compatible handlers or explicit migration.
+External orchestration remains deferred because the initial bounded jobs can use the existing PostgreSQL owner and do not require durable program checkpoints. Java availability does not itself justify adding another scheduler. A managed executor can be assessed later for measured workload needs, preserving business-state, lease, cancellation and effect contracts. Active workflow versions and bounded attempts still require compatible Java handlers or explicit migration.
 
 **ADR-07 Intake transport — accepted:** folder delta polling is the primary and only initial Graph intake path. Keep a cursor and health watermark per approved mailbox/folder, including Inbox, Sent Items and additional folders required by mailbox rules. Discover/approve folder changes; a move out of a polled folder is not proof a business message was deleted. Persist a page's durable records and cursor together. Invalid cursors trigger a controlled rescan with the same mailbox-scoped immutable-ID deduplication. Notifications are a future latency accelerator requiring a separately designed public ingress/Event Hubs path; there is no initial webhook or public machine ingress requirement. Portal access uses the organization's approved ingress independently. [Graph delta queries are per folder](https://learn.microsoft.com/en-us/graph/delta-query-messages).
 
@@ -107,11 +106,11 @@ External orchestration is deferred: Microsoft currently lists its standalone Jav
 
 Engineering owns the reusable capability schemas, predicate operators and connector implementations. Within granted authority, AMs can reorder steps, add conditions, select registered tools and change output prerequisites through workflow publication without a code deployment. Client parameters remain a separate narrow editing path; they cannot smuggle structural changes. New external endpoints, privileged operations or predicate code require registration and access approval. Workflow publication cannot weaken organization-level mandatory controls. Cases pin definition, parameter, predicate, skill and example-bundle versions; edits to active cases use the existing migration path with approval/timer impact preview. Current access revocation always overrides a historical pin.
 
-**ADR-12 Selected agent harness:** Deep Agents interprets the published SOP, plans bounded evidence collection and may delegate research/extraction to restricted specialists. Its LangChain tools and LangGraph execution are internal to the worker. The business sequence can adapt to new replies and missing data; application code enforces the invariant boundaries: trusted context → authorized collection → readiness PASS → guarded output → independent validation → action authorization. This replaces a fixed analyzer/research/writer business sequence, not those boundaries.
+**ADR-12 Selected agent harness:** Deep Agents TypeScript interprets the published SOP, plans bounded evidence collection and may delegate research/extraction to restricted specialists. It is a companion runtime called by Java, not the business workflow owner. Its LangChain tools wrap the Java connection boundary; its LangGraph execution is attempt-local. The business sequence can adapt, while Java enforces trusted context → authorized collection → readiness PASS → guarded output → independent validation → action authorization. ADR-16 defines cross-process authentication, phase control and failure handling.
 
-Each bounded work attempt reconstructs its context from PostgreSQL and immutable artifacts. Initial implementation uses no separate durable LangGraph store: agent execution state is local to the attempt, with durable observations and resulting decisions recorded in AAM. After interruption, restart the bounded read/planning work against current state; reads may repeat, external side effects cannot. Business waits and approvals end the attempt and are stored in PostgreSQL; a later event starts new work through the existing outbox/job path. Deep Agents checklists, skill memory and subagent results cannot complete obligations. Long-term agent memory is not an alternative business database.
+Each bounded work attempt reconstructs its context from PostgreSQL and immutable artifacts. Initial implementation uses no separate durable LangGraph store: agent execution state is local to the attempt, with durable observations and resulting decisions recorded in AAM. After interruption, restart the bounded read/planning work against current state; reads may repeat, external side effects cannot. Business waits and approvals end the attempt and are stored in PostgreSQL; a later event starts new Java-owned work through the existing outbox/job path. Deep Agents checklists, skill memory and subagent results cannot complete obligations. Long-term agent memory is not an alternative business database.
 
-The main planner and all child agents receive only the effective read-tool set and authorized skill files. Disable shell/execute, arbitrary network/SQL, unregistered tools, writable SOP/memory and unconstrained delegation; qualify the effective main and child tool sets in tests rather than relying on defaults. Bound total calls, time, tokens and delegation depth across the entire attempt. Skills and retrieved content remain data with distinct trust levels; only published workflows supply operating instructions. Planner prose is internal and never promoted to a customer draft. The writer is an application-invoked stage behind the readiness evaluator, not an unrestricted subagent the planner can spawn to bypass it.
+The main planner and all child agents receive only the effective read-tool set and authorized skill files. Disable shell/execute, arbitrary network/SQL, unregistered tools, writable SOP/memory and unconstrained delegation; qualify the effective main and child tool sets in tests rather than relying on defaults. Bound total calls, time, tokens and delegation depth across the entire attempt. Skills and retrieved content remain data with distinct trust levels; only published workflows supply operating instructions. Planner prose is internal and never promoted to a customer draft. The writer is a Java-invoked companion stage behind the Java readiness evaluator, not an unrestricted subagent the planner can spawn to bypass it.
 
 Deep Agents provides skills, tool use, context management and delegation, and accepts function/LangChain/MCP tools. Use a tested, locked library version at T11.1; this design does not assume the current documentation's optional features exist in an older package. [Deep Agents documentation](https://docs.langchain.com/oss/javascript/deepagents/overview).
 
@@ -130,7 +129,7 @@ An AM chooses existing connections and operations for a workflow. A model call s
 
 For D365 Sales, Dataverse is the selected interface; other Dynamics product families require their own adapter assessment. Microsoft documents the [Dataverse Web API](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/overview) and [application-user authentication](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/use-single-tenant-server-server-authentication). Outlook uses [Microsoft Graph mail APIs](https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview). Tenant consent, roles and actual field mappings remain deployment prerequisites.
 
-Use ordinary in-process TypeScript adapters first. An approved existing MCP server may supply tools through a wrapper with the same connection policy and result contract; MCP is an optional transport, not an authorization boundary or a requirement to deploy a new server per source. Pin/validate its tool schemas, constrain destinations and deny unregistered tool discovery changes. [LangChain MCP integration](https://docs.langchain.com/oss/javascript/langchain/mcp).
+Use Java provider adapters behind the worker connection gateway. TypeScript agent tools are thin authenticated clients of that gateway, not parallel provider adapters. An approved existing MCP server may supply tools through a wrapper with the same connection policy and result contract; MCP is an optional transport, not an authorization boundary or a requirement to deploy a new server per source. Pin/validate its tool schemas, constrain destinations and deny unregistered tool discovery changes. [LangChain MCP integration](https://docs.langchain.com/oss/javascript/langchain/mcp).
 
 Every tool result carries `connection_id/version`, operation, authorized scope, source record IDs/versions, effective and observed times, field presence, data-use disposition, pagination/completeness and status (`ok`, `not_found`, `partial`, `unavailable`, `denied`). Empty results differ from errors and from a proved empty business set. Cache entries are scope/version keyed and obey freshness requirements. A failed refresh cannot silently promote an old cache value to current truth. Audit metadata is stored with the run; sensitive payloads remain in permitted DB/Blob locations. Tokens and raw secrets never enter prompts, checkpoints or diagnostic logs. Actual freshness is bounded by the provider observation contract, not a claim of a cross-system atomic snapshot.
 
@@ -140,7 +139,7 @@ The same adapters serve intake synchronization and controlled on-demand reads, w
 
 **ADR-14 No substantive output from incomplete mandatory inputs:** each published workflow declares one or more named output contracts. Each contract specifies required inputs, their authority and applicability, minimum fields, freshness, collection completeness, cross-source consistency, and the output schema. The workflow has an entry predicate for safe start/scope; each substantive output has its own readiness predicate; completion has a separate evidence predicate. A ready draft is neither an approved send nor a completed case.
 
-Predicates use a small typed declarative expression set: `all`, `any`, `exists`, `equals`, `fresh`, `complete`, `covers`, and registered domain checks. No embedded JavaScript, SQL or arbitrary evaluation code. Natural-language authoring can propose these expressions, but an authorized publisher must review their readable form. Publication rejects undefined fields, empty required-input contracts, unknown operators, unavailable evidence sources and predicates that contradict mandatory controls. Models cannot silently relax a predicate during execution or treat unknown as true.
+Predicates use a small typed declarative expression set: `all`, `any`, `exists`, `equals`, `fresh`, `complete`, `covers`, and registered domain checks. No embedded Java, JavaScript, SQL or arbitrary evaluation code. Natural-language authoring can propose these expressions, but an authorized publisher must review their readable form. Publication rejects undefined fields, empty required-input contracts, unknown operators, unavailable evidence sources and predicates that contradict mandatory controls. Models cannot silently relax a predicate during execution or treat unknown as true.
 
 A readiness result has one of four states:
 
@@ -180,66 +179,84 @@ If one required country's quote is missing, the result is `NEEDS_DATA` with that
 
 | Component | Responsibility |
 | --- | --- |
-| Portal/API | Author and preview SOPs/predicates, select authorized connections, simulate examples, publish versions, show gaps and review exact outputs |
-| Intake/synchronization | Observe Outlook and source updates, preserve originals, maintain freshness/cursors and emit durable events |
-| Deep Agents runtime | Interpret the selected skill/SOP, plan bounded data gathering, invoke permitted reads and propose the next action |
-| Connection gateway | Bind typed tools to approved adapters/identities, enforce account and field scope, normalize completeness/provenance and handle bounded retries |
-| Readiness evaluator | Independently evaluate entry/output predicates; hold missing/conflicting evidence and guard every output invocation |
-| Writer and validator | Generate only from a PASS snapshot, then independently check factual claims, output schema and action policy |
+| Portal and Java API | Portal presents authoring/review; Java API authorizes, validates and persists SOPs, connections, simulations, publication, gaps and exact approvals |
+| Java intake/synchronization | Observe Outlook and source updates, preserve originals, maintain freshness/cursors and emit durable events |
+| TypeScript Deep Agents companion | Interpret the selected skill/SOP, plan bounded data gathering, invoke permitted reads and propose the next action |
+| Java connection gateway | Bind typed tools to approved adapters/identities, enforce account and field scope, normalize completeness/provenance and handle bounded retries |
+| Java readiness evaluator | Independently evaluate entry/output predicates; hold missing/conflicting evidence and guard every output invocation |
+| Writer and validator | Java grants PASS-bound drafting to the companion, then applies independent claim/schema checks and action policy; deterministic templates stay in Java |
 | PostgreSQL, Blob and job runner | Retain case state, waits, grants, predicate decisions and evidence; dispatch bounded work and recover after interruption |
-| Delivery worker | Recheck current predicate dependencies, scope and approval; submit and reconcile authorized external commands |
+| Java delivery worker | Recheck current predicate dependencies, scope and approval; submit and reconcile authorized external commands |
 
 
-### TypeScript structure and selective reuse
+### Java core and selective reuse
 
-**ADR-15 One TypeScript product:** retain useful Next.js portal components and case/task/draft concepts from the demo, then refactor the business runner behind shared TypeScript modules. Reuse engineering patterns and negative test cases from the reference agent scaffold; do not copy its separate service topology, language runtime or fixed customer-support sequence. Source imports require provenance/license review and removal of private fixtures, identifiers, prompts and documentation. This planning repository contains no imported application code.
+**ADR-15 Java business core:** Java 21 is the initial language baseline for the core, with a maintained compatible Spring Boot release and locked Maven wrapper/plugins qualified in T01.1. One modular backend artifact supplies API, background and delivery launch profiles; all share the same domain services and PostgreSQL repositories. Profiles enable only their permitted entry points and jobs. They have distinct workload identities and permissions. Do not create one service per domain module or agent. Next.js retains useful demo presentation components; its server layer has no direct DB or provider writes and cannot authorize business actions. TypeScript is retained only for the portal and the existing choice of Deep Agents runtime. No additional application language or parallel agent framework is introduced.
 
-Proposed layout (modules and worker entry points, not independently deployed services):
+Proposed repository layout:
 
 ```text
-app/                         Next.js pages and thin API handlers
-workers/
-  background.ts              Intake scans, durable jobs, timers and agent attempts
-  delivery.ts                Authorized external effects under a separate identity
-src/aam/
-  cases/                     Case commands, obligations and business transitions
-  workflows/                 Dynamic SOP interpretation and business waits
-  configuration/             Workflow/bundle registry and publication
-  agents/                    Deep Agents adapter, run context and budgets
-  connections/               Scoped tool gateway and provider adapters
-  evidence/                  Evidence registry and immutable handoffs
-  readiness/                 Typed predicate evaluation and guarded output requests
-  persistence/               PostgreSQL repositories and transactions
-  jobs/                      Claims, leases, fencing, retries and recovery
-  delivery/                  Approval rechecks and provider reconciliation
-  operations/                Trace context, readiness, metrics and diagnostics
-contracts/                   Shared Zod schemas with inferred TypeScript types
-resources/                   Reviewed SOPs, prompts, examples and templates
-migrations/                  Versioned PostgreSQL schema changes
+portal/                              Next.js UI and generated API client
+backend/
+  pom.xml                            Spring Boot backend and locked test plugins
+  src/main/java/com/aam/
+    api/                             User and administrative endpoints
+    cases/                           Cases, obligations and transitions
+    workflows/                       SOP interpretation and durable business waits
+    configuration/                   Workflow publication and version registry
+    agents/                          Companion client, grants and typed proposals
+    connections/                     Graph, Dataverse and knowledge adapters
+    evidence/                        Evidence registry and immutable snapshots
+    readiness/                       Required-input predicate evaluator
+    jobs/                            Claims, leases, fencing and recovery
+    delivery/                        Approval rechecks and send reconciliation
+    persistence/                     PostgreSQL access and transactions
+    operations/                      Health, tracing and safe diagnostics
+  src/main/resources/db/migration/   Versioned database migrations
+  src/test/java/com/aam/              JUnit tests and real-PostgreSQL integration
+agent-runtime/
+  src/                               Deep Agents TypeScript adapter and bounded stages
+  tests/                             Vitest runtime and tool-boundary tests
+contracts/
+  openapi.yaml                       Public and private HTTP contracts
+  schemas/                           Authoritative shared JSON schemas
+resources/                           Reviewed SOPs, prompts, examples and templates
 ```
 
-Runtime dependencies point inward: portal and workers call application modules; application modules use narrow repository, connection and agent interfaces. UI components do not import Deep Agents internals. `AgentRuntime.execute(context)` returns a validated proposal or explicit failure; the framework does not own case transitions. Adapters are asynchronous and return a typed result; changing provider transport does not change business rules. Zod validates network, database-JSON and model boundaries; compile-time TypeScript types alone do not validate external data. Domain and contract code is shared between entry points, including delivery.
+Contracts are schema-first: OpenAPI references shared JSON schemas; generate Java DTOs and TypeScript types/clients from those definitions. Validate actual payloads on both sides against the same schema fixtures. Do not maintain a second manually authored Zod schema set or duplicate business validation in TypeScript. Java services own semantic validation and normalized evidence/content hashes; the companion carries those opaque bindings unchanged. Specify absent/null distinctions, decimal amounts as strings, UTC timestamp formats, schema versions, payload bounds and unknown-field compatibility. Java record/type checking and TypeScript types alone do not validate network data.
 
-| Reusable pattern | AAM TypeScript implementation | Acceptance owner |
+| Reusable pattern | Selected owner and implementation | Acceptance owner |
 | --- | --- | --- |
-| Validated agent manifests, prompts and skills | Registry validates allowed models/tools/schemas, hashes the full bundle and retains immutable bytes; server binds published workflow configuration | T11.1, T17.1 |
-| Structured outputs | Shared Zod schemas for inputs, proposals, tool results and failures; reject absent or malformed output instead of treating it as success | T01.1, T11.1 |
-| Run-scoped execution context | `RunContext` holds authorized scope, snapshot references, trace IDs, deadline and shared call budget; one AbortSignal tree propagates cancellation | T11.1, T11.2 |
-| Shared execution budgets | Atomically reserve model/tool calls before invocation; include child, retry and summarization calls; limits span the entire attempt rather than reset per child | T11.1 |
-| Evidence registry | Register adapter-observed evidence IDs, scope, hashes and source versions; reject forged IDs and same-ID/different-content collisions; retain underlying evidence outside model summaries | T12.1, T06.3 |
-| Typed, immutable handoffs | Application constructs child context from stored snapshots; upstream result references/hashes cannot be replaced by supervisor prose or copied JSON labels | T08.1, T11.2 |
-| Conditional writer invocation | Generalize the reference workflow guard to per-output application predicates; keep collection order dynamic, but require PASS before every writer/template call | T11.3, T17.1 |
-| Durable run state and transactional outbox | Bounded job ledger with unique work/effect keys, leases/fencing, cancellation and atomic result/event commit; business cases and long waits remain separate from technical attempts | T03.2, T16.1 |
-| Honest health and diagnostics | Structured failures, trace IDs, queue age and rejected-control metrics; persistence failure stops admissions/claims and makes readiness unhealthy | T22.1 |
-| Fixture and runtime separation | Deterministic fixtures test contracts; actual locked TypeScript runtime tests verify effective tool boundaries; live-model holdout tests assess quality separately | T11.1, T21.2, T25.1 |
+| Versioned agent/workflow bundles | Java registry validates published capabilities and retains immutable contents; TypeScript loads the exact allowed bundle for an attempt | T17.1, T11.1 |
+| Typed outputs and failures | Shared JSON schemas, generated DTOs/clients and fixtures; fail on absent/malformed results | T01.1, T11.1 |
+| Run context and budgets | Java owns durable attempt identity, scope, grant and deadline; TypeScript enforces an attempt-wide model budget including children/summarization; Java enforces tool quotas and deadline at its boundary | T11.1, T11.2 |
+| Evidence registry | Java registers connector-observed evidence and rejects unknown IDs, content collisions, wrong scope and stale versions | T12.1, T06.3 |
+| Immutable handoffs | Java supplies snapshot IDs/hashes; main/child agents receive a bounded authorized view and cannot replace upstream bindings | T08.1, T11.2 |
+| Readiness and validation | Java evaluates output predicates before permitting writer mode, then validates the returned draft and current dependencies before exposure or action | T11.3, T17.1, T13.2 |
+| Durable jobs and events | Java commits result, case transition and outbox/command together; PostgreSQL owns leases, waits, retries and recovery | T03.2, T16.1 |
+| Failure-focused tests | JUnit tests cover the Java authority; Vitest qualifies actual Deep Agents behavior; Playwright exercises portal-to-backend flows | T11.1, T21.2, T25.1 |
 
-A generic HTTP callback subsystem is unnecessary between modules of the same product. Use the existing DB event/outbox contracts; add authenticated external integration events only for an actual external consumer. A default supervisor need not delegate every simple operation. Delegate only for scoped expertise or context isolation, and keep arbitrary scripts, web browsing and writable long-term agent memory disabled unless separately justified and qualified.
+Borrow useful presentation components, domain concepts, safeguards and negative test cases from the reference implementations. Core application logic is ported to Java with acceptance tests; it is not directly reusable TypeScript backend code. Source imports require provenance/license review and removal of private fixtures and identifiers. This planning repository imports no application code.
 
-Workflow definitions are distinct from agent manifests: an AM changes workflow goals, steps, allowed registered connections and readiness/completion rules through publication; engineering registers new capabilities and adapters. A new scenario using existing capabilities should require configuration and acceptance examples, not a new service, agent class or bespoke branch in a giant journey runner. Definitions cannot invent tools, loosen permissions or override organization-level prerequisites. A safe handoff and an existing evidence ID still do not prove semantic sufficiency; the readiness and final-claim checks remain mandatory.
+### Java–Deep Agents boundary and recovery
 
-### Qualification of reused patterns
+**ADR-16 Bounded companion, one state owner:** initially run the TypeScript Deep Agents process as a companion container in the background worker pod. It has no PostgreSQL connection, Graph/CRM credentials, send permissions, independent queue or durable run store. It receives only the selected model access and scoped run inputs. Java accesses managed DB/Blob and provider credentials; the companion fetches permitted package/evidence bytes through Java. Pin both images as a tested release pair. Co-location is operational packaging, not an authorization mechanism: bind private interfaces to loopback, omit public ingress, restrict container credentials/mounts and authenticate calls with short-lived per-attempt capability tokens. Only Java holds signing authority; tokens stay in transport/tool-client code, outside model prompts and logs.
 
-Before activating the first model-assisted workflow, use the actual TypeScript runtime and one synthetic renewal scenario to prove: authorized connection reads; main/child tool restriction; shared budget and cancellation; unknown-evidence rejection; no writer invocation when a required quote is missing; successful drafting on a complete snapshot; stale result rejection after lease/evidence expiry; and restart without duplicate business effects. Reference tests in another language are examples to port, not proof of SDK parity. These are additional cases within the existing task owners above; runtime tests remain NOT RUN until implemented.
+Java claims one job and calls a bounded `execute` endpoint with schema version, operation ID, attempt/fence/recovery epoch, deadline, phase, workflow/bundle versions and immutable context bindings. Phases are `plan`, `draft` and `validate`: planning can use registered read tools; drafting starts only after Java readiness PASS and receives the exact approved snapshot; model-assisted validation receives the final candidate and permitted evidence. The same Deep Agents adapter implements these bounded phases. Java combines model-assisted claim extraction with deterministic checks; a model verdict never authorizes delivery. A failed or timed-out call is not success and cannot expose an unchecked draft.
+
+During a call, TypeScript invokes the Java worker's private tool endpoint with the bound operation/attempt ID, capability token and typed arguments. Java reloads current lease/epoch, cancellation, actor/case scope, workflow tool grants, live connection permissions and remaining tool budget before each operation. It records returned evidence before returning an opaque evidence reference plus permitted content. Main and child agents receive equal or narrower tool sets. A package ID or model-supplied readiness Boolean never grants writer or connector privileges. Validate arguments and result scope; avoid arbitrary URLs or model-generated SQL.
+
+The draft phase is a distinct Java-authorized invocation, not a tool the planner can grant itself. Its capability binds the named output, current PASS, snapshot and phase. The private execute endpoint requires Java-issued credentials, and Java accepts results only for its own outstanding phase and bindings. Internal planner prose is never promoted to a recipient-visible draft. Changes to evidence, permissions or deadline during execution invalidate results; Java rechecks before accepting a draft, before approval and at delivery. No separate callback result channel is needed: the bounded HTTP response returns a candidate, and Java owns its durable acceptance.
+
+Use a bounded async HTTP client and bounded executor capacity; never hold a DB transaction open during model/network calls. Reject oversized/unknown-version requests, enforce timeout/cancellation across both processes and stop admitting work when companion capacity is full. Propagate cancellation to child/model calls, but rely on Java fences even if remote cancellation is delayed. An expired, cancelled or superseded attempt can neither fetch further tools nor commit results. Container readiness alone cannot establish an active attempt's authority.
+
+If either container restarts or the response is lost, Java reconciles its durable job before making a new bounded attempt with current evidence and grants. Do not blindly retry the HTTP request under the same active invocation; revoke/fence the old invocation first. Provider/model work may have executed and consumed budget even if its reply was lost, so record uncertain consumption and charge a conservative reserved attempt allowance to the job's total retry/cost ceiling. Old responses are discarded. Only Java retries jobs; the companion cannot reschedule itself. External writes remain exclusively persisted commands under the delivery identity and their uncertainty/reconciliation rules.
+
+The companion can become a separately scaled internal deployment only if load measurements justify the extra network/operational boundary; the schema and authority model remain the same. Initially there are four deployment roles: portal, Java API, Java background with TypeScript companion, and Java delivery. There is one business store, one job owner and one delivery authority. Spring AI or another Java agent orchestrator is not layered alongside Deep Agents.
+
+### Qualification of the language boundary
+
+T01.1 owns shared schema fixtures and generated-client drift checks. T11.1 qualifies the actual locked Deep Agents TypeScript tools and model budgets. T11.2/T11.3 exercise the Java entry point with the companion: forged/expired/wrong-phase tokens; altered snapshot/evidence IDs; empty/malformed output; timeout with partial output; lost response; either-container restart; rejected stale results; budget exhaustion; missing-quote zero-writer behavior and complete-input drafting. T16.1 qualifies real PostgreSQL concurrency and retry fencing; T13.2/T15 recheck candidate and delivery authority. JUnit/Vitest fixtures do not establish model quality or live provider behavior. All runtime tests remain NOT RUN.
 
 
 ### Transaction and trigger ownership
@@ -325,7 +342,7 @@ Proposed obligations are stored independently. Promotion requires an approved ru
 
 Use a typed resource loader for YAML agent/example definitions and Markdown prompts. Validate schema, labels, tool registration and resource paths at bundle load. Hash the actual prompt, schema and example bytes with selector settings, and retain the immutable contents for retry and rollback.
 
-Analyzer and writer use separate structured inputs. Knowledge retrieval returns current authorized evidence; the in-process example selector supplies illustrative demonstrations. Deep Agents loads the selected SOP/skills; the application selects examples for its typed analysis and guarded writing stages. No searchable example service is required.
+Analyzer and writer use separate structured inputs. Knowledge retrieval returns current authorized evidence; the Java in-process example selector supplies illustrative demonstrations. Deep Agents loads the selected SOP/skills; the application selects examples for its typed analysis and guarded writing stages. No searchable example service is required.
 
 #### Ingestion: a reviewed content change
 
@@ -349,7 +366,7 @@ Proposed files are `resources/examples/renewal.yaml`, `resources/examples/quarte
 
 #### Runtime retrieval: local selection at two stages
 
-1. **Load once:** each worker loads and validates the immutable bundle into memory. Unknown schemas/intents, duplicate IDs, missing required files or a digest mismatch make that bundle unavailable; they do not silently fall back to mutable files. An intentionally empty valid library is supported for baseline evaluation.
+1. **Load once:** the Java background worker loads and validates the immutable example bundle into memory and passes only selected examples to each companion invocation. Unknown schemas/intents, duplicate IDs, missing required files or a digest mismatch make that bundle unavailable; they do not silently fall back to mutable files. An intentionally empty valid library is supported for baseline evaluation.
 2. **Before analysis:** select classification demonstrations from the workflow already established by trusted case context. If no workflow is known, use a small balanced set across the three supported workflows. Do not require the yet-to-be-produced intent to select classifier examples. Pass only the illustrative email/context, expected analysis and classification rationale; no example reply is needed for classification. Ambiguous or multi-workflow mail remains explicit for coordinator review; examples never resolve account identity or authorize a case link.
 3. **Before drafting:** after validated analysis, current evidence retrieval and readiness PASS, select writing demonstrations by established workflow, proposed intent and language. Prefer exact intent/language matches, then explicitly marked workflow-generic examples in that language, with stable file order as the tie-break. For multiple questions, allocate slots across their intents rather than declaring coverage from one matching example. No match means zero examples; proceed under the same factual and review gates, never use an unrelated client's reply as a fallback.
 4. **Bound and record:** initial tunable limits are at most six analysis demonstrations (up to two per workflow when unknown) and three writing demonstrations, plus a configured token budget per stage. Drop whole lowest-priority records when they do not fit; never truncate away an example's expected outcome or displace mandatory current context/evidence. Record bundle digest, selector version/settings, selected IDs and count/omission reasons in the existing run/stage metadata. These are engineering tuning defaults, not accuracy or automation thresholds.
@@ -482,6 +499,8 @@ Restore runbook, in order:
 
 ## Migration Plan
 
+Retain reviewed portal components and interaction contracts, port core business services and repositories to Java, then introduce the companion through the typed boundary. Remove old Next.js business mutation routes as each Java endpoint becomes authoritative; do not dual-write from both backends. This is a design and source-code migration, not authorization to migrate live customer data.
+
 Build foundations, scoped test environment and seed evaluation corpus early. Implement DB waits/policy primitives and review-assisted deterministic quarterly local reporting, then independent renewal/program-change and intelligence branches. CRM write-back, extension migration and full model response generation do not block quarterly delivery. Complete composed fault tests and platform hardening before production qualification; automation gates depend on approved category, not calendar time.
 
 Rollback disables new automatic authorizations, fences incompatible workers and preserves the event/command ledger. Prefer compatible forward DB migrations. Restore never rewinds the provider; follow the reconciliation runbook. Importing existing operational data requires a separate inventory, authorization and migration change.
@@ -492,6 +511,6 @@ Rollback disables new automatic authorizations, fences incompatible workers and 
 
 ## References
 
-- [Durable Task SDK status](https://learn.microsoft.com/en-us/azure/durable-task/sdks/durable-task-overview): standalone JavaScript/TypeScript SDK listed as preview when checked 2026-10-13; deferred from the initial architecture.
-- [Deep Agents TypeScript](https://docs.langchain.com/oss/javascript/deepagents/overview): qualify a locked release and effective main/child tools before activation.
+- [Spring Boot system requirements](https://docs.spring.io/spring-boot/system-requirements.html): choose and qualify a maintained release compatible with the selected Java baseline at T01.1.
+- [Deep Agents TypeScript](https://docs.langchain.com/oss/javascript/deepagents/overview): retained runtime; qualify a locked release and effective main/child tools before activation. A Java core does not require reimplementing this agent library.
 - [Product scope and assumptions](../../../docs/product/sources.md).

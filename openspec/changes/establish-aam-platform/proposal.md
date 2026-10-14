@@ -4,7 +4,7 @@ Account Managers manually coordinate renewals, local reporting and program chang
 
 ## What Changes
 
-- Keep the implementation TypeScript throughout: Next.js portal/API, shared Zod contracts and Node.js workers with Deep Agents TypeScript; reuse reviewed demo modules and selected reliability patterns without a second-language service.
+- Use Java/Spring Boot for core backend services, retain the Next.js portal and a bounded Deep Agents TypeScript companion, and define shared JSON/OpenAPI contracts with one Java-owned business authority. Reuse reviewed presentation modules and port useful domain/reliability patterns.
 - Establish a case-centered platform covering generic account-management stories and three priority workflows.
 - Resolve client and case context, track correspondence across threads, and provide current summaries.
 - Use Deep Agents for dynamic SOP interpretation and bounded data gathering, with application-owned output readiness, guarded writing and action authorization.

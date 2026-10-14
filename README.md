@@ -13,7 +13,7 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 - Small reviewed example libraries for tuning intent recognition and response quality.
 - Controlled automation with explicit approval, factual checks and delivery safeguards.
 
-The proposed implementation is TypeScript throughout: Next.js portal/API, a Node.js background worker for intake and workflow/agent execution, and a separate delivery worker. Shared application modules use Deep Agents TypeScript, Zod contracts and managed PostgreSQL/Blob. PostgreSQL-backed jobs provide initial execution; additional orchestration services are deferred. Models propose actions; application policy controls authorization and sending.
+The proposed core backend is Java/Spring Boot: API, cases, workflow jobs, connections, readiness, approvals and delivery. Next.js remains the portal; a bounded TypeScript Deep Agents companion handles model execution under Java-issued scope and phase grants. Four deployment roles use managed PostgreSQL/Blob with one Java-owned business/job authority. Additional orchestration services are deferred. Models propose; Java application policy controls authorization and sending.
 
 ## Review the design
 

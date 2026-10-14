@@ -14,17 +14,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Locked TypeScript/Node.js foundation with Next.js portal, separate worker entry points, shared Zod contracts, Vitest and Playwright; preserve useful demo business/UI modules through reviewed generic imports. Add test/typecheck/build scripts and reject empty test discovery. Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored. Planned locations: `app/; workers/; src/aam/; contracts/; tests/; package.json; package-lock.json; tsconfig.json`.
+  **Deliverables:** Locked Java 21/Spring Boot/Maven foundation with API, background and delivery profiles; retained Next.js portal and TypeScript agent package. Shared JSON schemas/OpenAPI generate DTOs/clients; JSON boundary fixtures cover both languages. Add JUnit, Vitest and Playwright with native failure/empty-discovery qualification. CI host is selected through D-15 before provider-specific workflows. Planned locations: `portal/; backend/; agent-runtime/; contracts/; mvnw; .mvn/; backend/pom.xml; portal/package-lock.json; agent-runtime/package-lock.json`.
 
-  **Positive acceptance:** Clean checkout installs from the lockfile, typechecks, builds and validates a complete typed sample; runtime schemas reject invalid external values.
+  **Positive acceptance:** Clean checkout verifies the Java backend and builds both Node packages; generated clients match the authoritative schema and both languages accept identical valid contract fixtures.
 
-  **Negative acceptance:** Unknown schema major version, missing required result, empty test discovery or an undeclared non-TypeScript application runtime fails qualification.
+  **Negative acceptance:** Missing schema/result, incompatible version, null/absent or decimal/timestamp disagreement, generated-client drift and empty requested test selection fail explicitly.
 
   **Closes:** none. **Contributes:** AI-01-P, AI-01-N, OP-03-P, OP-03-N, OP-03-N2, QA-01-P, QA-01-N.
 
   **Entry point and layer:** contract schema loader / locked clean install (contracts).
 
-  **Verification command (planned):** `npm run test -- tests/contracts/test_foundation.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=FoundationIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run build && npm --prefix agent-runtime run build`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -34,7 +34,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-15.
 
-  **Deliverables:** Selected CI provider workflow for specs, lint/types and real test discovery; run manifest and failure artifacts. Implement scenario-ownership/traceability checks and challenge missing-owner, duplicate-owner and missing-test mutations. Planned locations: `ci/; selected provider workflow directory; tests/delivery/`.
+  **Deliverables:** Selected CI provider workflow for specs, lint/types and real test discovery; run manifest and failure artifacts. Implement scenario-ownership/traceability checks and challenge missing-owner, duplicate-owner and missing-test mutations. Planned locations: `ci/; selected provider workflow directory; backend/src/test/java/com/aam/delivery/`.
 
   **Positive acceptance:** A deliberate passing job reports source revision and executes discovered tests.
 
@@ -44,7 +44,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** selected CI workflow dispatch and retained test report (delivery).
 
-  **Verification command (planned):** `Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run npm run test -- tests/delivery/test_ci_discovery.test.ts for the local discovery contract.`
+  **Verification command (planned):** `Selected CI provider: dispatch the validation workflow at the reviewed commit; retain its manifest and failing/passing artifacts. Local discovery contract: ./mvnw -f backend/pom.xml -Dit.test=CiDiscoveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify. Qualify pinned Maven, Vitest and Playwright native failure/empty-selection semantics.`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -54,7 +54,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-08, D-09, D-15.
 
-  **Deliverables:** Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and test workload identities for the three TypeScript deployment roles; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Qualify managed database concurrency and failover rather than assuming local fixtures establish provider compatibility. Planned locations: `infra/dev/; docs/runbooks/dev-setup.md; tests/platform/`.
+  **Deliverables:** Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and scoped identities for portal, Java API, Java background with agent companion, and Java delivery; approved Graph test mailbox scopes. Agent container has no business DB or provider-write credentials. Add Foundry/Search when needed; qualify managed DB concurrency and failover. Planned locations: `infra/dev/; docs/runbooks/dev-setup.md; backend/src/test/java/com/aam/platform/`.
 
   **Positive acceptance:** A clean checkout deploys to the approved test resource group and allowed mailbox probes succeed; retain resource and grant inventory.
 
@@ -64,7 +64,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** dev/test IaC deployment and scoped test-identity probe (platform).
 
-  **Verification command (planned):** `npm run test -- tests/platform/test_dev_environment.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=DevEnvironmentIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T01.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -74,7 +74,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Entra user/account policy and workload grants including scoped Graph read, draft-write and send roles; inventory overlapping Entra grants and test effective scope, not just RBAC simulation. Planned locations: `src/aam/security/; tests/security/`.
+  **Deliverables:** Entra user/account policy and workload grants including scoped Graph read, draft-write and send roles; inventory overlapping Entra grants and test effective scope, not just RBAC simulation. Planned locations: `backend/src/main/java/com/aam/security/; backend/src/test/java/com/aam/security/`.
 
   **Positive acceptance:** Assigned AM reads and reviews its case through the API.
 
@@ -84,7 +84,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** authenticated case API authorization middleware (security).
 
-  **Verification command (planned):** `npm run test -- tests/security/test_identity.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=IdentityIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T02.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -94,7 +94,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Migrations for authoritative cases/obligations, proposed tasks, waits/timers, dependencies, commands/attempts, recovery epoch and technical work ledger. ADR-06 is the schema contract. Planned locations: `src/aam/persistence/; migrations/; contracts/events/`.
+  **Deliverables:** Migrations for authoritative cases/obligations, proposed tasks, waits/timers, dependencies, commands/attempts, recovery epoch and technical work ledger. ADR-06 is the schema contract. Planned locations: `backend/src/main/java/com/aam/persistence/; backend/src/main/resources/db/migration/; contracts/events/`.
 
   **Positive acceptance:** One business-cycle key persists with versioned records and source references.
 
@@ -104,7 +104,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** database migrations and case/obligation repository transactions (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_persistence.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=PersistenceIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T03.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -114,7 +114,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Transactional inbox/outbox, stable case sequence, unique durable work rows and atomic outbox-to-work transfer with lost-commit-ack reconciliation; DB polling command queue is the sole delivery authority. Planned locations: `src/aam/persistence/; migrations/; contracts/events/`.
+  **Deliverables:** Transactional inbox/outbox, stable case sequence, unique durable work rows and atomic outbox-to-work transfer with lost-commit-ack reconciliation; DB polling command queue is the sole delivery authority. Planned locations: `backend/src/main/java/com/aam/persistence/; backend/src/main/resources/db/migration/; contracts/events/`.
 
   **Positive acceptance:** Committed state and its event survive worker restart.
 
@@ -124,7 +124,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** inbox/outbox transaction and work-ledger recovery harness (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_outbox.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=OutboxIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T03.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -134,7 +134,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-08, D-16.
 
-  **Deliverables:** Outbound Graph polling with cursor per approved mailbox/folder, immutable IDs and Blob-first admission followed by atomic message/cursor/outbox DB commit. Planned locations: `src/aam/integrations/mail/; tests/contracts/mail/`.
+  **Deliverables:** Outbound Graph polling with cursor per approved mailbox/folder, immutable IDs and Blob-first admission followed by atomic message/cursor/outbox DB commit. Planned locations: `backend/src/main/java/com/aam/integrations/mail/; backend/src/test/java/com/aam/contracts/mail/`.
 
   **Positive acceptance:** A poll page advances only after every allowed message is recorded; same-mailbox folder movement retains one identity.
 
@@ -144,7 +144,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** folder delta adapter page commit/cursor boundary (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_mail_delta.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=MailDeltaIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T04.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -154,7 +154,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-08.
 
-  **Deliverables:** Bounded scanning/extraction with source positions, quarantine and data-use classification; no unclassified content is sent to model/search. Planned locations: `src/aam/documents/; tests/documents/`.
+  **Deliverables:** Bounded scanning/extraction with source positions, quarantine and data-use classification; no unclassified content is sent to model/search. Planned locations: `backend/src/main/java/com/aam/documents/; backend/src/test/java/com/aam/documents/`.
 
   **Positive acceptance:** A supported deck yields traceable text and evidence references.
 
@@ -164,7 +164,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** attachment admission, scan and extraction pipeline (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_attachments.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=AttachmentsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T05.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -174,7 +174,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-04.
 
-  **Deliverables:** Versioned Dynamics 365 Sales / Dataverse read adapter, approved environment/table/field mapping and source freshness; provider identity roles plus application account/field filtering. Other Dynamics families require separate adapter qualification. Planned locations: `src/aam/integrations/crm/; tests/contracts/crm/`.
+  **Deliverables:** Versioned Dynamics 365 Sales / Dataverse read adapter, approved environment/table/field mapping and source freshness; provider identity roles plus application account/field filtering. Other Dynamics families require separate adapter qualification. Planned locations: `backend/src/main/java/com/aam/integrations/crm/; backend/src/test/java/com/aam/contracts/crm/`.
 
   **Positive acceptance:** Account, owner, contacts and renewal dates retain source time/version.
 
@@ -184,7 +184,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM synchronization adapter read/freshness boundary (contracts).
 
-  **Verification command (planned):** `npm run test -- tests/contracts/test_crm_read.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CrmReadIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -194,7 +194,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Link, split, merge and reassign commands with causal event history. Planned locations: `src/aam/cases/; tests/cases/`.
+  **Deliverables:** Link, split, merge and reassign commands with causal event history. Planned locations: `backend/src/main/java/com/aam/cases/; backend/src/test/java/com/aam/cases/`.
 
   **Positive acceptance:** Two threads link to one authorized case and a split preserves original references.
 
@@ -204,7 +204,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** case link/split/merge command API (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_case_links.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CaseLinksIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -214,7 +214,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-16.
 
-  **Deliverables:** Candidate matching, identifier checks and ambiguity queue. Planned locations: `src/aam/context/resolver.ts; tests/context/`.
+  **Deliverables:** Candidate matching, identifier checks and ambiguity queue. Planned locations: `backend/src/main/java/com/aam/context/Resolver.java; backend/src/test/java/com/aam/context/`.
 
   **Positive acceptance:** One broker with two clients resolves to the explicit authorized policy.
 
@@ -224,7 +224,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** account/workstream resolver and ambiguity queue (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_resolution.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ResolutionIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T07.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -234,7 +234,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-13, D-16.
 
-  **Deliverables:** Controlled cursor-reset/rescan, approved-folder reconciliation, Sent Items human/AAM/unknown attribution, request disposition invalidation and observation health. No webhook subscription lifecycle is required initially. Planned locations: `src/aam/integrations/mail/; tests/contracts/mail/`.
+  **Deliverables:** Controlled cursor-reset/rescan, approved-folder reconciliation, Sent Items human/AAM/unknown attribution, request disposition invalidation and observation health. No webhook subscription lifecycle is required initially. Planned locations: `backend/src/main/java/com/aam/integrations/mail/; backend/src/test/java/com/aam/contracts/mail/`.
 
   **Positive acceptance:** Catch-up after downtime records each message once, including human replies and provider-stamped AAM sends.
 
@@ -244,7 +244,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** inbound/Sent Items catch-up and request-disposition projection (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_mail_observation.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=MailObservationIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T04.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -254,7 +254,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction. Planned locations: `src/aam/context/snapshots.ts; contracts/context/`.
+  **Deliverables:** Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction. Planned locations: `backend/src/main/java/com/aam/context/Snapshots.java; contracts/context/`.
 
   **Positive acceptance:** Every specialist sees the same authoritative message/account identity.
 
@@ -264,7 +264,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** context snapshot builder and specialist-input boundary (contracts).
 
-  **Verification command (planned):** `npm run test -- tests/contracts/test_context_snapshot.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ContextSnapshotIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T08.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -274,7 +274,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Ordered context selection and explicit truncation/unavailable flags. Planned locations: `src/aam/context/snapshots.ts; contracts/context/`.
+  **Deliverables:** Ordered context selection and explicit truncation/unavailable flags. Planned locations: `backend/src/main/java/com/aam/context/Snapshots.java; contracts/context/`.
 
   **Positive acceptance:** Recent complete context remains usable with omitted-history metadata.
 
@@ -284,7 +284,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** context selection with unavailable-body/attachment states (contracts).
 
-  **Verification command (planned):** `npm run test -- tests/contracts/test_context_limits.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ContextLimitsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T08.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -294,7 +294,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-07, D-12.
 
-  **Deliverables:** Completion/waiver evaluator with typed evidence-policy slots. Missing approved evidence or waiver rules are explicit activation/closure blocks. Planned locations: `src/aam/cases/; tests/cases/`.
+  **Deliverables:** Completion/waiver evaluator with typed evidence-policy slots. Missing approved evidence or waiver rules are explicit activation/closure blocks. Planned locations: `backend/src/main/java/com/aam/cases/; backend/src/test/java/com/aam/cases/`.
 
   **Positive acceptance:** Accepted completion evidence or authorized waiver satisfies all mandatory work.
 
@@ -304,7 +304,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** obligation completion and case-closure command handler (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_completion.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CompletionIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -314,7 +314,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-16.
 
-  **Deliverables:** Pending proposal storage and idempotent decision handler driven by configured promotion rules, with no implicit model-created timer. Planned locations: `src/aam/cases/proposals/; tests/integration/`.
+  **Deliverables:** Pending proposal storage and idempotent decision handler driven by configured promotion rules, with no implicit model-created timer. Planned locations: `backend/src/main/java/com/aam/cases/proposals/; backend/src/test/java/com/aam/integration/`.
 
   **Positive acceptance:** A repeated authorized synthetic-policy decision creates one obligation with provenance.
 
@@ -324,7 +324,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** proposed-obligation decision command handler (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_proposal_promotion.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ProposalPromotionIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T09.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -334,7 +334,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here. Planned locations: `web/; src/aam/api/cases/; tests/ui/; tests/e2e/case-overview.spec.ts`.
+  **Deliverables:** Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here. Planned locations: `portal/; backend/src/main/java/com/aam/api/cases/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/case-overview.spec.ts`.
 
   **Positive acceptance:** AM can inspect owner/deadline/evidence and record authorized resolution.
 
@@ -344,7 +344,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** case query API and evidence timeline browser flow (ui).
 
-  **Verification command (planned):** `npm run test -- tests/ui/test_case_overview.test.ts && npm run test:e2e -- tests/e2e/case-overview.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CaseOverviewIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/case-overview.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T10.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -354,7 +354,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** DB-owned waits/timers and bounded Node.js jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership. Planned locations: `workers/; src/aam/jobs/; src/aam/workflows/; tests/integration/`.
+  **Deliverables:** DB-owned waits/timers and bounded Java jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership. Java is the sole job retry owner. Planned locations: `backend/src/main/java/com/aam/bootstrap/; backend/src/main/java/com/aam/jobs/; backend/src/main/java/com/aam/workflows/; backend/src/test/java/com/aam/integration/`.
 
   **Positive acceptance:** Reply or approval after restart creates new bounded work against the original DB wait; two worker replicas claim work safely and recover a lost commit acknowledgement without duplicate committed results.
 
@@ -364,7 +364,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** PostgreSQL job claim/commit, lease watchdog and DB-owned wait recovery (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_bounded_execution.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=BoundedExecutionIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T16.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -374,7 +374,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-06, D-14.
 
-  **Deliverables:** DB due sweep, holiday/timezone calculation, reschedule/pause/cancel, missed-sweep recovery and configurable upcoming/overdue notification events. Planned locations: `src/aam/workflows/; tests/workflows/`.
+  **Deliverables:** DB due sweep, holiday/timezone calculation, reschedule/pause/cancel, missed-sweep recovery and configurable upcoming/overdue notification events. Planned locations: `backend/src/main/java/com/aam/workflows/; backend/src/test/java/com/aam/workflows/`.
 
   **Positive acceptance:** Synthetic approved holiday, reschedule and notification rules emit one expected occurrence; superseded timers do not dispatch.
 
@@ -384,7 +384,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** due-row sweep and current-version transition handler (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_timers.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=TimersIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T16.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -394,7 +394,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-06, D-07, D-12, D-13, D-16, D-17.
 
-  **Deliverables:** Registered capability schemas, versioned workflow-definition registry and common typed predicate evaluator; immutable artifacts, case pinning, readiness/completion contracts and mandatory policy slots. Supports deterministic templates without requiring the model runtime. Planned locations: `resources/workflows/; src/aam/configuration/; tests/configuration/`.
+  **Deliverables:** Registered capability schemas, versioned workflow-definition registry and common typed predicate evaluator; immutable artifacts, case pinning, readiness/completion contracts and mandatory policy slots. Supports deterministic templates without requiring the model runtime. Planned locations: `resources/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/configuration/`.
 
   **Positive acceptance:** New case pins version two while active version one remains reproducible; complete template inputs pass their output predicate.
 
@@ -404,7 +404,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** workflow-type registry publish/activation API (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_workflow_registry.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=WorkflowRegistryIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -414,7 +414,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-06, D-13, D-16.
 
-  **Deliverables:** Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas. Planned locations: `src/aam/configuration/; web/configuration/; tests/integration/; tests/e2e/client-parameters.spec.ts`.
+  **Deliverables:** Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas. Planned locations: `backend/src/main/java/com/aam/configuration/; portal/configuration/; backend/src/test/java/com/aam/integration/; portal/tests/e2e/client-parameters.spec.ts`.
 
   **Positive acceptance:** Approved cadence revision affects new cases only; previous revision remains retrievable.
 
@@ -424,7 +424,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** client-parameter publish and case-version pinning API (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_client_parameters.test.ts && npm run test:e2e -- tests/e2e/client-parameters.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ClientParametersIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/client-parameters.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -434,7 +434,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-08.
 
-  **Deliverables:** Early synthetic seed corpus, versioned labels and frozen holdout; domain-review and data-use approval process for de-identified real samples and small runtime demonstration sets. Split by source conversation/scenario family before tuning; exclude held-out examples from shipped bundles and annotate missing slices. Planned locations: `evals/; tests/evaluation/`.
+  **Deliverables:** Early synthetic seed corpus, versioned labels and frozen holdout; domain-review and data-use approval process for de-identified real samples and small runtime demonstration sets. Split by source conversation/scenario family before tuning; exclude held-out examples from shipped bundles and annotate missing slices. Planned locations: `evals/; backend/src/test/java/com/aam/evaluation/`.
 
   **Positive acceptance:** All three journeys, languages and broker ambiguity slices have positive/adverse examples; reviewed runtime demonstrations and held-out records have disjoint identities, content hashes and source conversation groups.
 
@@ -444,7 +444,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** corpus manifest/label loader and dataset approval checks (evaluation).
 
-  **Verification command (planned):** `npm run test -- tests/evaluation/test_corpus.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CorpusIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T21.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -454,7 +454,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Early DB work-age/queue metrics, correlation, persistence readiness and safe diagnostics; add provider/model metrics with later integrations. Planned locations: `src/aam/operations/; docs/runbooks/; tests/recovery/`.
+  **Deliverables:** Early DB work-age/queue metrics, correlation, persistence readiness and safe diagnostics; add provider/model metrics with later integrations. Planned locations: `backend/src/main/java/com/aam/operations/; docs/runbooks/; backend/src/test/java/com/aam/recovery/`.
 
   **Positive acceptance:** Injected outage produces a case-linked actionable diagnostic.
 
@@ -464,7 +464,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** work ledger health/readiness and backlog diagnostic endpoints (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_observability.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ObservabilityIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T22.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -476,7 +476,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13, D-16.
 
-  **Deliverables:** Shared configurable action/recipient/authority policy with explicit missing-policy holds; deterministic template proposals must first pass the common output-readiness evaluator before render and authorization. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/`.
+  **Deliverables:** Shared configurable action/recipient/authority policy with explicit missing-policy holds; deterministic template proposals must first pass the common output-readiness evaluator before render and authorization. Planned locations: `backend/src/main/java/com/aam/authorization/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/authorization/`.
 
   **Positive acceptance:** Approved low-risk policy permits only its scoped action type.
 
@@ -486,7 +486,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** shared action policy on deterministic proposals (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_action_policy.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ActionPolicyIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -496,7 +496,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13.
 
-  **Deliverables:** Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts. Planned locations: `src/aam/authorization/; src/aam/api/approvals/; tests/authorization/; tests/e2e/approval-dependencies.spec.ts`.
+  **Deliverables:** Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts. Planned locations: `backend/src/main/java/com/aam/authorization/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/authorization/; portal/tests/e2e/approval-dependencies.spec.ts`.
 
   **Positive acceptance:** Unchanged approved content passes; an unrelated country event does not invalidate it; restart retains the pending approval.
 
@@ -506,7 +506,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** approval API/UI and dispatch dependency-set validator (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_approval_dependencies.test.ts && npm run test:e2e -- tests/e2e/approval-dependencies.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ApprovalDependenciesIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/approval-dependencies.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -516,7 +516,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Leased/fenced DB command queue, shared dependency recheck, observation barrier and draft-create/persist-ID/send flow with scoped identity and independent test recipient guards. Planned locations: `src/aam/delivery/; tests/delivery/`.
+  **Deliverables:** Leased/fenced DB command queue, shared dependency recheck, observation barrier and draft-create/persist-ID/send flow with scoped identity and independent test recipient guards. Planned locations: `backend/src/main/java/com/aam/delivery/; backend/src/test/java/com/aam/delivery/`.
 
   **Positive acceptance:** Approved current content is submitted and stored with its exact hash.
 
@@ -526,7 +526,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** DB command claim, draft creation and Graph sandbox dispatch (provider).
 
-  **Verification command (planned):** `npm run test -- tests/provider/test_delivery.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=DeliveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T15.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -536,7 +536,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-13, D-16.
 
-  **Deliverables:** Tenant qualification of immutable draft IDs and app-specific stamp create/filter/sent preservation; lost create/send response reconciliation, late NDR mapping, effective mailbox scope and transport-rule probes. Planned locations: `src/aam/delivery/; tests/delivery/`.
+  **Deliverables:** Tenant qualification of immutable draft IDs and app-specific stamp create/filter/sent preservation; lost create/send response reconciliation, late NDR mapping, effective mailbox scope and transport-rule probes. Planned locations: `backend/src/main/java/com/aam/delivery/; backend/src/test/java/com/aam/delivery/`.
 
   **Positive acceptance:** A lost send response is reconciled to the same command and a human reply observed before dispatch suppresses its pending draft.
 
@@ -546,7 +546,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** Graph reconciliation and stale-observation dispatch barrier (provider).
 
-  **Verification command (planned):** `npm run test -- tests/provider/test_reconciliation.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ReconciliationIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T15.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -556,7 +556,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-06.
 
-  **Deliverables:** Account/quarter/country scheduling, contacts and reminder rules. Planned locations: `resources/workflows/quarterly-delivery/; tests/journeys/quarterly/`.
+  **Deliverables:** Account/quarter/country scheduling, contacts and reminder rules. Planned locations: `resources/workflows/quarterly-delivery/; backend/src/test/java/com/aam/journeys/quarterly/`.
 
   **Positive acceptance:** Required countries receive one owned obligation each.
 
@@ -566,7 +566,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** quarterly schedule-to-case command (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_quarterly_schedule.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=QuarterlyScheduleIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T19.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -576,7 +576,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-07, D-12, D-13.
 
-  **Deliverables:** Review-assisted deterministic template reminders and evidence acceptance under explicit synthetic policies; no full LLM, CRM write-back or type-migration dependency. Planned locations: `resources/workflows/quarterly-delivery/; tests/journeys/quarterly/`.
+  **Deliverables:** Review-assisted deterministic template reminders and evidence acceptance under explicit synthetic policies; no full LLM, CRM write-back or type-migration dependency. Planned locations: `resources/workflows/quarterly-delivery/; backend/src/test/java/com/aam/journeys/quarterly/`.
 
   **Positive acceptance:** Valid delivery confirmation completes that country and stops its reminders.
 
@@ -586,7 +586,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** quarterly reminder/evidence/closure journey using approved templates (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_quarterly_delivery.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=QuarterlyDeliveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T19.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -598,17 +598,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Locked Deep Agents TypeScript/LangChain/LangGraph adapter with Zod schemas, reviewed skills, shared model/tool/time budgets including child and summarization calls, cancellation propagation and restricted effective tools. Versioned example loader/selector retains immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation. Planned locations: `src/aam/agents/; contracts/; resources/agents/; resources/examples/; tests/agents/`.
+  **Deliverables:** Locked Deep Agents TypeScript companion with shared-schema boundary validation, reviewed skills, aggregate model/time budgets including children/summarization, cancellation and restricted tools. Java supplies attempt context and capability; companion has no DB, connector credentials or independent durable state. Retain immutable bundles and disable shell, arbitrary network/SQL and unrestricted writer delegation. Planned locations: `backend/src/main/java/com/aam/agents/; agent-runtime/src/; agent-runtime/tests/; contracts/; resources/agents/; resources/examples/`.
 
-  **Positive acceptance:** Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.
+  **Positive acceptance:** A Java-controlled invocation loads the pinned bundle and actual TypeScript runtime, exposes only registered tools to children, preserves schema bindings and stays within aggregate budgets.
 
-  **Negative acceptance:** Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, budget overshoot, swallowed cancellation, malformed output and timeout fail explicitly; examples never displace mandatory current context.
+  **Negative acceptance:** Hidden tools, child scope widening, malformed/empty results, timeout, swallowed cancellation or model-budget overshoot fail explicitly; unregistered schema or mismatched package versions cannot activate.
 
   **Closes:** none. **Contributes:** AI-01-P, AI-01-N.
 
   **Entry point and layer:** Deep Agents adapter, skill loader and effective main/child tool inventory (agents).
 
-  **Verification command (planned):** `npm run test -- tests/agents/test_model_adapter.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ModelAdapterIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix agent-runtime run test -- tests/model-adapter.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -618,7 +618,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Event-triggered summary job and freshness display. Planned locations: `web/; src/aam/api/cases/; tests/ui/; tests/e2e/summary-freshness.spec.ts`.
+  **Deliverables:** Event-triggered summary job and freshness display. Planned locations: `portal/; backend/src/main/java/com/aam/api/cases/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/summary-freshness.spec.ts`.
 
   **Positive acceptance:** Committed structured changes appear while a narrative refresh is pending.
 
@@ -628,7 +628,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** summary generation job plus case-view freshness presentation (ui).
 
-  **Verification command (planned):** `npm run test -- tests/ui/test_summary_freshness.test.ts && npm run test:e2e -- tests/e2e/summary-freshness.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=SummaryFreshnessIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/summary-freshness.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T10.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -638,7 +638,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Evidence registry rejects unknown IDs and conflicting content for an existing ID; search top-k does not establish exhaustive business evidence. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
+  **Deliverables:** Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Evidence registry rejects unknown IDs and conflicting content for an existing ID; search top-k does not establish exhaustive business evidence. Planned locations: `backend/src/main/java/com/aam/retrieval/; backend/src/test/java/com/aam/retrieval/`.
 
   **Positive acceptance:** Applicable evidence for two questions is returned with source locations.
 
@@ -648,7 +648,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** knowledge indexer and scoped Search adapter (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_retrieval.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=RetrievalIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -658,7 +658,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-04, D-06.
 
-  **Deliverables:** CRM eligibility scan with calendar-month and account-specific lead-time rules. Planned locations: `resources/workflows/renewal/; tests/journeys/renewal/`.
+  **Deliverables:** CRM eligibility scan with calendar-month and account-specific lead-time rules. Planned locations: `resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/`.
 
   **Positive acceptance:** Configured earlier jumbo date creates one cycle and applicable country workstreams.
 
@@ -668,7 +668,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM eligibility sweep and renewal case creation (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_schedule.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=RenewalScheduleIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -678,7 +678,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-13, D-17.
 
-  **Deliverables:** Versioned pricing/terms and approved consolidation interface. Scope is gated by D-17; do not implement numeric authorship or choose document-only behavior as an unstated business answer. Planned locations: `resources/workflows/renewal/; tests/journeys/renewal/`.
+  **Deliverables:** Versioned pricing/terms and approved consolidation interface. Scope is gated by D-17; do not implement numeric authorship or choose document-only behavior as an unstated business answer. Planned locations: `resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/`.
 
   **Positive acceptance:** Accepted applicable country terms produce an approvable consolidation.
 
@@ -688,7 +688,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** pricing/terms version acceptance and release command boundary (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_terms.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=RenewalTermsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -698,7 +698,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-17.
 
-  **Deliverables:** Round/action history, confirmation evidence and obsolete-reminder cancellation. Planned locations: `resources/workflows/renewal/; tests/journeys/renewal/`.
+  **Deliverables:** Round/action history, confirmation evidence and obsolete-reminder cancellation. Planned locations: `resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/`.
 
   **Positive acceptance:** Confirmed agreed outcome finalizes the correct versions.
 
@@ -708,7 +708,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** negotiation event processing and finalization command (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_renewal_finalization.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=RenewalFinalizationIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T18.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -718,7 +718,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-17.
 
-  **Deliverables:** Authenticated notice intake, existing/new-opportunity mapping and uncertainty handling. Planned locations: `resources/workflows/program-change/; tests/journeys/program-change/`.
+  **Deliverables:** Authenticated notice intake, existing/new-opportunity mapping and uncertainty handling. Planned locations: `resources/workflows/program-change/; backend/src/test/java/com/aam/journeys/program-change/`.
 
   **Positive acceptance:** Confirmed notice creates linked impacted workstreams.
 
@@ -728,7 +728,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** program-change notice intake with configured authority policy (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_program_trigger.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ProgramTriggerIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -738,7 +738,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-13.
 
-  **Deliverables:** Approval path, acknowledgment tracking and evidence-based closure. Planned locations: `resources/workflows/program-change/; tests/journeys/program-change/`.
+  **Deliverables:** Approval path, acknowledgment tracking and evidence-based closure. Planned locations: `resources/workflows/program-change/; backend/src/test/java/com/aam/journeys/program-change/`.
 
   **Positive acceptance:** Approved communication and completed agreed actions allow closure.
 
@@ -748,7 +748,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** approved notice and next-action closure journey (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_program_actions.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ProgramActionsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T20.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -758,7 +758,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-04, D-05, D-08.
 
-  **Deliverables:** Connection administration, credential references, operation catalogue, adapter/MCP wrapper and revocable per-call scope checks; normalized evidence envelope and scoped cache. Validate D365, Outlook and knowledge adapters in isolated provider environments. Planned locations: `src/aam/connections/; src/aam/integrations/; tests/integration/`.
+  **Deliverables:** Connection administration, credential references, operation catalogue, adapter/MCP wrapper and revocable per-call scope checks; normalized evidence envelope and scoped cache. Validate D365, Outlook and knowledge adapters in isolated provider environments. Planned locations: `backend/src/main/java/com/aam/connections/; backend/src/main/java/com/aam/integrations/; backend/src/test/java/com/aam/integration/`.
 
   **Positive acceptance:** Approved main/child reads return only permitted account fields with provenance; complete paginated results retain membership evidence and provider access probes succeed.
 
@@ -768,7 +768,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** connection registration API and guarded read gateway including provider qualification (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_connections.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ConnectionsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -778,17 +778,17 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Application-owned immutable context and typed handoff records around dynamic Deep Agents planning; children receive server-built snapshot references and cannot rewrite upstream results. Record evidence/example IDs and proposals; restart bounded attempts from durable state without a second business workflow store. Planned locations: `src/aam/agents/; resources/agents/; tests/agents/`.
+  **Deliverables:** Java-owned authenticated plan/draft/validate invocation and read-tool boundary, server-built immutable handoffs and current lease/epoch/phase grants. Record proposals/evidence in Java; Java alone reconciles timeout/restart/lost response, revokes old attempts and accounts conservatively for uncertain model budget. Planned locations: `backend/src/main/java/com/aam/agents/; backend/src/main/java/com/aam/connections/; agent-runtime/src/; agent-runtime/tests/; contracts/`.
 
-  **Positive acceptance:** Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.
+  **Positive acceptance:** Java invokes the real companion; valid tool sequences differ by evidence while all scope/snapshot/phase bindings remain intact. Either-container restart or response loss creates only a fenced, bounded retry and no duplicate business effect.
 
-  **Negative acceptance:** Planner prose, forged readiness, premature writer calls or injected source instructions cannot bypass application boundaries; child outputs cannot mutate scope or directly create obligations.
+  **Negative acceptance:** Forged, expired, revoked, wrong-phase or wrong-audience grants, changed upstream evidence, stale callbacks/responses and partial timeout output cannot fetch unauthorized tools, invoke an accepted writer phase or commit results.
 
   **Closes:** AI-01-P, AI-01-N. **Contributes:** CS-04-P, CS-04-N.
 
   **Entry point and layer:** bounded Deep Agents work handler and guarded output/tool entry points (agents).
 
-  **Verification command (planned):** `npm run test -- tests/agents/test_stage_coordinator.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=StageCoordinatorIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix agent-runtime run test -- tests/handoffs.test.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -798,7 +798,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Evidence registry with versions, scope, provenance, field presence, completeness, coverage states and bounded multi-query retrieval; distinguish source failure, partial results, confirmed absence and a proved complete collection. Planned locations: `src/aam/retrieval/; tests/retrieval/`.
+  **Deliverables:** Evidence registry with versions, scope, provenance, field presence, completeness, coverage states and bounded multi-query retrieval; distinguish source failure, partial results, confirmed absence and a proved complete collection. Planned locations: `backend/src/main/java/com/aam/retrieval/; backend/src/test/java/com/aam/retrieval/`.
 
   **Positive acceptance:** Per-question support distinguishes sufficient from partial coverage.
 
@@ -808,7 +808,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** research loop evidence registry and coverage evaluator (agents).
 
-  **Verification command (planned):** `npm run test -- tests/agents/test_research_coverage.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ResearchCoverageIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T12.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -818,7 +818,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Application-invoked typed writer guarded by an exact readiness PASS snapshot; distinct current facts and examples, language/continuity checks, rendered message and claim map. Internal planner text cannot become recipient-visible output. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
+  **Deliverables:** Application-invoked typed writer guarded by an exact readiness PASS snapshot; distinct current facts and examples, language/continuity checks, rendered message and claim map. Internal planner text cannot become recipient-visible output. Planned locations: `backend/src/main/java/com/aam/drafting/; backend/src/main/java/com/aam/validation/; backend/src/test/java/com/aam/drafting/`.
 
   **Positive acceptance:** Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.
 
@@ -828,7 +828,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** writer adapter on final language/continuity and disclosure rules (agents).
 
-  **Verification command (planned):** `npm run test -- tests/agents/test_drafting.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=DraftingIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -838,7 +838,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Independent final-text extraction, union with writer map and deterministic critical spans; validate the readiness evidence binding and final claims, and discard generation if relevant evidence changed while writing. Planned locations: `src/aam/drafting/; src/aam/validation/; tests/drafting/`.
+  **Deliverables:** Independent final-text extraction, union with writer map and deterministic critical spans; validate the readiness evidence binding and final claims, and discard generation if relevant evidence changed while writing. Planned locations: `backend/src/main/java/com/aam/drafting/; backend/src/main/java/com/aam/validation/; backend/src/test/java/com/aam/drafting/`.
 
   **Positive acceptance:** Applicable 30-day claim is supported by its actual source.
 
@@ -848,7 +848,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** final-text claim extraction/coverage and critical-span validator (agents).
 
-  **Verification command (planned):** `npm run test -- tests/agents/test_claim_validation.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ClaimValidationIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T13.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -858,7 +858,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13.
 
-  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `web/review/; src/aam/api/approvals/; tests/ui/; tests/e2e/edited-review.spec.ts`.
+  **Deliverables:** New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden. Planned locations: `portal/review/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/edited-review.spec.ts`.
 
   **Positive acceptance:** An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.
 
@@ -868,7 +868,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** edited-draft validation and warning-acknowledgment approval UI (ui).
 
-  **Verification command (planned):** `npm run test -- tests/ui/test_edited_review.test.ts && npm run test:e2e -- tests/e2e/edited-review.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=EditedReviewIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/edited-review.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T14.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -878,7 +878,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-10.
 
-  **Deliverables:** Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Add workflow/predicate/connection versions and false-readiness, blocked-writer invocation and unsafe-tool-selection metrics; an unknown source cannot become an empty successful sample. Planned locations: `evals/; tests/evaluation/`.
+  **Deliverables:** Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Add workflow/predicate/connection versions and false-readiness, blocked-writer invocation and unsafe-tool-selection metrics; an unknown source cannot become an empty successful sample. Planned locations: `evals/; backend/src/test/java/com/aam/evaluation/`.
 
   **Positive acceptance:** Reports identify exact model/bundle/corpus, selected-example configuration and comparable per-slice outcomes; no-example baseline and prior bundle can be reproduced without altering the holdout.
 
@@ -888,7 +888,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** candidate evaluation runner and actual final readiness report (evaluation).
 
-  **Verification command (planned):** `npm run test -- tests/evaluation/test_candidate_report.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CandidateReportIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T21.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -898,7 +898,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-13, D-16.
 
-  **Deliverables:** End-to-end guard integration across planner, children, writer, templates, human review and resume; PASS evidence bindings, typed gap/conflict decisions and durable wake conditions. Recheck relevant dependencies before output exposure and delivery. Planned locations: `src/aam/readiness/; src/aam/agents/; tests/integration/`.
+  **Deliverables:** End-to-end guard integration across planner, children, writer, templates, human review and resume; PASS evidence bindings, typed gap/conflict decisions and durable wake conditions. Recheck relevant dependencies before output exposure and delivery. Planned locations: `backend/src/main/java/com/aam/readiness/; backend/src/main/java/com/aam/agents/; backend/src/test/java/com/aam/integration/`.
 
   **Positive acceptance:** Complete evidence invokes the writer once with its exact snapshot; missing-data case survives restart, receives valid evidence and passes on a new attempt without duplicate commands.
 
@@ -908,7 +908,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** actual work handler, output request, writer boundary and approval/delivery precondition checks (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_output_readiness.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=OutputReadinessIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T11.3/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -918,7 +918,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-12, D-13, D-16, D-18.
 
-  **Deliverables:** Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition. Planned locations: `web/workflows/; src/aam/configuration/; tests/integration/; tests/e2e/sop-authoring.spec.ts`.
+  **Deliverables:** Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition. Planned locations: `portal/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/integration/; portal/tests/e2e/sop-authoring.spec.ts`.
 
   **Positive acceptance:** AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.
 
@@ -928,7 +928,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** portal authoring, simulation, publication and version-pinned runtime (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_sop_authoring.test.ts && npm run test:e2e -- tests/e2e/sop-authoring.spec.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=SopAuthoringIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/sop-authoring.spec.ts`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.4/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -940,7 +940,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-04.
 
-  **Deliverables:** Feature-gated mapped CRM writes and separate command reconciliation. Read-only journey delivery does not depend on enabling write-back. Planned locations: `src/aam/integrations/crm/; tests/contracts/crm/`.
+  **Deliverables:** Feature-gated mapped CRM writes and separate command reconciliation. Read-only journey delivery does not depend on enabling write-back. Planned locations: `backend/src/main/java/com/aam/integrations/crm/; backend/src/test/java/com/aam/contracts/crm/`.
 
   **Positive acceptance:** Repeated accepted activity command has one business effect.
 
@@ -950,7 +950,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** CRM write-back adapter and command reconciliation (provider).
 
-  **Verification command (planned):** `npm run test -- tests/provider/test_crm_writeback.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=CrmWritebackIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T06.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -960,7 +960,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Migration impact/authorization and synthetic health-talk extension compatibility example; preserves type and parameter pins and records effects on approvals/timers. Planned locations: `resources/workflows/; src/aam/configuration/; tests/configuration/`.
+  **Deliverables:** Migration impact/authorization and synthetic health-talk extension compatibility example; preserves type and parameter pins and records effects on approvals/timers. Planned locations: `resources/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/configuration/`.
 
   **Positive acceptance:** An explicitly authorized migration records changed state/approval impact.
 
@@ -970,7 +970,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** version migration API and synthetic extension interpreter (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_workflow_migration.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=WorkflowMigrationIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T17.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -980,7 +980,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Operator commands with reason, scope, original IDs and audit. Planned locations: `src/aam/operations/; docs/runbooks/; tests/recovery/`.
+  **Deliverables:** Operator commands with reason, scope, original IDs and audit. Planned locations: `backend/src/main/java/com/aam/operations/; docs/runbooks/; backend/src/test/java/com/aam/recovery/`.
 
   **Positive acceptance:** Repair resumes the same work without duplicate external actions.
 
@@ -990,7 +990,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** operator repair/replay API through actual worker execution (integration).
 
-  **Verification command (planned):** `npm run test -- tests/integration/test_operator_recovery.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=OperatorRecoveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T22.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1000,7 +1000,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-05, D-08, D-09, D-15.
 
-  **Deliverables:** Production IaC and separate identities; effective grants, private data endpoints, polling egress, portal ingress, HA/backup, image scan, patch/upgrade ownership and qualified backlog autoscaling. No assumed Graph public webhook. Planned locations: `infra/; deploy/; tests/deployment/`.
+  **Deliverables:** Production IaC and separate identities; effective grants, private data endpoints, polling egress, portal ingress, HA/backup, image scan, patch/upgrade ownership and qualified backlog autoscaling. No assumed Graph public webhook. Planned locations: `infra/; deploy/; backend/src/test/java/com/aam/deployment/`.
 
   **Positive acceptance:** Fresh test environment provisions from declared parameters without self-hosted backend services.
 
@@ -1010,7 +1010,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** production IaC plan/deployment, grants and operating-policy checks (platform).
 
-  **Verification command (planned):** `npm run test -- tests/platform/test_production_environment.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ProductionEnvironmentIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T23.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1020,7 +1020,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-08, D-16.
 
-  **Deliverables:** Approved policy covering every store/index/model/log/backup and scoped access. Planned locations: `docs/security/; tests/security/; infra/policies/`.
+  **Deliverables:** Approved policy covering every store/index/model/log/backup and scoped access. Planned locations: `docs/security/; backend/src/test/java/com/aam/security/; infra/policies/`.
 
   **Positive acceptance:** Authorized retention/restore lifecycle handles all derived records consistently.
 
@@ -1030,7 +1030,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** data-policy admission/export/delete/retention across all stores (security).
 
-  **Verification command (planned):** `npm run test -- tests/security/test_data_lifecycle.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=DataLifecycleIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T24.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1040,7 +1040,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-09, D-15.
 
-  **Deliverables:** Cold deployment, node drain/upgrade, compatible rollback and ordered fenced restore runbook: DB, Blob, Search, waits/timers, mailbox/provider reconciliation, then dispatch reopen. Planned locations: `infra/; deploy/; tests/deployment/`.
+  **Deliverables:** Cold deployment, node drain/upgrade, compatible rollback and ordered fenced restore runbook: DB, Blob, Search, waits/timers, mailbox/provider reconciliation, then dispatch reopen. Planned locations: `infra/; deploy/; backend/src/test/java/com/aam/deployment/`.
 
   **Positive acceptance:** Recovered case state and bounded technical jobs meet approved objectives without replaying confirmed provider effects.
 
@@ -1050,7 +1050,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** fenced restore runbook, upgrade/drain and dispatch-reopen gates (platform).
 
-  **Verification command (planned):** `npm run test -- tests/platform/test_restore.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=RestoreIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T23.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1060,7 +1060,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Three composed journeys and all-access-path authorization tests; mutation guards for context, unmapped claims, approval dependencies, scope, event replay and closure. Retain actual final statuses and attributable provider evidence. Planned locations: `tests/e2e/; artifacts/release/; docs/reviews/`.
+  **Deliverables:** Three composed journeys and all-access-path authorization tests; mutation guards for context, unmapped claims, approval dependencies, scope, event replay and closure. Retain actual final statuses and attributable provider evidence. Planned locations: `portal/tests/e2e/; artifacts/release/; docs/reviews/`.
 
   **Positive acceptance:** All priority workflows complete with attributed final business state and source evidence.
 
@@ -1070,7 +1070,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** composed API-to-provider journeys and all-boundary security suite (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_acceptance_faults.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=AcceptanceFaultsIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T25.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1080,7 +1080,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** none.
 
-  **Deliverables:** Reviewed revision, findings, resolutions, CI runs and requirement evidence matrix. Planned locations: `tests/e2e/; artifacts/release/; docs/reviews/`.
+  **Deliverables:** Reviewed revision, findings, resolutions, CI runs and requirement evidence matrix. Planned locations: `portal/tests/e2e/; artifacts/release/; docs/reviews/`.
 
   **Positive acceptance:** Qualified artifacts and all required tests are tied to the exact reviewed revision.
 
@@ -1102,7 +1102,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-10, D-13.
 
-  **Deliverables:** Business-approved category gate records with denominator, minimum n, representative slices, confidence-bound method and accepted thresholds; shadow outcomes separated from synthetic results. Planned locations: `resources/policies/; docs/runbooks/automation/; tests/rollout/`.
+  **Deliverables:** Business-approved category gate records with denominator, minimum n, representative slices, confidence-bound method and accepted thresholds; shadow outcomes separated from synthetic results. Planned locations: `resources/policies/; docs/runbooks/automation/; backend/src/test/java/com/aam/rollout/`.
 
   **Positive acceptance:** A qualified low-risk category has explicit measured acceptance and owner signoff.
 
@@ -1112,7 +1112,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** category gate evaluator on shadow evidence and approved metrics (evaluation).
 
-  **Verification command (planned):** `npm run test -- tests/evaluation/test_shadow_gates.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=ShadowGatesIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T26.1/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.
 
@@ -1122,7 +1122,7 @@ Business gates identify owner decisions needed before the affected production be
 
   **Business gates:** D-13.
 
-  **Deliverables:** Scoped automatic policy, monitoring, disablement and rollback evidence. Planned locations: `resources/policies/; docs/runbooks/automation/; tests/rollout/`.
+  **Deliverables:** Scoped automatic policy, monitoring, disablement and rollback evidence. Planned locations: `resources/policies/; docs/runbooks/automation/; backend/src/test/java/com/aam/rollout/`.
 
   **Positive acceptance:** Only approved cohort sends automatically; disabling returns it to review-assisted processing.
 
@@ -1132,6 +1132,6 @@ Business gates identify owner decisions needed before the affected production be
 
   **Entry point and layer:** canary activation/kill-switch and rollback through policy API (journeys).
 
-  **Verification command (planned):** `npm run test -- tests/journeys/test_automation_canary.test.ts`
+  **Verification command (planned):** `./mvnw -f backend/pom.xml -Dit.test=AutomationCanaryIT -Dfailsafe.failIfNoSpecifiedTests=true verify`
 
   **Evidence:** Retain revision, environment, final assertions/status and diagnostics under `artifacts/<revision>/T26.2/`; provider/live evidence must be distinguished from fixtures. Current status: **NOT RUN**.

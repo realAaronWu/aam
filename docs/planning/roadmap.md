@@ -17,7 +17,7 @@ Provision environment/identity foundations and start corpus preparation in M1. A
 
 Initial production activation is gated by M4 qualification and applicable business decisions. If an optional feature such as CRM write-back is excluded from a release, split its requirements/tasks into a separate active change with explicit scope before qualifying that release. Do not tick an unbuilt feature or bypass its scenario to shorten the plan. Automatic categories can use different evidence profiles, but share security, recovery and delivery gates.
 
-Implementation is TypeScript throughout. T01.1 prepares the shared Next.js/Node.js modules; T03.2/T16.1 provide durable PostgreSQL jobs; T11.1 qualifies the TypeScript agent runtime. Three deployment roles share the codebase, with delivery isolated by identity. Additional orchestration or broker services are deferred until justified by measured needs.
+The core backend is Java/Spring Boot. T01.1 establishes the Java backend, retained Next.js portal and shared JSON/OpenAPI contracts; T03.2/T16.1 provide Java-owned PostgreSQL jobs; T11.1/T11.2 qualify the bounded TypeScript Deep Agents companion and Java boundary. Four deployment roles share one repository, with delivery isolated by identity. No second business database, agent-owned queue or duplicated workflow engine is introduced.
 
 ## Extensions and slicing
 

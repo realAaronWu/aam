@@ -5,10 +5,12 @@ context: |
   Priorities: renewal monitoring; quarterly claims-deck delivery (local delivery);
   program changes; email understanding and controlled responses.
   The broker may represent multiple clients. A case may span multiple threads.
-  Proposed stack: TypeScript/Next.js, Deep Agents with scoped connection tools and bounded dynamic planning,
-  DB-owned business state/timers/jobs, bounded Node.js workers on AKS,
+  Proposed stack: Java/Spring Boot business core, Next.js portal and a bounded Deep Agents TypeScript companion,
+  DB-owned business state/timers/jobs, bounded Java workers on AKS,
   managed PostgreSQL, Blob, later-slice AI Search and Foundry model deployments.
-  Three deployment roles: Next.js portal/API, background intake/agent worker, delivery worker.
+  Four deployment roles: portal, Java API, Java background with TypeScript agent companion, Java delivery.
+  Java owns connections, evidence, readiness, approvals and persistence; the companion owns no durable business state.
+  Shared JSON schemas/OpenAPI define the authenticated Java-agent boundary.
   Service Bus and external orchestration are deferred. Business policy gaps require owner decisions, not invented defaults.
   All backend infrastructure is managed Azure. No production application exists yet.
   AMs publish SOPs and per-output predicates using registered capabilities and connections.

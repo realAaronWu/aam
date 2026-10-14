@@ -875,16 +875,16 @@
         "QA-01",
         "OP-03"
       ],
-      "planned_locations": "app/; workers/; src/aam/; contracts/; tests/; package.json; package-lock.json; tsconfig.json",
+      "planned_locations": "portal/; backend/; agent-runtime/; contracts/; mvnw; .mvn/; backend/pom.xml; portal/package-lock.json; agent-runtime/package-lock.json",
       "status": "NOT RUN",
-      "deliverables": "Locked TypeScript/Node.js foundation with Next.js portal, separate worker entry points, shared Zod contracts, Vitest and Playwright; preserve useful demo business/UI modules through reviewed generic imports. Add test/typecheck/build scripts and reject empty test discovery. Deep Agents integration follows in T11.1. The CI host is selected through D-15 before provider-specific workflow files are authored.",
-      "positive": "Clean checkout installs from the lockfile, typechecks, builds and validates a complete typed sample; runtime schemas reject invalid external values.",
-      "negative": "Unknown schema major version, missing required result, empty test discovery or an undeclared non-TypeScript application runtime fails qualification.",
+      "deliverables": "Locked Java 21/Spring Boot/Maven foundation with API, background and delivery profiles; retained Next.js portal and TypeScript agent package. Shared JSON schemas/OpenAPI generate DTOs/clients; JSON boundary fixtures cover both languages. Add JUnit, Vitest and Playwright with native failure/empty-discovery qualification. CI host is selected through D-15 before provider-specific workflows.",
+      "positive": "Clean checkout verifies the Java backend and builds both Node packages; generated clients match the authoritative schema and both languages accept identical valid contract fixtures.",
+      "negative": "Missing schema/result, incompatible version, null/absent or decimal/timestamp disagreement, generated-client drift and empty requested test selection fail explicitly.",
       "milestone": "M1",
       "entry_point": "contract schema loader / locked clean install",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_foundation.test.ts",
-      "verification_command": "npm run test -- tests/contracts/test_foundation.test.ts",
+      "test_file": "backend/src/test/java/com/aam/contracts/FoundationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=FoundationIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run build && npm --prefix agent-runtime run build",
       "closes": [],
       "contributes": [
         "AI-01-P",
@@ -909,7 +909,7 @@
         "QA-01",
         "OP-03"
       ],
-      "planned_locations": "ci/; selected provider workflow directory; tests/delivery/",
+      "planned_locations": "ci/; selected provider workflow directory; backend/src/test/java/com/aam/delivery/",
       "status": "NOT RUN",
       "deliverables": "Selected CI provider workflow for specs, lint/types and real test discovery; run manifest and failure artifacts. Implement scenario-ownership/traceability checks and challenge missing-owner, duplicate-owner and missing-test mutations.",
       "positive": "A deliberate passing job reports source revision and executes discovered tests.",
@@ -917,8 +917,8 @@
       "milestone": "M1",
       "entry_point": "selected CI workflow dispatch and retained test report",
       "test_layer": "delivery",
-      "test_file": "tests/delivery/test_ci_discovery.test.ts",
-      "verification_command": "Selected CI provider: dispatch the validation workflow at the reviewed commit; download and inspect its run manifest and failing/passing artifacts. Run npm run test -- tests/delivery/test_ci_discovery.test.ts for the local discovery contract.",
+      "test_file": "backend/src/test/java/com/aam/delivery/CiDiscoveryIT.java",
+      "verification_command": "Selected CI provider: dispatch the validation workflow at the reviewed commit; retain its manifest and failing/passing artifacts. Local discovery contract: ./mvnw -f backend/pom.xml -Dit.test=CiDiscoveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify. Qualify pinned Maven, Vitest and Playwright native failure/empty-selection semantics.",
       "business_gates": [
         "D-15"
       ],
@@ -941,9 +941,9 @@
         "OP-03",
         "OP-04"
       ],
-      "planned_locations": "infra/dev/; docs/runbooks/dev-setup.md; tests/platform/",
+      "planned_locations": "infra/dev/; docs/runbooks/dev-setup.md; backend/src/test/java/com/aam/platform/",
       "status": "NOT RUN",
-      "deliverables": "Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and test workload identities for the three TypeScript deployment roles; approved Graph test mailbox scopes. Add Foundry/Search resources when T11/T12 start. Qualify managed database concurrency and failover rather than assuming local fixtures establish provider compatibility.",
+      "deliverables": "Reproducible managed PostgreSQL, Blob, ACR, Key Vault, Monitor and scoped identities for portal, Java API, Java background with agent companion, and Java delivery; approved Graph test mailbox scopes. Agent container has no business DB or provider-write credentials. Add Foundry/Search when needed; qualify managed DB concurrency and failover.",
       "positive": "A clean checkout deploys to the approved test resource group and allowed mailbox probes succeed; retain resource and grant inventory.",
       "negative": "Wrong subscription/tenant, unscoped mailbox or unrestricted test recipient fails admission/probe; no production connection is silently substituted.",
       "milestone": "M1",
@@ -952,8 +952,8 @@
       ],
       "entry_point": "dev/test IaC deployment and scoped test-identity probe",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_dev_environment.test.ts",
-      "verification_command": "npm run test -- tests/platform/test_dev_environment.test.ts",
+      "test_file": "backend/src/test/java/com/aam/platform/DevEnvironmentIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=DevEnvironmentIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-05",
         "D-08",
@@ -981,7 +981,7 @@
         "OP-01",
         "OP-04"
       ],
-      "planned_locations": "src/aam/security/; tests/security/",
+      "planned_locations": "backend/src/main/java/com/aam/security/; backend/src/test/java/com/aam/security/",
       "status": "NOT RUN",
       "deliverables": "Entra user/account policy and workload grants including scoped Graph read, draft-write and send roles; inventory overlapping Entra grants and test effective scope, not just RBAC simulation.",
       "positive": "Assigned AM reads and reviews its case through the API.",
@@ -989,8 +989,8 @@
       "milestone": "M1",
       "entry_point": "authenticated case API authorization middleware",
       "test_layer": "security",
-      "test_file": "tests/security/test_identity.test.ts",
-      "verification_command": "npm run test -- tests/security/test_identity.test.ts",
+      "test_file": "backend/src/test/java/com/aam/security/IdentityIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=IdentityIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [],
       "contributes": [
         "OP-01-P",
@@ -1018,7 +1018,7 @@
         "AU-02",
         "AU-03"
       ],
-      "planned_locations": "src/aam/persistence/; migrations/; contracts/events/",
+      "planned_locations": "backend/src/main/java/com/aam/persistence/; backend/src/main/resources/db/migration/; contracts/events/",
       "status": "NOT RUN",
       "deliverables": "Migrations for authoritative cases/obligations, proposed tasks, waits/timers, dependencies, commands/attempts, recovery epoch and technical work ledger. ADR-06 is the schema contract.",
       "positive": "One business-cycle key persists with versioned records and source references.",
@@ -1026,8 +1026,8 @@
       "milestone": "M1",
       "entry_point": "database migrations and case/obligation repository transactions",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_persistence.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_persistence.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/PersistenceIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=PersistenceIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [],
       "contributes": [
         "AU-02-P",
@@ -1060,7 +1060,7 @@
       "requirements": [
         "WF-02"
       ],
-      "planned_locations": "src/aam/persistence/; migrations/; contracts/events/",
+      "planned_locations": "backend/src/main/java/com/aam/persistence/; backend/src/main/resources/db/migration/; contracts/events/",
       "status": "NOT RUN",
       "deliverables": "Transactional inbox/outbox, stable case sequence, unique durable work rows and atomic outbox-to-work transfer with lost-commit-ack reconciliation; DB polling command queue is the sole delivery authority.",
       "positive": "Committed state and its event survive worker restart.",
@@ -1068,8 +1068,8 @@
       "milestone": "M1",
       "entry_point": "inbox/outbox transaction and work-ledger recovery harness",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_outbox.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_outbox.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/OutboxIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=OutboxIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "WF-02-N"
       ],
@@ -1089,7 +1089,7 @@
       "requirements": [
         "IN-01"
       ],
-      "planned_locations": "src/aam/integrations/mail/; tests/contracts/mail/",
+      "planned_locations": "backend/src/main/java/com/aam/integrations/mail/; backend/src/test/java/com/aam/contracts/mail/",
       "status": "NOT RUN",
       "deliverables": "Outbound Graph polling with cursor per approved mailbox/folder, immutable IDs and Blob-first admission followed by atomic message/cursor/outbox DB commit.",
       "positive": "A poll page advances only after every allowed message is recorded; same-mailbox folder movement retains one identity.",
@@ -1097,8 +1097,8 @@
       "milestone": "M1",
       "entry_point": "folder delta adapter page commit/cursor boundary",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_mail_delta.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_mail_delta.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/MailDeltaIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=MailDeltaIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-05",
         "D-08",
@@ -1120,7 +1120,7 @@
       "requirements": [
         "IN-02"
       ],
-      "planned_locations": "src/aam/documents/; tests/documents/",
+      "planned_locations": "backend/src/main/java/com/aam/documents/; backend/src/test/java/com/aam/documents/",
       "status": "NOT RUN",
       "deliverables": "Bounded scanning/extraction with source positions, quarantine and data-use classification; no unclassified content is sent to model/search.",
       "positive": "A supported deck yields traceable text and evidence references.",
@@ -1128,8 +1128,8 @@
       "milestone": "M1",
       "entry_point": "attachment admission, scan and extraction pipeline",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_attachments.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_attachments.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/AttachmentsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=AttachmentsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-08"
       ],
@@ -1150,7 +1150,7 @@
       "requirements": [
         "IN-03"
       ],
-      "planned_locations": "src/aam/integrations/crm/; tests/contracts/crm/",
+      "planned_locations": "backend/src/main/java/com/aam/integrations/crm/; backend/src/test/java/com/aam/contracts/crm/",
       "status": "NOT RUN",
       "deliverables": "Versioned Dynamics 365 Sales / Dataverse read adapter, approved environment/table/field mapping and source freshness; provider identity roles plus application account/field filtering. Other Dynamics families require separate adapter qualification.",
       "positive": "Account, owner, contacts and renewal dates retain source time/version.",
@@ -1158,8 +1158,8 @@
       "milestone": "M1",
       "entry_point": "CRM synchronization adapter read/freshness boundary",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_crm_read.test.ts",
-      "verification_command": "npm run test -- tests/contracts/test_crm_read.test.ts",
+      "test_file": "backend/src/test/java/com/aam/contracts/CrmReadIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CrmReadIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-04"
       ],
@@ -1182,7 +1182,7 @@
         "CS-01",
         "CS-02"
       ],
-      "planned_locations": "src/aam/cases/; tests/cases/",
+      "planned_locations": "backend/src/main/java/com/aam/cases/; backend/src/test/java/com/aam/cases/",
       "status": "NOT RUN",
       "deliverables": "Link, split, merge and reassign commands with causal event history.",
       "positive": "Two threads link to one authorized case and a split preserves original references.",
@@ -1190,8 +1190,8 @@
       "milestone": "M1",
       "entry_point": "case link/split/merge command API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_case_links.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_case_links.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/CaseLinksIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CaseLinksIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "CS-01-P",
         "CS-01-N"
@@ -1214,7 +1214,7 @@
       "requirements": [
         "CX-01"
       ],
-      "planned_locations": "src/aam/context/resolver.ts; tests/context/",
+      "planned_locations": "backend/src/main/java/com/aam/context/Resolver.java; backend/src/test/java/com/aam/context/",
       "status": "NOT RUN",
       "deliverables": "Candidate matching, identifier checks and ambiguity queue.",
       "positive": "One broker with two clients resolves to the explicit authorized policy.",
@@ -1222,8 +1222,8 @@
       "milestone": "M1",
       "entry_point": "account/workstream resolver and ambiguity queue",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_resolution.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_resolution.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ResolutionIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ResolutionIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-16"
       ],
@@ -1247,7 +1247,7 @@
         "IN-01",
         "IN-04"
       ],
-      "planned_locations": "src/aam/integrations/mail/; tests/contracts/mail/",
+      "planned_locations": "backend/src/main/java/com/aam/integrations/mail/; backend/src/test/java/com/aam/contracts/mail/",
       "status": "NOT RUN",
       "deliverables": "Controlled cursor-reset/rescan, approved-folder reconciliation, Sent Items human/AAM/unknown attribution, request disposition invalidation and observation health. No webhook subscription lifecycle is required initially.",
       "positive": "Catch-up after downtime records each message once, including human replies and provider-stamped AAM sends.",
@@ -1255,8 +1255,8 @@
       "milestone": "M1",
       "entry_point": "inbound/Sent Items catch-up and request-disposition projection",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_mail_observation.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_mail_observation.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/MailObservationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=MailObservationIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-05",
         "D-13",
@@ -1281,7 +1281,7 @@
       "requirements": [
         "CX-02"
       ],
-      "planned_locations": "src/aam/context/snapshots.ts; contracts/context/",
+      "planned_locations": "backend/src/main/java/com/aam/context/Snapshots.java; contracts/context/",
       "status": "NOT RUN",
       "deliverables": "Server-built snapshot with data scope, source hashes, workflow/client parameters and observed-mail freshness; attachments may be pending/unavailable without blocking snapshot construction.",
       "positive": "Every specialist sees the same authoritative message/account identity.",
@@ -1289,8 +1289,8 @@
       "milestone": "M1",
       "entry_point": "context snapshot builder and specialist-input boundary",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_context_snapshot.test.ts",
-      "verification_command": "npm run test -- tests/contracts/test_context_snapshot.test.ts",
+      "test_file": "backend/src/test/java/com/aam/contracts/ContextSnapshotIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ContextSnapshotIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "CX-02-P",
         "CX-02-N"
@@ -1308,7 +1308,7 @@
       "requirements": [
         "CX-03"
       ],
-      "planned_locations": "src/aam/context/snapshots.ts; contracts/context/",
+      "planned_locations": "backend/src/main/java/com/aam/context/Snapshots.java; contracts/context/",
       "status": "NOT RUN",
       "deliverables": "Ordered context selection and explicit truncation/unavailable flags.",
       "positive": "Recent complete context remains usable with omitted-history metadata.",
@@ -1316,8 +1316,8 @@
       "milestone": "M1",
       "entry_point": "context selection with unavailable-body/attachment states",
       "test_layer": "contracts",
-      "test_file": "tests/contracts/test_context_limits.test.ts",
-      "verification_command": "npm run test -- tests/contracts/test_context_limits.test.ts",
+      "test_file": "backend/src/test/java/com/aam/contracts/ContextLimitsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ContextLimitsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "CX-03-P",
         "CX-03-N"
@@ -1335,7 +1335,7 @@
       "requirements": [
         "CS-02"
       ],
-      "planned_locations": "src/aam/cases/; tests/cases/",
+      "planned_locations": "backend/src/main/java/com/aam/cases/; backend/src/test/java/com/aam/cases/",
       "status": "NOT RUN",
       "deliverables": "Completion/waiver evaluator with typed evidence-policy slots. Missing approved evidence or waiver rules are explicit activation/closure blocks.",
       "positive": "Accepted completion evidence or authorized waiver satisfies all mandatory work.",
@@ -1343,8 +1343,8 @@
       "milestone": "M1",
       "entry_point": "obligation completion and case-closure command handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_completion.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_completion.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/CompletionIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CompletionIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-07",
         "D-12"
@@ -1362,7 +1362,7 @@
       "requirements": [
         "CS-04"
       ],
-      "planned_locations": "src/aam/cases/proposals/; tests/integration/",
+      "planned_locations": "backend/src/main/java/com/aam/cases/proposals/; backend/src/test/java/com/aam/integration/",
       "status": "NOT RUN",
       "deliverables": "Pending proposal storage and idempotent decision handler driven by configured promotion rules, with no implicit model-created timer.",
       "positive": "A repeated authorized synthetic-policy decision creates one obligation with provenance.",
@@ -1373,8 +1373,8 @@
       ],
       "entry_point": "proposed-obligation decision command handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_proposal_promotion.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_proposal_promotion.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ProposalPromotionIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ProposalPromotionIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-16"
       ],
@@ -1395,7 +1395,7 @@
       "requirements": [
         "CS-03"
       ],
-      "planned_locations": "web/; src/aam/api/cases/; tests/ui/; tests/e2e/case-overview.spec.ts",
+      "planned_locations": "portal/; backend/src/main/java/com/aam/api/cases/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/case-overview.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Scoped case list, obligations, evidence timeline, explicit holds and read-only approval status. Approval actions are delivered in T14.2, not prematurely here.",
       "positive": "AM can inspect owner/deadline/evidence and record authorized resolution.",
@@ -1403,8 +1403,8 @@
       "milestone": "M1",
       "entry_point": "case query API and evidence timeline browser flow",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_case_overview.test.ts",
-      "verification_command": "npm run test -- tests/ui/test_case_overview.test.ts && npm run test:e2e -- tests/e2e/case-overview.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/ui/CaseOverviewIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CaseOverviewIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/case-overview.spec.ts",
       "closes": [
         "CS-03-N"
       ],
@@ -1412,7 +1412,7 @@
         "CS-03-P"
       ],
       "business_gates": [],
-      "browser_test_file": "tests/e2e/case-overview.spec.ts"
+      "browser_test_file": "portal/tests/e2e/case-overview.spec.ts"
     },
     {
       "id": "T16.1",
@@ -1427,16 +1427,16 @@
         "WF-01",
         "WF-02"
       ],
-      "planned_locations": "workers/; src/aam/jobs/; src/aam/workflows/; tests/integration/",
+      "planned_locations": "backend/src/main/java/com/aam/bootstrap/; backend/src/main/java/com/aam/jobs/; backend/src/main/java/com/aam/workflows/; backend/src/test/java/com/aam/integration/",
       "status": "NOT RUN",
-      "deliverables": "DB-owned waits/timers and bounded Node.js jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership.",
+      "deliverables": "DB-owned waits/timers and bounded Java jobs; atomic claims, owner/lease/fencing token, deadline, cancellation, retry budget, quarantine and recovery epoch. A watchdog reclaims expired attempts; result/state/outbox commit together only under current ownership. Java is the sole job retry owner.",
       "positive": "Reply or approval after restart creates new bounded work against the original DB wait; two worker replicas claim work safely and recover a lost commit acknowledgement without duplicate committed results.",
       "negative": "Missing handler version suspends the case; expired lease, cancelled attempt or old epoch cannot commit late results; attempt-history cleanup preserves business deduplication; exhausted retries quarantine rather than loop indefinitely.",
       "milestone": "M1",
       "entry_point": "PostgreSQL job claim/commit, lease watchdog and DB-owned wait recovery",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_bounded_execution.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_bounded_execution.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/BoundedExecutionIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=BoundedExecutionIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "WF-01-P",
         "WF-01-N"
@@ -1458,7 +1458,7 @@
         "WF-03",
         "WF-02"
       ],
-      "planned_locations": "src/aam/workflows/; tests/workflows/",
+      "planned_locations": "backend/src/main/java/com/aam/workflows/; backend/src/test/java/com/aam/workflows/",
       "status": "NOT RUN",
       "deliverables": "DB due sweep, holiday/timezone calculation, reschedule/pause/cancel, missed-sweep recovery and configurable upcoming/overdue notification events.",
       "positive": "Synthetic approved holiday, reschedule and notification rules emit one expected occurrence; superseded timers do not dispatch.",
@@ -1466,8 +1466,8 @@
       "milestone": "M1",
       "entry_point": "due-row sweep and current-version transition handler",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_timers.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_timers.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/TimersIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=TimersIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-06",
         "D-14"
@@ -1493,7 +1493,7 @@
         "CFG-01",
         "AI-05"
       ],
-      "planned_locations": "resources/workflows/; src/aam/configuration/; tests/configuration/",
+      "planned_locations": "resources/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/configuration/",
       "status": "NOT RUN",
       "deliverables": "Registered capability schemas, versioned workflow-definition registry and common typed predicate evaluator; immutable artifacts, case pinning, readiness/completion contracts and mandatory policy slots. Supports deterministic templates without requiring the model runtime.",
       "positive": "New case pins version two while active version one remains reproducible; complete template inputs pass their output predicate.",
@@ -1501,8 +1501,8 @@
       "milestone": "M1",
       "entry_point": "workflow-type registry publish/activation API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_workflow_registry.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_workflow_registry.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/WorkflowRegistryIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=WorkflowRegistryIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-06",
         "D-07",
@@ -1529,7 +1529,7 @@
       "requirements": [
         "CFG-03"
       ],
-      "planned_locations": "src/aam/configuration/; web/configuration/; tests/integration/; tests/e2e/client-parameters.spec.ts",
+      "planned_locations": "backend/src/main/java/com/aam/configuration/; portal/configuration/; backend/src/test/java/com/aam/integration/; portal/tests/e2e/client-parameters.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Authorized typed parameter API, publication audit and pinning; distinct from engineering-owned type/permission schemas.",
       "positive": "Approved cadence revision affects new cases only; previous revision remains retrievable.",
@@ -1540,8 +1540,8 @@
       ],
       "entry_point": "client-parameter publish and case-version pinning API",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_client_parameters.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_client_parameters.test.ts && npm run test:e2e -- tests/e2e/client-parameters.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ClientParametersIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ClientParametersIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/client-parameters.spec.ts",
       "business_gates": [
         "D-06",
         "D-13",
@@ -1552,7 +1552,7 @@
         "CFG-03-N"
       ],
       "contributes": [],
-      "browser_test_file": "tests/e2e/client-parameters.spec.ts"
+      "browser_test_file": "portal/tests/e2e/client-parameters.spec.ts"
     },
     {
       "id": "T21.1",
@@ -1564,7 +1564,7 @@
       "requirements": [
         "QA-01"
       ],
-      "planned_locations": "evals/; tests/evaluation/",
+      "planned_locations": "evals/; backend/src/test/java/com/aam/evaluation/",
       "status": "NOT RUN",
       "deliverables": "Early synthetic seed corpus, versioned labels and frozen holdout; domain-review and data-use approval process for de-identified real samples and small runtime demonstration sets. Split by source conversation/scenario family before tuning; exclude held-out examples from shipped bundles and annotate missing slices.",
       "positive": "All three journeys, languages and broker ambiguity slices have positive/adverse examples; reviewed runtime demonstrations and held-out records have disjoint identities, content hashes and source conversation groups.",
@@ -1572,8 +1572,8 @@
       "milestone": "M1",
       "entry_point": "corpus manifest/label loader and dataset approval checks",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_corpus.test.ts",
-      "verification_command": "npm run test -- tests/evaluation/test_corpus.test.ts",
+      "test_file": "backend/src/test/java/com/aam/evaluation/CorpusIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CorpusIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-08"
       ],
@@ -1594,7 +1594,7 @@
       "requirements": [
         "OP-02"
       ],
-      "planned_locations": "src/aam/operations/; docs/runbooks/; tests/recovery/",
+      "planned_locations": "backend/src/main/java/com/aam/operations/; docs/runbooks/; backend/src/test/java/com/aam/recovery/",
       "status": "NOT RUN",
       "deliverables": "Early DB work-age/queue metrics, correlation, persistence readiness and safe diagnostics; add provider/model metrics with later integrations.",
       "positive": "Injected outage produces a case-linked actionable diagnostic.",
@@ -1602,8 +1602,8 @@
       "milestone": "M1",
       "entry_point": "work ledger health/readiness and backlog diagnostic endpoints",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_observability.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_observability.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ObservabilityIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ObservabilityIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [],
       "contributes": [
         "OP-02-P",
@@ -1626,7 +1626,7 @@
         "AU-01",
         "AI-05"
       ],
-      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/",
+      "planned_locations": "backend/src/main/java/com/aam/authorization/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/authorization/",
       "status": "NOT RUN",
       "deliverables": "Shared configurable action/recipient/authority policy with explicit missing-policy holds; deterministic template proposals must first pass the common output-readiness evaluator before render and authorization.",
       "positive": "Approved low-risk policy permits only its scoped action type.",
@@ -1634,8 +1634,8 @@
       "milestone": "M2",
       "entry_point": "shared action policy on deterministic proposals",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_action_policy.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_action_policy.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ActionPolicyIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ActionPolicyIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-13",
         "D-16"
@@ -1660,7 +1660,7 @@
       "requirements": [
         "AU-02"
       ],
-      "planned_locations": "src/aam/authorization/; src/aam/api/approvals/; tests/authorization/; tests/e2e/approval-dependencies.spec.ts",
+      "planned_locations": "backend/src/main/java/com/aam/authorization/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/authorization/; portal/tests/e2e/approval-dependencies.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Exact-content approval API/UI for deterministic proposals, server-built dependency sets and expiry; DB-owned waiting state survives restarts.",
       "positive": "Unchanged approved content passes; an unrelated country event does not invalidate it; restart retains the pending approval.",
@@ -1668,8 +1668,8 @@
       "milestone": "M2",
       "entry_point": "approval API/UI and dispatch dependency-set validator",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_approval_dependencies.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_approval_dependencies.test.ts && npm run test:e2e -- tests/e2e/approval-dependencies.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ApprovalDependenciesIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ApprovalDependenciesIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/approval-dependencies.spec.ts",
       "business_gates": [
         "D-13"
       ],
@@ -1680,7 +1680,7 @@
         "AU-02-P2",
         "AU-02-N2"
       ],
-      "browser_test_file": "tests/e2e/approval-dependencies.spec.ts"
+      "browser_test_file": "portal/tests/e2e/approval-dependencies.spec.ts"
     },
     {
       "id": "T15.1",
@@ -1696,7 +1696,7 @@
         "WF-02",
         "AU-02"
       ],
-      "planned_locations": "src/aam/delivery/; tests/delivery/",
+      "planned_locations": "backend/src/main/java/com/aam/delivery/; backend/src/test/java/com/aam/delivery/",
       "status": "NOT RUN",
       "deliverables": "Leased/fenced DB command queue, shared dependency recheck, observation barrier and draft-create/persist-ID/send flow with scoped identity and independent test recipient guards.",
       "positive": "Approved current content is submitted and stored with its exact hash.",
@@ -1704,8 +1704,8 @@
       "milestone": "M2",
       "entry_point": "DB command claim, draft creation and Graph sandbox dispatch",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_delivery.test.ts",
-      "verification_command": "npm run test -- tests/provider/test_delivery.test.ts",
+      "test_file": "backend/src/test/java/com/aam/provider/DeliveryIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=DeliveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "AU-02-P",
         "AU-02-N",
@@ -1733,7 +1733,7 @@
         "IN-04",
         "OP-04"
       ],
-      "planned_locations": "src/aam/delivery/; tests/delivery/",
+      "planned_locations": "backend/src/main/java/com/aam/delivery/; backend/src/test/java/com/aam/delivery/",
       "status": "NOT RUN",
       "deliverables": "Tenant qualification of immutable draft IDs and app-specific stamp create/filter/sent preservation; lost create/send response reconciliation, late NDR mapping, effective mailbox scope and transport-rule probes.",
       "positive": "A lost send response is reconciled to the same command and a human reply observed before dispatch suppresses its pending draft.",
@@ -1741,8 +1741,8 @@
       "milestone": "M2",
       "entry_point": "Graph reconciliation and stale-observation dispatch barrier",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_reconciliation.test.ts",
-      "verification_command": "npm run test -- tests/provider/test_reconciliation.test.ts",
+      "test_file": "backend/src/test/java/com/aam/provider/ReconciliationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ReconciliationIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-05",
         "D-13",
@@ -1771,7 +1771,7 @@
       "requirements": [
         "QD-01"
       ],
-      "planned_locations": "resources/workflows/quarterly-delivery/; tests/journeys/quarterly/",
+      "planned_locations": "resources/workflows/quarterly-delivery/; backend/src/test/java/com/aam/journeys/quarterly/",
       "status": "NOT RUN",
       "deliverables": "Account/quarter/country scheduling, contacts and reminder rules.",
       "positive": "Required countries receive one owned obligation each.",
@@ -1779,8 +1779,8 @@
       "milestone": "M2",
       "entry_point": "quarterly schedule-to-case command",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_quarterly_schedule.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_quarterly_schedule.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/QuarterlyScheduleIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=QuarterlyScheduleIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-06"
       ],
@@ -1802,7 +1802,7 @@
       "requirements": [
         "QD-02"
       ],
-      "planned_locations": "resources/workflows/quarterly-delivery/; tests/journeys/quarterly/",
+      "planned_locations": "resources/workflows/quarterly-delivery/; backend/src/test/java/com/aam/journeys/quarterly/",
       "status": "NOT RUN",
       "deliverables": "Review-assisted deterministic template reminders and evidence acceptance under explicit synthetic policies; no full LLM, CRM write-back or type-migration dependency.",
       "positive": "Valid delivery confirmation completes that country and stops its reminders.",
@@ -1810,8 +1810,8 @@
       "milestone": "M2",
       "entry_point": "quarterly reminder/evidence/closure journey using approved templates",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_quarterly_delivery.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_quarterly_delivery.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/QuarterlyDeliveryIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=QuarterlyDeliveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-07",
         "D-12",
@@ -1835,22 +1835,23 @@
       "requirements": [
         "AI-01"
       ],
-      "planned_locations": "src/aam/agents/; contracts/; resources/agents/; resources/examples/; tests/agents/",
+      "planned_locations": "backend/src/main/java/com/aam/agents/; agent-runtime/src/; agent-runtime/tests/; contracts/; resources/agents/; resources/examples/",
       "status": "NOT RUN",
-      "deliverables": "Locked Deep Agents TypeScript/LangChain/LangGraph adapter with Zod schemas, reviewed skills, shared model/tool/time budgets including child and summarization calls, cancellation propagation and restricted effective tools. Versioned example loader/selector retains immutable bundle bytes. Disable shell, arbitrary SQL/network, writable SOP memory and unrestricted writer delegation.",
-      "positive": "Pinned runtime loads the selected skill and reproducible examples, invokes approved typed tools within aggregate budgets, and exposes the tested restricted capabilities to every child.",
-      "negative": "Missing/corrupt bundle, unknown labels, hidden default tools, child permission widening, budget overshoot, swallowed cancellation, malformed output and timeout fail explicitly; examples never displace mandatory current context.",
+      "deliverables": "Locked Deep Agents TypeScript companion with shared-schema boundary validation, reviewed skills, aggregate model/time budgets including children/summarization, cancellation and restricted tools. Java supplies attempt context and capability; companion has no DB, connector credentials or independent durable state. Retain immutable bundles and disable shell, arbitrary network/SQL and unrestricted writer delegation.",
+      "positive": "A Java-controlled invocation loads the pinned bundle and actual TypeScript runtime, exposes only registered tools to children, preserves schema bindings and stays within aggregate budgets.",
+      "negative": "Hidden tools, child scope widening, malformed/empty results, timeout, swallowed cancellation or model-budget overshoot fail explicitly; unregistered schema or mismatched package versions cannot activate.",
       "milestone": "M3",
       "entry_point": "Deep Agents adapter, skill loader and effective main/child tool inventory",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_model_adapter.test.ts",
-      "verification_command": "npm run test -- tests/agents/test_model_adapter.test.ts",
+      "test_file": "backend/src/test/java/com/aam/agents/ModelAdapterIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ModelAdapterIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix agent-runtime run test -- tests/model-adapter.test.ts",
       "closes": [],
       "contributes": [
         "AI-01-P",
         "AI-01-N"
       ],
-      "business_gates": []
+      "business_gates": [],
+      "runtime_test_file": "agent-runtime/tests/model-adapter.test.ts"
     },
     {
       "id": "T10.2",
@@ -1863,7 +1864,7 @@
       "requirements": [
         "CS-03"
       ],
-      "planned_locations": "web/; src/aam/api/cases/; tests/ui/; tests/e2e/summary-freshness.spec.ts",
+      "planned_locations": "portal/; backend/src/main/java/com/aam/api/cases/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/summary-freshness.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Event-triggered summary job and freshness display.",
       "positive": "Committed structured changes appear while a narrative refresh is pending.",
@@ -1871,8 +1872,8 @@
       "milestone": "M3",
       "entry_point": "summary generation job plus case-view freshness presentation",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_summary_freshness.test.ts",
-      "verification_command": "npm run test -- tests/ui/test_summary_freshness.test.ts && npm run test:e2e -- tests/e2e/summary-freshness.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/ui/SummaryFreshnessIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=SummaryFreshnessIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/summary-freshness.spec.ts",
       "closes": [
         "CS-03-P"
       ],
@@ -1880,7 +1881,7 @@
         "CS-03-N"
       ],
       "business_gates": [],
-      "browser_test_file": "tests/e2e/summary-freshness.spec.ts"
+      "browser_test_file": "portal/tests/e2e/summary-freshness.spec.ts"
     },
     {
       "id": "T12.1",
@@ -1893,7 +1894,7 @@
       "requirements": [
         "AI-02"
       ],
-      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
+      "planned_locations": "backend/src/main/java/com/aam/retrieval/; backend/src/test/java/com/aam/retrieval/",
       "status": "NOT RUN",
       "deliverables": "Approved knowledge registry/indexer and scoped API/Search adapter with source version, effective-date, completeness and DB authorization revalidation. Evidence registry rejects unknown IDs and conflicting content for an existing ID; search top-k does not establish exhaustive business evidence.",
       "positive": "Applicable evidence for two questions is returned with source locations.",
@@ -1901,8 +1902,8 @@
       "milestone": "M3",
       "entry_point": "knowledge indexer and scoped Search adapter",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_retrieval.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_retrieval.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/RetrievalIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=RetrievalIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [],
       "contributes": [
         "AI-02-P",
@@ -1922,7 +1923,7 @@
       "requirements": [
         "RN-01"
       ],
-      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "planned_locations": "resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/",
       "status": "NOT RUN",
       "deliverables": "CRM eligibility scan with calendar-month and account-specific lead-time rules.",
       "positive": "Configured earlier jumbo date creates one cycle and applicable country workstreams.",
@@ -1930,8 +1931,8 @@
       "milestone": "M3",
       "entry_point": "CRM eligibility sweep and renewal case creation",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_schedule.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_renewal_schedule.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/RenewalScheduleIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=RenewalScheduleIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-04",
         "D-06"
@@ -1954,7 +1955,7 @@
       "requirements": [
         "RN-02"
       ],
-      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "planned_locations": "resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/",
       "status": "NOT RUN",
       "deliverables": "Versioned pricing/terms and approved consolidation interface. Scope is gated by D-17; do not implement numeric authorship or choose document-only behavior as an unstated business answer.",
       "positive": "Accepted applicable country terms produce an approvable consolidation.",
@@ -1962,8 +1963,8 @@
       "milestone": "M3",
       "entry_point": "pricing/terms version acceptance and release command boundary",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_terms.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_renewal_terms.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/RenewalTermsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=RenewalTermsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-12",
         "D-13",
@@ -1985,7 +1986,7 @@
       "requirements": [
         "RN-03"
       ],
-      "planned_locations": "resources/workflows/renewal/; tests/journeys/renewal/",
+      "planned_locations": "resources/workflows/renewal/; backend/src/test/java/com/aam/journeys/renewal/",
       "status": "NOT RUN",
       "deliverables": "Round/action history, confirmation evidence and obsolete-reminder cancellation.",
       "positive": "Confirmed agreed outcome finalizes the correct versions.",
@@ -1993,8 +1994,8 @@
       "milestone": "M3",
       "entry_point": "negotiation event processing and finalization command",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_renewal_finalization.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_renewal_finalization.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/RenewalFinalizationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=RenewalFinalizationIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-12",
         "D-17"
@@ -2017,7 +2018,7 @@
       "requirements": [
         "PC-01"
       ],
-      "planned_locations": "resources/workflows/program-change/; tests/journeys/program-change/",
+      "planned_locations": "resources/workflows/program-change/; backend/src/test/java/com/aam/journeys/program-change/",
       "status": "NOT RUN",
       "deliverables": "Authenticated notice intake, existing/new-opportunity mapping and uncertainty handling.",
       "positive": "Confirmed notice creates linked impacted workstreams.",
@@ -2025,8 +2026,8 @@
       "milestone": "M3",
       "entry_point": "program-change notice intake with configured authority policy",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_program_trigger.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_program_trigger.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/ProgramTriggerIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ProgramTriggerIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-17"
       ],
@@ -2047,7 +2048,7 @@
       "requirements": [
         "PC-02"
       ],
-      "planned_locations": "resources/workflows/program-change/; tests/journeys/program-change/",
+      "planned_locations": "resources/workflows/program-change/; backend/src/test/java/com/aam/journeys/program-change/",
       "status": "NOT RUN",
       "deliverables": "Approval path, acknowledgment tracking and evidence-based closure.",
       "positive": "Approved communication and completed agreed actions allow closure.",
@@ -2055,8 +2056,8 @@
       "milestone": "M3",
       "entry_point": "approved notice and next-action closure journey",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_program_actions.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_program_actions.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/ProgramActionsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ProgramActionsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-12",
         "D-13"
@@ -2080,7 +2081,7 @@
       "requirements": [
         "CX-04"
       ],
-      "planned_locations": "src/aam/connections/; src/aam/integrations/; tests/integration/",
+      "planned_locations": "backend/src/main/java/com/aam/connections/; backend/src/main/java/com/aam/integrations/; backend/src/test/java/com/aam/integration/",
       "status": "NOT RUN",
       "deliverables": "Connection administration, credential references, operation catalogue, adapter/MCP wrapper and revocable per-call scope checks; normalized evidence envelope and scoped cache. Validate D365, Outlook and knowledge adapters in isolated provider environments.",
       "positive": "Approved main/child reads return only permitted account fields with provenance; complete paginated results retain membership evidence and provider access probes succeed.",
@@ -2088,8 +2089,8 @@
       "milestone": "M3",
       "entry_point": "connection registration API and guarded read gateway including provider qualification",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_connections.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_connections.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/ConnectionsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ConnectionsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "CX-04-P",
         "CX-04-N",
@@ -2117,16 +2118,16 @@
         "AI-01",
         "CS-04"
       ],
-      "planned_locations": "src/aam/agents/; resources/agents/; tests/agents/",
+      "planned_locations": "backend/src/main/java/com/aam/agents/; backend/src/main/java/com/aam/connections/; agent-runtime/src/; agent-runtime/tests/; contracts/",
       "status": "NOT RUN",
-      "deliverables": "Application-owned immutable context and typed handoff records around dynamic Deep Agents planning; children receive server-built snapshot references and cannot rewrite upstream results. Record evidence/example IDs and proposals; restart bounded attempts from durable state without a second business workflow store.",
-      "positive": "Different valid evidence conditions produce different permitted collection sequences; both preserve current context, workflow pins, readiness-before-writing and validation-before-authorization.",
-      "negative": "Planner prose, forged readiness, premature writer calls or injected source instructions cannot bypass application boundaries; child outputs cannot mutate scope or directly create obligations.",
+      "deliverables": "Java-owned authenticated plan/draft/validate invocation and read-tool boundary, server-built immutable handoffs and current lease/epoch/phase grants. Record proposals/evidence in Java; Java alone reconciles timeout/restart/lost response, revokes old attempts and accounts conservatively for uncertain model budget.",
+      "positive": "Java invokes the real companion; valid tool sequences differ by evidence while all scope/snapshot/phase bindings remain intact. Either-container restart or response loss creates only a fenced, bounded retry and no duplicate business effect.",
+      "negative": "Forged, expired, revoked, wrong-phase or wrong-audience grants, changed upstream evidence, stale callbacks/responses and partial timeout output cannot fetch unauthorized tools, invoke an accepted writer phase or commit results.",
       "milestone": "M3",
       "entry_point": "bounded Deep Agents work handler and guarded output/tool entry points",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_stage_coordinator.test.ts",
-      "verification_command": "npm run test -- tests/agents/test_stage_coordinator.test.ts",
+      "test_file": "backend/src/test/java/com/aam/agents/StageCoordinatorIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=StageCoordinatorIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix agent-runtime run test -- tests/handoffs.test.ts",
       "closes": [
         "AI-01-P",
         "AI-01-N"
@@ -2135,7 +2136,8 @@
         "CS-04-P",
         "CS-04-N"
       ],
-      "business_gates": []
+      "business_gates": [],
+      "runtime_test_file": "agent-runtime/tests/handoffs.test.ts"
     },
     {
       "id": "T12.2",
@@ -2148,7 +2150,7 @@
       "requirements": [
         "AI-02"
       ],
-      "planned_locations": "src/aam/retrieval/; tests/retrieval/",
+      "planned_locations": "backend/src/main/java/com/aam/retrieval/; backend/src/test/java/com/aam/retrieval/",
       "status": "NOT RUN",
       "deliverables": "Evidence registry with versions, scope, provenance, field presence, completeness, coverage states and bounded multi-query retrieval; distinguish source failure, partial results, confirmed absence and a proved complete collection.",
       "positive": "Per-question support distinguishes sufficient from partial coverage.",
@@ -2156,8 +2158,8 @@
       "milestone": "M3",
       "entry_point": "research loop evidence registry and coverage evaluator",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_research_coverage.test.ts",
-      "verification_command": "npm run test -- tests/agents/test_research_coverage.test.ts",
+      "test_file": "backend/src/test/java/com/aam/agents/ResearchCoverageIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ResearchCoverageIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "AI-02-P",
         "AI-02-N"
@@ -2176,7 +2178,7 @@
         "AI-04",
         "AI-05"
       ],
-      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "planned_locations": "backend/src/main/java/com/aam/drafting/; backend/src/main/java/com/aam/validation/; backend/src/test/java/com/aam/drafting/",
       "status": "NOT RUN",
       "deliverables": "Application-invoked typed writer guarded by an exact readiness PASS snapshot; distinct current facts and examples, language/continuity checks, rendered message and claim map. Internal planner text cannot become recipient-visible output.",
       "positive": "Relevant intent/language demonstrations guide phrasing; newly supplied information is acknowledged without repeating answered questions; no-match drafting preserves all factual/review controls.",
@@ -2184,8 +2186,8 @@
       "milestone": "M3",
       "entry_point": "writer adapter on final language/continuity and disclosure rules",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_drafting.test.ts",
-      "verification_command": "npm run test -- tests/agents/test_drafting.test.ts",
+      "test_file": "backend/src/test/java/com/aam/agents/DraftingIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=DraftingIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "AI-04-P",
         "AI-04-N"
@@ -2207,7 +2209,7 @@
       "requirements": [
         "AI-03"
       ],
-      "planned_locations": "src/aam/drafting/; src/aam/validation/; tests/drafting/",
+      "planned_locations": "backend/src/main/java/com/aam/drafting/; backend/src/main/java/com/aam/validation/; backend/src/test/java/com/aam/drafting/",
       "status": "NOT RUN",
       "deliverables": "Independent final-text extraction, union with writer map and deterministic critical spans; validate the readiness evidence binding and final claims, and discard generation if relevant evidence changed while writing.",
       "positive": "Applicable 30-day claim is supported by its actual source.",
@@ -2215,8 +2217,8 @@
       "milestone": "M3",
       "entry_point": "final-text claim extraction/coverage and critical-span validator",
       "test_layer": "agents",
-      "test_file": "tests/agents/test_claim_validation.test.ts",
-      "verification_command": "npm run test -- tests/agents/test_claim_validation.test.ts",
+      "test_file": "backend/src/test/java/com/aam/agents/ClaimValidationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ClaimValidationIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "AI-03-P",
         "AI-03-N",
@@ -2236,7 +2238,7 @@
         "AI-03",
         "AU-02"
       ],
-      "planned_locations": "web/review/; src/aam/api/approvals/; tests/ui/; tests/e2e/edited-review.spec.ts",
+      "planned_locations": "portal/review/; backend/src/main/java/com/aam/api/approvals/; backend/src/test/java/com/aam/ui/; portal/tests/e2e/edited-review.spec.ts",
       "status": "NOT RUN",
       "deliverables": "New report on edit, visible factual warnings and policy-controlled acknowledgment bound to exact content; security and freshness controls cannot be overridden.",
       "positive": "An authorized warning acknowledgment under a synthetic policy permits a reviewed unchanged edit without looping back indefinitely.",
@@ -2248,8 +2250,8 @@
       ],
       "entry_point": "edited-draft validation and warning-acknowledgment approval UI",
       "test_layer": "ui",
-      "test_file": "tests/ui/test_edited_review.test.ts",
-      "verification_command": "npm run test -- tests/ui/test_edited_review.test.ts && npm run test:e2e -- tests/e2e/edited-review.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/ui/EditedReviewIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=EditedReviewIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/edited-review.spec.ts",
       "business_gates": [
         "D-13"
       ],
@@ -2266,7 +2268,7 @@
         "AI-03-N",
         "AI-03-N2"
       ],
-      "browser_test_file": "tests/e2e/edited-review.spec.ts"
+      "browser_test_file": "portal/tests/e2e/edited-review.spec.ts"
     },
     {
       "id": "T21.2",
@@ -2279,7 +2281,7 @@
       "requirements": [
         "QA-01"
       ],
-      "planned_locations": "evals/; tests/evaluation/",
+      "planned_locations": "evals/; backend/src/test/java/com/aam/evaluation/",
       "status": "NOT RUN",
       "deliverables": "Scripted versus live model reports with numerators/denominators, per-slice sample counts, confidence method and unset-gate handling; compare current/candidate bundles on the same eligible holdout, recording example/selector versions and latency/token cost; final runner fails on incomplete output. Add workflow/predicate/connection versions and false-readiness, blocked-writer invocation and unsafe-tool-selection metrics; an unknown source cannot become an empty successful sample.",
       "positive": "Reports identify exact model/bundle/corpus, selected-example configuration and comparable per-slice outcomes; no-example baseline and prior bundle can be reproduced without altering the holdout.",
@@ -2287,8 +2289,8 @@
       "milestone": "M3",
       "entry_point": "candidate evaluation runner and actual final readiness report",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_candidate_report.test.ts",
-      "verification_command": "npm run test -- tests/evaluation/test_candidate_report.test.ts",
+      "test_file": "backend/src/test/java/com/aam/evaluation/CandidateReportIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CandidateReportIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-10"
       ],
@@ -2313,7 +2315,7 @@
       "requirements": [
         "AI-05"
       ],
-      "planned_locations": "src/aam/readiness/; src/aam/agents/; tests/integration/",
+      "planned_locations": "backend/src/main/java/com/aam/readiness/; backend/src/main/java/com/aam/agents/; backend/src/test/java/com/aam/integration/",
       "status": "NOT RUN",
       "deliverables": "End-to-end guard integration across planner, children, writer, templates, human review and resume; PASS evidence bindings, typed gap/conflict decisions and durable wake conditions. Recheck relevant dependencies before output exposure and delivery.",
       "positive": "Complete evidence invokes the writer once with its exact snapshot; missing-data case survives restart, receives valid evidence and passes on a new attempt without duplicate commands.",
@@ -2321,8 +2323,8 @@
       "milestone": "M3",
       "entry_point": "actual work handler, output request, writer boundary and approval/delivery precondition checks",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_output_readiness.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_output_readiness.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/OutputReadinessIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=OutputReadinessIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "AI-05-P",
         "AI-05-N",
@@ -2347,7 +2349,7 @@
       "requirements": [
         "CFG-04"
       ],
-      "planned_locations": "web/workflows/; src/aam/configuration/; tests/integration/; tests/e2e/sop-authoring.spec.ts",
+      "planned_locations": "portal/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/integration/; portal/tests/e2e/sop-authoring.spec.ts",
       "status": "NOT RUN",
       "deliverables": "Natural-language/form authoring, readable definition/predicate preview, authorized connection picker, positive/missing-input simulations and reviewed publication. Existing-case migration remains explicit; no code deployment for allowed SOP composition.",
       "positive": "AM publishes a renewal SOP using existing tools; distinct cases take permitted collection paths and each output observes its own predicate and approval rules.",
@@ -2355,8 +2357,8 @@
       "milestone": "M3",
       "entry_point": "portal authoring, simulation, publication and version-pinned runtime",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_sop_authoring.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_sop_authoring.test.ts && npm run test:e2e -- tests/e2e/sop-authoring.spec.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/SopAuthoringIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=SopAuthoringIT -Dfailsafe.failIfNoSpecifiedTests=true verify && npm --prefix portal run test:e2e -- tests/e2e/sop-authoring.spec.ts",
       "closes": [
         "CFG-04-P",
         "CFG-04-N",
@@ -2370,7 +2372,7 @@
         "D-16",
         "D-18"
       ],
-      "browser_test_file": "tests/e2e/sop-authoring.spec.ts"
+      "browser_test_file": "portal/tests/e2e/sop-authoring.spec.ts"
     },
     {
       "id": "T06.2",
@@ -2383,7 +2385,7 @@
       "requirements": [
         "IN-03"
       ],
-      "planned_locations": "src/aam/integrations/crm/; tests/contracts/crm/",
+      "planned_locations": "backend/src/main/java/com/aam/integrations/crm/; backend/src/test/java/com/aam/contracts/crm/",
       "status": "NOT RUN",
       "deliverables": "Feature-gated mapped CRM writes and separate command reconciliation. Read-only journey delivery does not depend on enabling write-back.",
       "positive": "Repeated accepted activity command has one business effect.",
@@ -2391,8 +2393,8 @@
       "milestone": "M4",
       "entry_point": "CRM write-back adapter and command reconciliation",
       "test_layer": "provider",
-      "test_file": "tests/provider/test_crm_writeback.test.ts",
-      "verification_command": "npm run test -- tests/provider/test_crm_writeback.test.ts",
+      "test_file": "backend/src/test/java/com/aam/provider/CrmWritebackIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=CrmWritebackIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-04"
       ],
@@ -2413,7 +2415,7 @@
       "requirements": [
         "CFG-02"
       ],
-      "planned_locations": "resources/workflows/; src/aam/configuration/; tests/configuration/",
+      "planned_locations": "resources/workflows/; backend/src/main/java/com/aam/configuration/; backend/src/test/java/com/aam/configuration/",
       "status": "NOT RUN",
       "deliverables": "Migration impact/authorization and synthetic health-talk extension compatibility example; preserves type and parameter pins and records effects on approvals/timers.",
       "positive": "An explicitly authorized migration records changed state/approval impact.",
@@ -2421,8 +2423,8 @@
       "milestone": "M4",
       "entry_point": "version migration API and synthetic extension interpreter",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_workflow_migration.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_workflow_migration.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/WorkflowMigrationIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=WorkflowMigrationIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "CFG-02-P",
         "CFG-02-N"
@@ -2442,7 +2444,7 @@
       "requirements": [
         "OP-02"
       ],
-      "planned_locations": "src/aam/operations/; docs/runbooks/; tests/recovery/",
+      "planned_locations": "backend/src/main/java/com/aam/operations/; docs/runbooks/; backend/src/test/java/com/aam/recovery/",
       "status": "NOT RUN",
       "deliverables": "Operator commands with reason, scope, original IDs and audit.",
       "positive": "Repair resumes the same work without duplicate external actions.",
@@ -2450,8 +2452,8 @@
       "milestone": "M4",
       "entry_point": "operator repair/replay API through actual worker execution",
       "test_layer": "integration",
-      "test_file": "tests/integration/test_operator_recovery.test.ts",
-      "verification_command": "npm run test -- tests/integration/test_operator_recovery.test.ts",
+      "test_file": "backend/src/test/java/com/aam/integration/OperatorRecoveryIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=OperatorRecoveryIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "OP-02-P",
         "OP-02-N"
@@ -2470,7 +2472,7 @@
       "requirements": [
         "OP-03"
       ],
-      "planned_locations": "infra/; deploy/; tests/deployment/",
+      "planned_locations": "infra/; deploy/; backend/src/test/java/com/aam/deployment/",
       "status": "NOT RUN",
       "deliverables": "Production IaC and separate identities; effective grants, private data endpoints, polling egress, portal ingress, HA/backup, image scan, patch/upgrade ownership and qualified backlog autoscaling. No assumed Graph public webhook.",
       "positive": "Fresh test environment provisions from declared parameters without self-hosted backend services.",
@@ -2478,8 +2480,8 @@
       "milestone": "M4",
       "entry_point": "production IaC plan/deployment, grants and operating-policy checks",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_production_environment.test.ts",
-      "verification_command": "npm run test -- tests/platform/test_production_environment.test.ts",
+      "test_file": "backend/src/test/java/com/aam/platform/ProductionEnvironmentIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ProductionEnvironmentIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-05",
         "D-08",
@@ -2507,7 +2509,7 @@
         "OP-01",
         "OP-03"
       ],
-      "planned_locations": "docs/security/; tests/security/; infra/policies/",
+      "planned_locations": "docs/security/; backend/src/test/java/com/aam/security/; infra/policies/",
       "status": "NOT RUN",
       "deliverables": "Approved policy covering every store/index/model/log/backup and scoped access.",
       "positive": "Authorized retention/restore lifecycle handles all derived records consistently.",
@@ -2515,8 +2517,8 @@
       "milestone": "M4",
       "entry_point": "data-policy admission/export/delete/retention across all stores",
       "test_layer": "security",
-      "test_file": "tests/security/test_data_lifecycle.test.ts",
-      "verification_command": "npm run test -- tests/security/test_data_lifecycle.test.ts",
+      "test_file": "backend/src/test/java/com/aam/security/DataLifecycleIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=DataLifecycleIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-08",
         "D-16"
@@ -2543,7 +2545,7 @@
       "requirements": [
         "OP-03"
       ],
-      "planned_locations": "infra/; deploy/; tests/deployment/",
+      "planned_locations": "infra/; deploy/; backend/src/test/java/com/aam/deployment/",
       "status": "NOT RUN",
       "deliverables": "Cold deployment, node drain/upgrade, compatible rollback and ordered fenced restore runbook: DB, Blob, Search, waits/timers, mailbox/provider reconciliation, then dispatch reopen.",
       "positive": "Recovered case state and bounded technical jobs meet approved objectives without replaying confirmed provider effects.",
@@ -2551,8 +2553,8 @@
       "milestone": "M4",
       "entry_point": "fenced restore runbook, upgrade/drain and dispatch-reopen gates",
       "test_layer": "platform",
-      "test_file": "tests/platform/test_restore.test.ts",
-      "verification_command": "npm run test -- tests/platform/test_restore.test.ts",
+      "test_file": "backend/src/test/java/com/aam/platform/RestoreIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=RestoreIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-09",
         "D-15"
@@ -2588,7 +2590,7 @@
         "CS-02",
         "OP-01"
       ],
-      "planned_locations": "tests/e2e/; artifacts/release/; docs/reviews/",
+      "planned_locations": "portal/tests/e2e/; artifacts/release/; docs/reviews/",
       "status": "NOT RUN",
       "deliverables": "Three composed journeys and all-access-path authorization tests; mutation guards for context, unmapped claims, approval dependencies, scope, event replay and closure. Retain actual final statuses and attributable provider evidence.",
       "positive": "All priority workflows complete with attributed final business state and source evidence.",
@@ -2596,8 +2598,8 @@
       "milestone": "M4",
       "entry_point": "composed API-to-provider journeys and all-boundary security suite",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_acceptance_faults.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_acceptance_faults.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/AcceptanceFaultsIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=AcceptanceFaultsIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "closes": [
         "OP-01-P",
         "OP-01-N"
@@ -2632,7 +2634,7 @@
         "AU-03",
         "CS-02"
       ],
-      "planned_locations": "tests/e2e/; artifacts/release/; docs/reviews/",
+      "planned_locations": "portal/tests/e2e/; artifacts/release/; docs/reviews/",
       "status": "NOT RUN",
       "deliverables": "Reviewed revision, findings, resolutions, CI runs and requirement evidence matrix.",
       "positive": "Qualified artifacts and all required tests are tied to the exact reviewed revision.",
@@ -2640,7 +2642,7 @@
       "milestone": "M4",
       "entry_point": "independent correctness/delivery review of qualified revision",
       "test_layer": "review",
-      "test_file": "tests/review/test_independent_review.test.ts",
+      "test_file": "docs/reviews/qualified-release.md",
       "verification_command": "Independent reviewer executes the documented correctness and delivery protocol against the exact qualified commit; retain signed/attributed findings and closure in docs/reviews/. Silence is NOT RUN.",
       "closes": [],
       "contributes": [
@@ -2668,7 +2670,7 @@
       "requirements": [
         "QA-02"
       ],
-      "planned_locations": "resources/policies/; docs/runbooks/automation/; tests/rollout/",
+      "planned_locations": "resources/policies/; docs/runbooks/automation/; backend/src/test/java/com/aam/rollout/",
       "status": "NOT RUN",
       "deliverables": "Business-approved category gate records with denominator, minimum n, representative slices, confidence-bound method and accepted thresholds; shadow outcomes separated from synthetic results.",
       "positive": "A qualified low-risk category has explicit measured acceptance and owner signoff.",
@@ -2676,8 +2678,8 @@
       "milestone": "M5",
       "entry_point": "category gate evaluator on shadow evidence and approved metrics",
       "test_layer": "evaluation",
-      "test_file": "tests/evaluation/test_shadow_gates.test.ts",
-      "verification_command": "npm run test -- tests/evaluation/test_shadow_gates.test.ts",
+      "test_file": "backend/src/test/java/com/aam/evaluation/ShadowGatesIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=ShadowGatesIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-10",
         "D-13"
@@ -2698,7 +2700,7 @@
       "requirements": [
         "QA-02"
       ],
-      "planned_locations": "resources/policies/; docs/runbooks/automation/; tests/rollout/",
+      "planned_locations": "resources/policies/; docs/runbooks/automation/; backend/src/test/java/com/aam/rollout/",
       "status": "NOT RUN",
       "deliverables": "Scoped automatic policy, monitoring, disablement and rollback evidence.",
       "positive": "Only approved cohort sends automatically; disabling returns it to review-assisted processing.",
@@ -2706,8 +2708,8 @@
       "milestone": "M5",
       "entry_point": "canary activation/kill-switch and rollback through policy API",
       "test_layer": "journeys",
-      "test_file": "tests/journeys/test_automation_canary.test.ts",
-      "verification_command": "npm run test -- tests/journeys/test_automation_canary.test.ts",
+      "test_file": "backend/src/test/java/com/aam/journeys/AutomationCanaryIT.java",
+      "verification_command": "./mvnw -f backend/pom.xml -Dit.test=AutomationCanaryIT -Dfailsafe.failIfNoSpecifiedTests=true verify",
       "business_gates": [
         "D-13"
       ],

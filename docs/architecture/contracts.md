@@ -65,3 +65,11 @@ Create a draft using immutable-ID preference and app-specific single-value exten
 ## Failure taxonomy
 
 Distinguish invalid input, unauthorized scope, missing business policy, ambiguous context, stale observation, unavailable evidence, disallowed data use, unsupported claim, stale approval/dependency, dependency throttling, run interruption and uncertain external outcome. Preserve structured machine code, retryability, correlation and protected diagnostics. Human decisions and ambiguous sends do not enter unlimited technical retry loops.
+
+## Java core and companion execution contract
+
+Java/Spring Boot is authoritative for cases, jobs, connection grants, evidence, readiness, approvals and commands. The Next.js portal is a client; the Deep Agents TypeScript companion has no business DB or provider write access. Shared JSON schemas are authoritative for generated Java/TypeScript DTOs and boundary validation; do not hand-maintain equivalent schema copies. Java computes canonical evidence/content bindings, with explicit null/absent, decimal-string and UTC timestamp rules.
+
+A bounded execution envelope carries operation/attempt ID, fence/recovery epoch, deadline, phase (plan/draft/validate), immutable snapshot/workflow/bundle references and scoped capability. Java alone grants draft phase after PASS; returned candidates bind to that exact invocation and undergo Java checks. Tokens remain outside prompts/logs, are audience/phase/attempt-bound, and expire or revoke when the attempt ends. Java retains signing authority. The companion tool client sends typed requests to Java; the gateway checks current ownership, cancellation, live permissions and budgets on each call. No arbitrary provider URL, SQL or model-provided readiness can replace those checks.
+
+Java owns bounded HTTP calls and durable retries; the companion has no independent queue/callback store. On timeout/restart/response loss, fence the old invocation, conservatively account for uncertain model consumption and reconcile the job before a fresh attempt. Late results and stale tool calls are rejected. No DB transaction is held during model/network execution. See ADR-16 for deployment, authentication and recovery.
