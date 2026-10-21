@@ -5,13 +5,13 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#0F172A;fontFamily=Arial;" value="AAM — Logical Component Flow" vertex="1">
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#0F172A;fontFamily=Arial;" value="AAM — Logical Component Flow | Single Java Backend" vertex="1">
           <mxGeometry height="45" width="1500" x="55" y="15" as="geometry" />
         </mxCell>
         <mxCell id="subtitle" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#64748B;fontFamily=Arial;" value="01–06: Core business path     |     04.1–04.3: Open Item reply branch     |     07–08: Playbook management" vertex="1">
           <mxGeometry height="30" width="1400" x="55" y="65" as="geometry" />
         </mxCell>
-        <mxCell id="main" parent="1" style="swimlane;html=1;startSize=42;horizontal=1;rounded=1;arcSize=12;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#334155;fontStyle=1;fontSize=20;align=left;spacingLeft=20;collapsible=0;" value="Core Business Path" vertex="1">
+        <mxCell id="main" parent="1" style="swimlane;html=1;startSize=42;horizontal=1;rounded=1;arcSize=12;fillColor=#F8FAFC;swimlaneFillColor=#F8FAFC;strokeColor=#CBD5E1;fontColor=#334155;fontStyle=1;fontSize=20;align=left;spacingLeft=20;collapsible=0;" value="Core Business Path — modules in one Java backend" vertex="1">
           <mxGeometry height="1100" width="900" x="420" y="200" as="geometry" />
         </mxCell>
         <mxCell id="sync" parent="main" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#CFFAFE;strokeColor=#0891B2;fontColor=#164E63;strokeWidth=2;fontSize=20;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;" value="&lt;b&gt;01 · Mail Synchronization&lt;/b&gt;&lt;br&gt;&lt;font&gt;Collect and deduplicate emails&lt;/font&gt;" vertex="1">
@@ -32,7 +32,7 @@
         <mxCell id="progress" parent="main" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontSize=20;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;" value="&lt;b&gt;06 · Progress Updates&lt;/b&gt;&lt;br&gt;&lt;font&gt;Record email and offline progress&lt;br&gt;Complete or reopen work&lt;/font&gt;" vertex="1">
           <mxGeometry height="110" width="270" x="611" y="485" as="geometry" />
         </mxCell>
-        <mxCell id="rules" parent="1" style="swimlane;html=1;startSize=42;horizontal=1;rounded=1;arcSize=12;fillColor=#FAF5FF;swimlaneFillColor=#FAF5FF;strokeColor=#D8B4FE;fontColor=#334155;fontStyle=1;fontSize=20;align=left;spacingLeft=20;collapsible=0;" value="Playbook Management" vertex="1">
+        <mxCell id="rules" parent="1" style="swimlane;html=1;startSize=42;horizontal=1;rounded=1;arcSize=12;fillColor=#FAF5FF;swimlaneFillColor=#FAF5FF;strokeColor=#D8B4FE;fontColor=#334155;fontStyle=1;fontSize=20;align=left;spacingLeft=20;collapsible=0;" value="Playbook Management — same Java backend" vertex="1">
           <mxGeometry height="440" width="440" x="1370" y="200" as="geometry" />
         </mxCell>
         <mxCell id="author" parent="rules" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontSize=20;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;" value="&lt;b&gt;07 · Playbook Authoring&lt;/b&gt;&lt;br&gt;&lt;font&gt;Prompt + example emails&lt;br&gt;Generate, test and review&lt;/font&gt;" vertex="1">
@@ -203,16 +203,16 @@
         <mxCell id="legend-label-3" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#EA580C;fontFamily=Arial;" value="AI suggestions" vertex="1">
           <mxGeometry height="38" width="280" x="1305" y="1466.0" as="geometry" />
         </mxCell>
-        <mxCell id="footnote" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#64748B;fontFamily=Arial;" value="Logical components, not separate services. AM approval queues automatic sending. Sending updates communication history; Open Item completion is separate." vertex="1">
-          <mxGeometry height="35" width="1770" x="55" y="1540.0" as="geometry" />
+        <mxCell id="footnote" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#64748B;fontFamily=Arial;whiteSpace=wrap;whiteSpace=wrap;" value="All processing modules run in one Java backend deployment with 2+ replicas. HTTP handlers persist jobs; bounded async executors claim them from PostgreSQL. Sending and Open Item completion remain separate." vertex="1">
+          <mxGeometry height="100" width="1780" x="55" y="1540.0" as="geometry" />
         </mxCell>
-        <mxCell id="reply-generate" parent="main" vertex="1" value="&lt;b&gt;04.1 · Generate Email&lt;/b&gt;&lt;br&gt;&lt;font&gt;From an Open Item&lt;br&gt;Java Worker + Foundry&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
+        <mxCell id="reply-generate" parent="main" vertex="1" value="&lt;b&gt;04.1 · Generate Email&lt;/b&gt;&lt;br&gt;&lt;font&gt;From an Open Item&lt;br&gt;Backend async + Foundry&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
           <mxGeometry x="190" y="790" width="260" height="100" as="geometry" />
         </mxCell>
         <mxCell id="reply-review" parent="main" vertex="1" value="&lt;b&gt;04.2 · Review &amp;amp; Edit&lt;/b&gt;&lt;br&gt;&lt;font&gt;AM reviews the draft&lt;br&gt;in the Portal&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
           <mxGeometry x="560" y="790" width="270" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="reply-send" parent="main" vertex="1" value="&lt;b&gt;04.3 · Approve &amp;amp; Send&lt;/b&gt;&lt;br&gt;&lt;font&gt;AM approves → API queues send&lt;br&gt;Worker sends via Outlook&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
+        <mxCell id="reply-send" parent="main" vertex="1" value="&lt;b&gt;04.3 · Approve &amp;amp; Send&lt;/b&gt;&lt;br&gt;&lt;font&gt;AM approves → job saved&lt;br&gt;Backend sends via Graph&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
           <mxGeometry x="560" y="940" width="270" height="110" as="geometry" />
         </mxCell>
         <mxCell id="reply-e1" parent="1" edge="1" source="case" target="reply-generate" value="Open Item: Generate Email" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#16A34A;fontColor=#16A34A;fontSize=13;fontFamily=Arial;strokeWidth=2.5;labelBackgroundColor=#FFFFFF;exitX=0;exitY=0.52;entryX=0;entryY=0.5;">

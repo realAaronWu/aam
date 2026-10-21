@@ -1,0 +1,1125 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="Codex" pages="3">
+  <diagram id="01-playbook-sequence" name="01 | Playbook Generation, Test and Publication">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageWidth="2340" pageHeight="3820" pageScale="1" connect="1" arrows="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="01 | Playbook Generation, Test and Publication" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=38;fontColor=#334155;fontStyle=1;">
+          <mxGeometry as="geometry" x="50" y="20" width="2240" height="60" />
+        </mxCell>
+        <mxCell id="subtitle" value="One Java deployment: HTTP handlers + bounded asynchronous executor; any replica can claim durable jobs." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="90" width="2240" height="45" />
+        </mxCell>
+        <mxCell id="legend" value="Solid arrows: calls. Dashed arrows: responses to caller. Dark vertical lines: component lifelines. Time flows downward." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="145" width="2240" height="45" />
+        </mxCell>
+        <mxCell id="portal" value="Web Portal / BFF" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="90" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-portal" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="300" />
+            <mxPoint as="targetPoint" x="330" y="3554" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="backend" value="Java Backend (2+ replicas)" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="650" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-backend" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="300" />
+            <mxPoint as="targetPoint" x="890" y="3554" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pg" value="PostgreSQL" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontColor=#0F172A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1210" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-pg" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="300" />
+            <mxPoint as="targetPoint" x="1450" y="3554" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="foundry" value="Azure AI Foundry" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1770" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-foundry" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="300" />
+            <mxPoint as="targetPoint" x="2010" y="3554" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="band-0" value="Generate a draft — AM submits once; background execution continues if the page closes" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="344" width="2240" height="55" />
+        </mxCell>
+        <mxCell id="request-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="510" />
+            <mxPoint as="targetPoint" x="890" y="510" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-1-0" value="01 Generate Playbook: prompt +" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="392.0" y="435" width="436.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-1-1" value="authorized examples" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="467.0" y="470" width="286.0" height="34" />
+        </mxCell>
+        <mxCell id="request-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="634" />
+            <mxPoint as="targetPoint" x="1450" y="634" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-2-0" value="02 Transaction: save request + draft +" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="918.0078125" y="559" width="503.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-2-1" value="generation job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1067.5" y="594" width="205.0" height="34" />
+        </mxCell>
+        <mxCell id="return-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="723" />
+            <mxPoint as="targetPoint" x="890" y="723" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-2-0" value="Committed: request + jobId" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="987.5" y="683" width="365.0" height="34" />
+        </mxCell>
+        <mxCell id="return-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="812" />
+            <mxPoint as="targetPoint" x="330" y="812" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-1-0" value="202 Accepted: jobId + Pending" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="403.015625" y="772" width="413.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="936" />
+            <mxPoint as="targetPoint" x="1450" y="936" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-3-0" value="03 Poll and atomically claim job; acquire" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="906.0" y="861" width="528.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-3-1" value="execution lease" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1059.0" y="896" width="222.0" height="34" />
+        </mxCell>
+        <mxCell id="return-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1025" />
+            <mxPoint as="targetPoint" x="890" y="1025" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-3-0" value="Claimed job + lease + inputs" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="979.5" y="985" width="381.0" height="34" />
+        </mxCell>
+        <mxCell id="request-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#EA580C;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1114" />
+            <mxPoint as="targetPoint" x="2010" y="1114" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-4-0" value="04 Generate structured rules; validate allowed schema in backend" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#EA580C;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1021.5" y="1074" width="857.0" height="34" />
+        </mxCell>
+        <mxCell id="return-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="1203" />
+            <mxPoint as="targetPoint" x="890" y="1203" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-4-0" value="Structured rule draft / model error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1228.5" y="1163" width="443.0" height="34" />
+        </mxCell>
+        <mxCell id="request-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1327" />
+            <mxPoint as="targetPoint" x="1450" y="1327" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-5-0" value="05 Transaction: save draft / error + final" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="910.0078125" y="1252" width="519.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-5-1" value="job state" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1104.0" y="1287" width="132.0" height="34" />
+        </mxCell>
+        <mxCell id="return-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1416" />
+            <mxPoint as="targetPoint" x="890" y="1416" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-5-0" value="Committed: draft / error + status" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="958.0" y="1376" width="424.0" height="34" />
+        </mxCell>
+        <mxCell id="band-11" value="Automatic UI refresh — steps 06–07 start after 02 and repeat while 03–05 execute" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="1452" width="2240" height="55" />
+        </mxCell>
+        <mxCell id="request-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="1618" />
+            <mxPoint as="targetPoint" x="890" y="1618" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-6-0" value="06 Poll task status every 2–3 seconds;" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="355.0" y="1543" width="510.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-6-1" value="stop at terminal state" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="466.0" y="1578" width="288.0" height="34" />
+        </mxCell>
+        <mxCell id="request-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1742" />
+            <mxPoint as="targetPoint" x="1450" y="1742" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-7-0" value="07 Read authorized status + generated" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="911.0" y="1667" width="518.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-7-1" value="draft / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1088.0" y="1702" width="164.0" height="34" />
+        </mxCell>
+        <mxCell id="return-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1831" />
+            <mxPoint as="targetPoint" x="890" y="1831" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-7-0" value="Authorized job status + result" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="974.5" y="1791" width="391.0" height="34" />
+        </mxCell>
+        <mxCell id="return-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1920" />
+            <mxPoint as="targetPoint" x="330" y="1920" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-6-0" value="Current stage + draft / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="426.0" y="1880" width="368.0" height="34" />
+        </mxCell>
+        <mxCell id="band-16" value="Review and test — test the exact draft snapshot; repeat editing / testing as needed" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="1956" width="2240" height="55" />
+        </mxCell>
+        <mxCell id="request-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="2087" />
+            <mxPoint as="targetPoint" x="890" y="2087" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-8-0" value="08 Save AM-edited draft" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="444.515625" y="2047" width="330.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2211" />
+            <mxPoint as="targetPoint" x="1450" y="2211" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-9-0" value="09 Validate and persist edits; reject stale" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="902.515625" y="2136" width="534.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-9-1" value="updates" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1107.0" y="2171" width="126.0" height="34" />
+        </mxCell>
+        <mxCell id="return-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2300" />
+            <mxPoint as="targetPoint" x="890" y="2300" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-9-0" value="Committed: updated draft" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="997.5" y="2260" width="345.0" height="34" />
+        </mxCell>
+        <mxCell id="return-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2389" />
+            <mxPoint as="targetPoint" x="330" y="2389" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-8-0" value="Saved draft / validation error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="419.5" y="2349" width="381.0" height="34" />
+        </mxCell>
+        <mxCell id="request-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="2513" />
+            <mxPoint as="targetPoint" x="890" y="2513" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-10-0" value="10 Test draft against selected example" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="353.5234375" y="2438" width="512.953125" height="34" />
+        </mxCell>
+        <mxCell id="request-label-10-1" value="emails" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="557.5" y="2473" width="105.0" height="34" />
+        </mxCell>
+        <mxCell id="request-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2637" />
+            <mxPoint as="targetPoint" x="1450" y="2637" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-11-0" value="11 Persist TEST_PLAYBOOK job +" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="934.53125" y="2562" width="470.9375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-11-1" value="exact draft / input snapshot" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="986.5" y="2597" width="367.0" height="34" />
+        </mxCell>
+        <mxCell id="return-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2726" />
+            <mxPoint as="targetPoint" x="890" y="2726" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-11-0" value="Committed: test job + snapshot" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="962.0" y="2686" width="416.0" height="34" />
+        </mxCell>
+        <mxCell id="return-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2815" />
+            <mxPoint as="targetPoint" x="330" y="2815" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-10-0" value="202 Accepted: test jobId" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="444.515625" y="2775" width="330.96875" height="34" />
+        </mxCell>
+        <mxCell id="band-25" value="Test execution reuses 03–05; test results refresh via 06–07. Publish only after AM review." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="2851" width="2240" height="55" />
+        </mxCell>
+        <mxCell id="request-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="2982" />
+            <mxPoint as="targetPoint" x="890" y="2982" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-12-0" value="12 Publish reviewed Playbook" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="408.5" y="2942" width="403.0" height="34" />
+        </mxCell>
+        <mxCell id="request-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3106" />
+            <mxPoint as="targetPoint" x="1450" y="3106" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-13-0" value="13 Transaction: validate evidence +" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="934.0078125" y="3031" width="471.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-13-1" value="activate published version" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="994.5" y="3066" width="351.0" height="34" />
+        </mxCell>
+        <mxCell id="return-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="3195" />
+            <mxPoint as="targetPoint" x="890" y="3195" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-13-0" value="Committed: active version" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="995.5" y="3155" width="349.0" height="34" />
+        </mxCell>
+        <mxCell id="return-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3284" />
+            <mxPoint as="targetPoint" x="330" y="3284" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-12-0" value="Published version / validation error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="380.5" y="3244" width="459.0" height="34" />
+        </mxCell>
+        <mxCell id="request-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3408" />
+            <mxPoint as="targetPoint" x="1450" y="3408" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-14-0" value="14 At next mail job: load and pin active" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="914.015625" y="3333" width="511.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-14-1" value="Playbook version" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1050.0" y="3368" width="240.0" height="34" />
+        </mxCell>
+        <mxCell id="return-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="3497" />
+            <mxPoint as="targetPoint" x="890" y="3497" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-14-0" value="Published rules + version ID" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="981.5" y="3457" width="377.0" height="34" />
+        </mxCell>
+        <mxCell id="note-0" value="API returns jobId / HTTP 202 only after step 02 or 11 commits. Published rules never change automatically." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3579" width="2240" height="38" />
+        </mxCell>
+        <mxCell id="note-1" value="Each Java replica serves HTTP and runs a bounded async executor. Jobs are claimed across replicas with leases and guarded commits." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3621" width="2240" height="38" />
+        </mxCell>
+        <mxCell id="note-2" value="Four participants: Portal, Java Backend, PostgreSQL and Foundry. SSO and attachment storage are omitted from this workflow view." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3663" width="2240" height="38" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="02-mail-intent-triage" name="02 | Mail Intent Understanding and Case Triage">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageWidth="2900" pageHeight="3664" pageScale="1" connect="1" arrows="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="02 | Mail Intent Understanding and Case Triage" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=38;fontColor=#334155;fontStyle=1;">
+          <mxGeometry as="geometry" x="50" y="20" width="2800" height="60" />
+        </mxCell>
+        <mxCell id="subtitle" value="One Java deployment: HTTP handlers + bounded asynchronous executor; any replica can claim durable jobs." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="90" width="2800" height="45" />
+        </mxCell>
+        <mxCell id="legend" value="Solid arrows: calls. Dashed arrows: responses to caller. Dark vertical lines: component lifelines. Time flows downward." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="145" width="2800" height="45" />
+        </mxCell>
+        <mxCell id="portal" value="Web Portal / BFF" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="90" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-portal" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="300" />
+            <mxPoint as="targetPoint" x="330" y="3398" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="backend" value="Java Backend (2+ replicas)" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="650" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-backend" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="300" />
+            <mxPoint as="targetPoint" x="890" y="3398" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pg" value="PostgreSQL" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontColor=#0F172A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1210" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-pg" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="300" />
+            <mxPoint as="targetPoint" x="1450" y="3398" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="foundry" value="Azure AI Foundry" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1770" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-foundry" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="300" />
+            <mxPoint as="targetPoint" x="2010" y="3398" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="graph" value="Microsoft Graph / Outlook" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#CFFAFE;strokeColor=#0891B2;fontColor=#164E63;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="2330" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-graph" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2570" y="300" />
+            <mxPoint as="targetPoint" x="2570" y="3398" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="band-0" value="Background intake — mailbox authorization already exists; synchronization runs without an open Portal" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="344" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="475" />
+            <mxPoint as="targetPoint" x="2570" y="475" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-1-0" value="01 Pull mailbox delta using authorized connection + cursor" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1350.5" y="435" width="759.0" height="34" />
+        </mxCell>
+        <mxCell id="return-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2570" y="564" />
+            <mxPoint as="targetPoint" x="890" y="564" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-1-0" value="Mail changes + next / delta link" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1523.5" y="524" width="413.0" height="34" />
+        </mxCell>
+        <mxCell id="request-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="688" />
+            <mxPoint as="targetPoint" x="1450" y="688" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-2-0" value="02 Transaction: deduplicate mail +" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="941.5078125" y="613" width="456.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-2-1" value="enqueue analysis + advance cursor" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="934.0" y="648" width="472.0" height="34" />
+        </mxCell>
+        <mxCell id="return-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="777" />
+            <mxPoint as="targetPoint" x="890" y="777" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-2-0" value="Committed: mail + jobs + cursor" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="959.5" y="737" width="421.0" height="34" />
+        </mxCell>
+        <mxCell id="request-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="901" />
+            <mxPoint as="targetPoint" x="1450" y="901" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-3-0" value="03 Claim analysis job; load authorized" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="919.0" y="826" width="502.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-3-1" value="thread + published Playbook" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="978.0" y="861" width="384.0" height="34" />
+        </mxCell>
+        <mxCell id="return-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="990" />
+            <mxPoint as="targetPoint" x="890" y="990" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-3-0" value="Claimed job + context + rules" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="975.0" y="950" width="390.0" height="34" />
+        </mxCell>
+        <mxCell id="request-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#EA580C;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1079" />
+            <mxPoint as="targetPoint" x="2010" y="1079" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-4-0" value="04 Extract intent, customer / period, evidence and actionable items" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#EA580C;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1018.0" y="1039" width="864.0" height="34" />
+        </mxCell>
+        <mxCell id="return-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="1168" />
+            <mxPoint as="targetPoint" x="890" y="1168" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-4-0" value="Intent + extracted facts + evidence" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1220.5" y="1128" width="459.0" height="34" />
+        </mxCell>
+        <mxCell id="request-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1292" />
+            <mxPoint as="targetPoint" x="1450" y="1292" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-5-0" value="05 Read candidate Cases within" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="954.0" y="1217" width="432.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-5-1" value="permitted customer / business scope" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="927.0" y="1252" width="486.0" height="34" />
+        </mxCell>
+        <mxCell id="return-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1381" />
+            <mxPoint as="targetPoint" x="890" y="1381" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-5-0" value="Authorized candidate Cases" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="980.0" y="1341" width="380.0" height="34" />
+        </mxCell>
+        <mxCell id="request-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#EA580C;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1470" />
+            <mxPoint as="targetPoint" x="2010" y="1470" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-6-0" value="06 Evaluate candidate matches; propose Create / Link / Ignore" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#EA580C;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1042.5" y="1430" width="815.0" height="34" />
+        </mxCell>
+        <mxCell id="return-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="1559" />
+            <mxPoint as="targetPoint" x="890" y="1559" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-6-0" value="Match suggestions + rationale" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1249.0" y="1519" width="402.0" height="34" />
+        </mxCell>
+        <mxCell id="request-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1683" />
+            <mxPoint as="targetPoint" x="1450" y="1683" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-7-0" value="07 Save validated proposal, summary," parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="916.515625" y="1608" width="506.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-7-1" value="rationale + completed job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="999.0" y="1643" width="342.0" height="34" />
+        </mxCell>
+        <mxCell id="return-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1772" />
+            <mxPoint as="targetPoint" x="890" y="1772" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-7-0" value="Committed: proposal + summary" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="954.0" y="1732" width="432.0" height="34" />
+        </mxCell>
+        <mxCell id="band-15" value="AM review — AI proposes; the human confirms the Case decision" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="1808" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="1974" />
+            <mxPoint as="targetPoint" x="890" y="1974" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-8-0" value="08 Load / refresh authorized Triage" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="375.5078125" y="1899" width="468.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-8-1" value="Queue" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="555.0" y="1934" width="110.0" height="34" />
+        </mxCell>
+        <mxCell id="request-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2098" />
+            <mxPoint as="targetPoint" x="1450" y="2098" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-9-0" value="09 Read pending proposals, source" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="933.0" y="2023" width="474.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-9-1" value="context and candidate Cases" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="974.0" y="2058" width="392.0" height="34" />
+        </mxCell>
+        <mxCell id="return-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2187" />
+            <mxPoint as="targetPoint" x="890" y="2187" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-9-0" value="Authorized proposals + candidates" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="939.5" y="2147" width="461.0" height="34" />
+        </mxCell>
+        <mxCell id="return-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2276" />
+            <mxPoint as="targetPoint" x="330" y="2276" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-8-0" value="Triage proposals + source context" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="384.0078125" y="2236" width="451.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="2400" />
+            <mxPoint as="targetPoint" x="890" y="2400" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-10-0" value="10 Confirm Create Case / Link to existing" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="339.5" y="2325" width="541.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-10-1" value="Case / Ignore" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="512.5" y="2360" width="195.0" height="34" />
+        </mxCell>
+        <mxCell id="request-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2524" />
+            <mxPoint as="targetPoint" x="1450" y="2524" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-11-0" value="11 Recheck access + current proposal /" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="908.515625" y="2449" width="522.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-11-1" value="Case state" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1090.0" y="2484" width="160.0" height="34" />
+        </mxCell>
+        <mxCell id="return-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2613" />
+            <mxPoint as="targetPoint" x="890" y="2613" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-11-0" value="Current access + proposal / Case state" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="912.5" y="2573" width="515.0" height="34" />
+        </mxCell>
+        <mxCell id="request-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2737" />
+            <mxPoint as="targetPoint" x="1450" y="2737" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-12-0" value="12 Transaction: apply decision + mail link" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="899.5078125" y="2662" width="540.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-12-1" value="+ initial items + audit" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1029.5" y="2697" width="281.0" height="34" />
+        </mxCell>
+        <mxCell id="return-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2826" />
+            <mxPoint as="targetPoint" x="890" y="2826" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-12-0" value="Committed decision + affected Case ID" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="912.0" y="2786" width="516.0" height="34" />
+        </mxCell>
+        <mxCell id="return-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2915" />
+            <mxPoint as="targetPoint" x="330" y="2915" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-10-0" value="Decision result / conflict" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="449.5" y="2875" width="321.0" height="34" />
+        </mxCell>
+        <mxCell id="request-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="3039" />
+            <mxPoint as="targetPoint" x="890" y="3039" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-13-0" value="13 Load updated Workspace / customer" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="345.5" y="2964" width="529.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-13-1" value="dashboard" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="530.5" y="2999" width="159.0" height="34" />
+        </mxCell>
+        <mxCell id="request-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3163" />
+            <mxPoint as="targetPoint" x="1450" y="3163" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-14-0" value="14 Read Case progress, open items," parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="926.5" y="3088" width="487.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-14-1" value="summary and mail timeline" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="990.5" y="3123" width="359.0" height="34" />
+        </mxCell>
+        <mxCell id="return-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="3252" />
+            <mxPoint as="targetPoint" x="890" y="3252" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-14-0" value="Progress + items + summary + timeline" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="914.0" y="3212" width="512.0" height="34" />
+        </mxCell>
+        <mxCell id="return-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3341" />
+            <mxPoint as="targetPoint" x="330" y="3341" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-13-0" value="Workspace / dashboard data" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="416.0" y="3301" width="388.0" height="34" />
+        </mxCell>
+        <mxCell id="note-0" value="Ambiguous identity, weak evidence or conflicting matches remain in Triage for AM correction; no automatic Case creation." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3423" width="2800" height="38" />
+        </mxCell>
+        <mxCell id="note-1" value="Use source-mail and command idempotency keys. A repeated click must not create a second Case; reject conflicting stale decisions." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3465" width="2800" height="38" />
+        </mxCell>
+        <mxCell id="note-2" value="HTTP handlers and background processing are modules in the same Java deployment. Initial items use validated proposals / templates." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3507" width="2800" height="38" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="03-draft-approval-send" name="03 | Mail Draft Generation, AM Approval and Sending">
+    <mxGraphModel grid="1" gridSize="10" page="1" pageWidth="2900" pageHeight="4141" pageScale="1" connect="1" arrows="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="03 | Mail Draft Generation, AM Approval and Sending" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=38;fontColor=#334155;fontStyle=1;">
+          <mxGeometry as="geometry" x="50" y="20" width="2800" height="60" />
+        </mxCell>
+        <mxCell id="subtitle" value="One Java deployment: HTTP handlers + bounded asynchronous executor; any replica can claim durable jobs." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="90" width="2800" height="45" />
+        </mxCell>
+        <mxCell id="legend" value="Solid arrows: calls. Dashed arrows: responses to caller. Dark vertical lines: component lifelines. Time flows downward." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="145" width="2800" height="45" />
+        </mxCell>
+        <mxCell id="portal" value="Web Portal / BFF" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="90" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-portal" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="300" />
+            <mxPoint as="targetPoint" x="330" y="3875" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="backend" value="Java Backend (2+ replicas)" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="650" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-backend" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="300" />
+            <mxPoint as="targetPoint" x="890" y="3875" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pg" value="PostgreSQL" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontColor=#0F172A;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1210" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-pg" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="300" />
+            <mxPoint as="targetPoint" x="1450" y="3875" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="foundry" value="Azure AI Foundry" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="1770" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-foundry" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="300" />
+            <mxPoint as="targetPoint" x="2010" y="3875" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="graph" value="Microsoft Graph / Outlook" parent="1" vertex="1" style="rounded=1;html=1;fillColor=#CFFAFE;strokeColor=#0891B2;fontColor=#164E63;strokeWidth=2;fontFamily=Arial;fontSize=30;fontStyle=1;align=center;verticalAlign=middle;">
+          <mxGeometry as="geometry" x="2330" y="220" width="480" height="80" />
+        </mxCell>
+        <mxCell id="lifeline-graph" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#64748B;strokeWidth=2;endArrow=none;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2570" y="300" />
+            <mxPoint as="targetPoint" x="2570" y="3875" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="band-0" value="Generate a reply — invoked from a Case / Open Item; no revision-management UI" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="344" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="510" />
+            <mxPoint as="targetPoint" x="890" y="510" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-1-0" value="01 Generate Reply for selected Case /" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="356.0" y="435" width="508.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-1-1" value="Open Item" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="531.5" y="470" width="157.0" height="34" />
+        </mxCell>
+        <mxCell id="request-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="634" />
+            <mxPoint as="targetPoint" x="1450" y="634" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-2-0" value="02 Authorize sources; transaction: save" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="909.015625" y="559" width="521.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-2-1" value="request + draft job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1043.0" y="594" width="254.0" height="34" />
+        </mxCell>
+        <mxCell id="return-2" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="723" />
+            <mxPoint as="targetPoint" x="890" y="723" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-2-0" value="Committed: request + draft job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="967.0" y="683" width="406.0" height="34" />
+        </mxCell>
+        <mxCell id="return-1" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="812" />
+            <mxPoint as="targetPoint" x="330" y="812" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-1-0" value="202 Accepted: draft jobId" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="439.015625" y="772" width="341.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="936" />
+            <mxPoint as="targetPoint" x="1450" y="936" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-3-0" value="03 Claim job; load authorized thread," parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="925.5" y="861" width="489.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-3-1" value="items + Playbook" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1050.0" y="896" width="240.0" height="34" />
+        </mxCell>
+        <mxCell id="return-3" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1025" />
+            <mxPoint as="targetPoint" x="890" y="1025" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-3-0" value="Claimed job + authorized context" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="951.0" y="985" width="438.0" height="34" />
+        </mxCell>
+        <mxCell id="request-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#EA580C;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1114" />
+            <mxPoint as="targetPoint" x="2010" y="1114" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-4-0" value="04 Generate grounded reply using approved context and rules" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#EA580C;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1045.5" y="1074" width="809.0" height="34" />
+        </mxCell>
+        <mxCell id="return-4" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2010" y="1203" />
+            <mxPoint as="targetPoint" x="890" y="1203" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-4-0" value="Generated reply / model error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1252.0" y="1163" width="396.0" height="34" />
+        </mxCell>
+        <mxCell id="request-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1327" />
+            <mxPoint as="targetPoint" x="1450" y="1327" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-5-0" value="05 Save validated draft / error + final" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="928.5" y="1252" width="483.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-5-1" value="generation status" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1048.5" y="1287" width="243.0" height="34" />
+        </mxCell>
+        <mxCell id="return-5" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1416" />
+            <mxPoint as="targetPoint" x="890" y="1416" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-5-0" value="Committed: draft / error + status" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="958.0" y="1376" width="424.0" height="34" />
+        </mxCell>
+        <mxCell id="band-11" value="Automatic progress — steps 06–07 repeat during generation; AM reviews the actual draft" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="1452" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="1583" />
+            <mxPoint as="targetPoint" x="890" y="1583" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-6-0" value="06 Poll generation status automatically" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="354.5" y="1543" width="511.0" height="34" />
+        </mxCell>
+        <mxCell id="request-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1672" />
+            <mxPoint as="targetPoint" x="1450" y="1672" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-7-0" value="07 Read authorized status + draft / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="905.5" y="1632" width="529.0" height="34" />
+        </mxCell>
+        <mxCell id="return-7" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="1761" />
+            <mxPoint as="targetPoint" x="890" y="1761" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-7-0" value="Authorized status + draft / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="962.0" y="1721" width="416.0" height="34" />
+        </mxCell>
+        <mxCell id="return-6" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="1850" />
+            <mxPoint as="targetPoint" x="330" y="1850" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-6-0" value="Current stage + draft / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="426.0" y="1810" width="368.0" height="34" />
+        </mxCell>
+        <mxCell id="request-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="1974" />
+            <mxPoint as="targetPoint" x="890" y="1974" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-8-0" value="08 Approve &amp;amp; Send: submit final" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="394.515625" y="1899" width="430.96875" height="34" />
+        </mxCell>
+        <mxCell id="request-label-8-1" value="recipients, body and attachments" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="389.0" y="1934" width="442.0" height="34" />
+        </mxCell>
+        <mxCell id="request-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2098" />
+            <mxPoint as="targetPoint" x="1450" y="2098" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-9-0" value="09 Transaction: validate + persist" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="949.5078125" y="2023" width="440.984375" height="34" />
+        </mxCell>
+        <mxCell id="request-label-9-1" value="approved payload + unique send job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="927.5" y="2058" width="485.0" height="34" />
+        </mxCell>
+        <mxCell id="return-9" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2187" />
+            <mxPoint as="targetPoint" x="890" y="2187" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-9-0" value="Committed: approved payload + job" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="933.5" y="2147" width="473.0" height="34" />
+        </mxCell>
+        <mxCell id="return-8" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2276" />
+            <mxPoint as="targetPoint" x="330" y="2276" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-8-0" value="202 Accepted: send jobId + Pending" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="368.015625" y="2236" width="483.96875" height="34" />
+        </mxCell>
+        <mxCell id="band-20" value="Asynchronous sending — API acceptance means Pending, not Sent" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="2312" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2478" />
+            <mxPoint as="targetPoint" x="1450" y="2478" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-10-0" value="10 Claim send job; load immutable" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="940.5" y="2403" width="459.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-10-1" value="approved payload" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1044.5" y="2438" width="251.0" height="34" />
+        </mxCell>
+        <mxCell id="return-10" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2567" />
+            <mxPoint as="targetPoint" x="890" y="2567" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-10-0" value="Claimed send job + approved payload" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="919.0" y="2527" width="502.0" height="34" />
+        </mxCell>
+        <mxCell id="request-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2656" />
+            <mxPoint as="targetPoint" x="2570" y="2656" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-11-0" value="11 Send the AM-approved message using mailbox authorization" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1314.03125" y="2616" width="831.9375" height="34" />
+        </mxCell>
+        <mxCell id="return-11" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2570" y="2745" />
+            <mxPoint as="targetPoint" x="890" y="2745" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-11-0" value="Accepted / error; timeout is uncertain" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1486.0" y="2705" width="488.0" height="34" />
+        </mxCell>
+        <mxCell id="request-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="2869" />
+            <mxPoint as="targetPoint" x="1450" y="2869" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-12-0" value="12 Persist accepted / uncertain / failed" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="916.5" y="2794" width="507.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-12-1" value="send outcome + correlation" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="986.5" y="2829" width="367.0" height="34" />
+        </mxCell>
+        <mxCell id="return-12" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="2958" />
+            <mxPoint as="targetPoint" x="890" y="2958" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-12-0" value="Committed: send outcome" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="992.5" y="2918" width="355.0" height="34" />
+        </mxCell>
+        <mxCell id="band-27" value="Sent Items reconciliation — verify the outcome; never blindly resend an uncertain message" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=26;fontColor=#334155;fontStyle=1;fillColor=#F1F5F9;">
+          <mxGeometry as="geometry" x="50" y="2994" width="2800" height="55" />
+        </mxCell>
+        <mxCell id="request-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3125" />
+            <mxPoint as="targetPoint" x="2570" y="3125" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-13-0" value="13 Reconcile Sent Items / send correlation and available evidence" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1302.0" y="3085" width="856.0" height="34" />
+        </mxCell>
+        <mxCell id="return-13" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="2570" y="3214" />
+            <mxPoint as="targetPoint" x="890" y="3214" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-13-0" value="Sent Items evidence / no match / error" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1477.0" y="3174" width="506.0" height="34" />
+        </mxCell>
+        <mxCell id="request-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3338" />
+            <mxPoint as="targetPoint" x="1450" y="3338" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-14-0" value="14 Update confirmed Sent / Uncertain /" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="912.0" y="3263" width="516.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-14-1" value="Failed status + audit" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1030.5" y="3298" width="279.0" height="34" />
+        </mxCell>
+        <mxCell id="return-14" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="3427" />
+            <mxPoint as="targetPoint" x="890" y="3427" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-14-0" value="Committed: latest send status" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="971.0" y="3387" width="398.0" height="34" />
+        </mxCell>
+        <mxCell id="request-15" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#2563EB;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="330" y="3516" />
+            <mxPoint as="targetPoint" x="890" y="3516" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-15-0" value="15 Refresh sending status automatically" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#2563EB;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="346.0" y="3476" width="528.0" height="34" />
+        </mxCell>
+        <mxCell id="request-16" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#16A34A;strokeWidth=2.5;endArrow=block;endFill=1;startArrow=none;dashed=0;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3640" />
+            <mxPoint as="targetPoint" x="1450" y="3640" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="request-label-16-0" value="16 Read latest send status and Case /" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="916.0" y="3565" width="508.0" height="34" />
+        </mxCell>
+        <mxCell id="request-label-16-1" value="Open Item context" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#16A34A;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="1041.5" y="3600" width="257.0" height="34" />
+        </mxCell>
+        <mxCell id="return-16" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="1450" y="3729" />
+            <mxPoint as="targetPoint" x="890" y="3729" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-16-0" value="Current send status + Case context" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="935.0" y="3689" width="470.0" height="34" />
+        </mxCell>
+        <mxCell id="return-15" parent="1" edge="1" style="edgeStyle=none;html=1;rounded=0;strokeColor=#475569;strokeWidth=2.5;endArrow=open;endFill=0;startArrow=none;dashed=1;">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint as="sourcePoint" x="890" y="3818" />
+            <mxPoint as="targetPoint" x="330" y="3818" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="return-label-15-0" value="Pending / Sent / Uncertain / Failed" parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=28;fontColor=#475569;fontStyle=0;fillColor=#FFFFFF;">
+          <mxGeometry as="geometry" x="381.0" y="3778" width="458.0" height="34" />
+        </mxCell>
+        <mxCell id="note-0" value="AM may edit the draft before approval. Duplicate approval creates no second send job; sending never happens before approval." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3900" width="2800" height="38" />
+        </mxCell>
+        <mxCell id="note-1" value="An accepted Graph request is not proof of recipient delivery. If outcome cannot be established, retain Uncertain for review." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3942" width="2800" height="38" />
+        </mxCell>
+        <mxCell id="note-2" value="Backend restart must not blindly repeat step 11. Sending a reply does not automatically mark an Open Item or Case complete." parent="1" vertex="1" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=25;fontColor=#334155;fontStyle=0;">
+          <mxGeometry as="geometry" x="50" y="3984" width="2800" height="38" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
