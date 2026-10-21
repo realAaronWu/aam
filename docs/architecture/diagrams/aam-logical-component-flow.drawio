@@ -203,8 +203,8 @@
         <mxCell id="legend-label-3" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#EA580C;fontFamily=Arial;" value="AI suggestions" vertex="1">
           <mxGeometry height="38" width="280" x="1305" y="1466.0" as="geometry" />
         </mxCell>
-        <mxCell id="footnote" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#64748B;fontFamily=Arial;whiteSpace=wrap;whiteSpace=wrap;" value="All processing modules run in one Java backend deployment with 2+ replicas. HTTP handlers persist jobs; bounded async executors claim them from PostgreSQL. Sending and Open Item completion remain separate." vertex="1">
-          <mxGeometry height="100" width="1780" x="55" y="1540.0" as="geometry" />
+        <mxCell id="footnote" parent="1" style="text;html=1;align=left;fontSize=20;fontColor=#64748B;fontFamily=Arial;whiteSpace=wrap;whiteSpace=wrap;" value="All processing modules run in one Java backend deployment with 2+ replicas. HTTP handlers persist jobs; bounded async executors claim them from PostgreSQL.&lt;br&gt;Java applies fixed-role permissions AND business group / region / customer scope to APIs and async jobs. Okta owns role groups; PostgreSQL stores scope bindings and audit.&lt;br&gt;Sending and Open Item completion remain separate." vertex="1">
+          <mxGeometry height="120" width="1780" x="55" y="1540.0" as="geometry" />
         </mxCell>
         <mxCell id="reply-generate" parent="main" vertex="1" value="&lt;b&gt;04.1 · Generate Email&lt;/b&gt;&lt;br&gt;&lt;font&gt;From an Open Item&lt;br&gt;Backend async + Foundry&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;fillColor=#FFEDD5;strokeColor=#EA580C;fontColor=#7C2D12;strokeWidth=2;fontSize=18;fontFamily=Arial;align=center;verticalAlign=middle;spacing=12;">
           <mxGeometry x="190" y="790" width="260" height="100" as="geometry" />
