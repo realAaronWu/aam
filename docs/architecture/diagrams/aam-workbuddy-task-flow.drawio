@@ -20,7 +20,7 @@
         <mxCell id="execute" value="&lt;b&gt;05  Execute safely&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Call API or MCP tools&lt;br&gt;Save IDs and receipts&lt;br&gt;Business tool adapters&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#CFFAFE;strokeColor=#0891B2;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="1170" y="435" width="302" height="145" as="geometry" />
         </mxCell>
-        <mxCell id="wait" value="&lt;b&gt;06  Wait and resume&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Await replies or approval&lt;br&gt;Handle timers and retries&lt;br&gt;Temporal workflow&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+        <mxCell id="wait" value="&lt;b&gt;06  Wait and resume&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Persist waiting status&lt;br&gt;Event queues next step&lt;br&gt;Java + PostgreSQL&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="780" y="435" width="300" height="145" as="geometry" />
         </mxCell>
         <mxCell id="verify" value="&lt;b&gt;07  Verify outcome&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Check output evidence&lt;br&gt;Keep open work visible&lt;br&gt;Agent + business checks&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
@@ -70,13 +70,13 @@
         <mxCell id="approval-label" value="Approved&#10;write action" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#0891B2;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="1340" y="280" width="130" height="65" as="geometry" />
         </mxCell>
-        <mxCell id="guard-title" value="Task progress survives conversations and restarts." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=27;fontColor=#16A34A;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="guard-title" value="Resume from saved business steps after a restart." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=27;fontColor=#16A34A;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="0" y="254" width="835" height="36" as="geometry" />
         </mxCell>
         <mxCell id="guard-body" value="Read-only steps can proceed without approval.&#10;Changed action details require fresh approval.&#10;External writes use idempotency and outcome reconciliation." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=24;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="0" y="307" width="855" height="105" as="geometry" />
         </mxCell>
-        <mxCell id="legend" value="Blue: AM interaction     Green: business logic     Orange: AI     Cyan: tools     Purple: durable orchestration" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=22;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="legend" value="Blue: AM interaction     Green: business logic     Orange: AI     Cyan: tools     Purple: task coordination" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=22;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="0" y="617" width="1472" height="35" as="geometry" />
         </mxCell>
         <mxCell id="scope" value="Example: customer request, document collection, approved follow-up, reply handling and a verified deliverable." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
