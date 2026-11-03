@@ -8,7 +8,7 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 
 The [project overview deck](docs/presentations/aam-project-overview-mvp.pptx) now presents a conversation-first AM assistant that executes approved tasks. Editable diagrams show the [agent task flow](docs/architecture/diagrams/aam-workbuddy-task-flow.drawio) and [service architecture](docs/architecture/diagrams/aam-workbuddy-service-architecture.drawio).
 
-This proposal evaluates AgentScope Java, Temporal and Azure Foundry. Framework compatibility, recovery behavior and connector permissions still require validation. The deck labels the existing schedule and budget as the previous MVP baseline, pending re-estimation for the expanded scope. The OpenSpec materials and earlier diagrams below describe the previous design and have not yet been reconciled with this proposal.
+This proposal evaluates AgentScope Java, Temporal and Azure Foundry. Framework compatibility, recovery behavior and connector permissions still require validation. The [revised delivery plan](docs/planning/AAM_Workbuddy_Delivery_Plan_to_2027-04-09_EN.xlsx) and the deck target production on April 5, 2027 and handover on April 9, with longer agent tuning and a dedicated release buffer. The base estimate is 534.3 person-days and USD 207,348 including penetration testing. The [March release proposal](docs/planning/AAM_Workbuddy_Delivery_Plan_to_2027-03-19_EN.xlsx) is retained only as the cost comparison baseline. The OpenSpec materials and earlier diagrams below describe the previous design and have not yet been reconciled with this proposal.
 
 ## Scope
 
