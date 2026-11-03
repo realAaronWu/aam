@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="AAM architecture authoring" version="24.7.17">
+  <diagram id="aam-workbuddy-task-flow" name="Aam Workbuddy Task Flow">
+    <mxGraphModel dx="1472" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1472" pageHeight="680" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="recognize" value="&lt;b&gt;01  Recognize work&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Mail or chat identifies&lt;br&gt;a customer task&lt;br&gt;AAM intake&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="0" y="55" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="clarify" value="&lt;b&gt;02  Clarify the goal&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Robot Card suggests work&lt;br&gt;AM adds context or edits&lt;br&gt;Conversation + UI&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="390" y="55" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="plan" value="&lt;b&gt;03  Plan the work&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Read authorized sources&lt;br&gt;Choose tools and steps&lt;br&gt;AgentScope + Skills&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFEDD5;strokeColor=#EA580C;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="55" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="approve" value="&lt;b&gt;04  Approve action&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Review exact content&lt;br&gt;and target recipients&lt;br&gt;AM + Java checks&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="55" width="302" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="execute" value="&lt;b&gt;05  Execute safely&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Call API or MCP tools&lt;br&gt;Save IDs and receipts&lt;br&gt;Business tool adapters&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#CFFAFE;strokeColor=#0891B2;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="435" width="302" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="wait" value="&lt;b&gt;06  Wait and resume&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Await replies or approval&lt;br&gt;Handle timers and retries&lt;br&gt;Temporal workflow&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="435" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="verify" value="&lt;b&gt;07  Verify outcome&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Check output evidence&lt;br&gt;Keep open work visible&lt;br&gt;Agent + business checks&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="390" y="435" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="deliver" value="&lt;b&gt;08  Deliver results&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Files and action receipts&lt;br&gt;Remaining exceptions&lt;br&gt;Robot Card + overview&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="0" y="435" width="300" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="goal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#2563EB;strokeWidth=2.5;exitX=1.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=0.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="recognize" target="clarify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#EA580C;strokeWidth=2.5;exitX=1.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=0.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="clarify" target="plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="proposal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#2563EB;strokeWidth=2.5;exitX=1.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=0.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="plan" target="approve">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="approved" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#0891B2;strokeWidth=2.5;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="approve" target="execute">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="await" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=0.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=1.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="execute" target="wait">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="complete" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#16A34A;strokeWidth=2.5;exitX=0.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=1.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait" target="verify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="delivery" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#2563EB;strokeWidth=2.5;exitX=0.0;exitY=0.496551724137931;exitDx=0;exitDy=0;entryX=1.0;entryY=0.496551724137931;entryDx=0;entryDy=0;" edge="1" parent="1" source="verify" target="deliver">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="resume" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait" target="plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="am-edits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#2563EB;strokeWidth=2.5;exitX=0.33112582781456956;exitY=0.0;exitDx=0;exitDy=0;entryX=0.6666666666666666;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="approve" target="plan">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="20" />
+              <mxPoint x="980" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="changes" value="Changes return to planning" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#2563EB;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1005" y="23" width="330" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="resume-label" value="New information&#10;or changed conditions" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=22;fontColor=#7C3AED;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="950" y="290" width="250" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="approval-label" value="Approved&#10;write action" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#0891B2;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1340" y="280" width="130" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="guard-title" value="Task progress survives conversations and restarts." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=27;fontColor=#16A34A;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="254" width="835" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="guard-body" value="Read-only steps can proceed without approval.&#10;Changed action details require fresh approval.&#10;External writes use idempotency and outcome reconciliation." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=24;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="307" width="855" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="Blue: AM interaction     Green: business logic     Orange: AI     Cyan: tools     Purple: durable orchestration" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=22;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="617" width="1472" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="scope" value="Example: customer request, document collection, approved follow-up, reply handling and a verified deliverable." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="650" width="1472" height="28" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

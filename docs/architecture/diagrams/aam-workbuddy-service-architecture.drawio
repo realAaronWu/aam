@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="AAM architecture authoring" version="24.7.17">
+  <diagram id="aam-workbuddy-service-architecture" name="Aam Workbuddy Service Architecture">
+    <mxGraphModel dx="1472" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1472" pageHeight="680" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="backend" value="&lt;b&gt;AAM Java Backend Service&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Spring Boot + AgentScope SDK / 2+ replicas&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#16A34A;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=top;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="370" y="15" width="690" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="portal" value="&lt;b&gt;Web Portal / BFF&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Chat + Robot Cards&lt;br&gt;AM / Director / Admin&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="0" y="85" width="270" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="&lt;b&gt;Conversation API&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Task commands&lt;br&gt;RBAC + scoped context&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="125" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="agent" value="&lt;b&gt;AgentScope Runtime&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Plan, reason, use skills&lt;br&gt;Bounded agent steps&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFEDD5;strokeColor=#EA580C;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="125" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="worker" value="&lt;b&gt;Workflow Worker&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Temporal Java SDK&lt;br&gt;Tasks + approval waits&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="410" y="300" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="tools" value="&lt;b&gt;Business Tools&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;API + approved MCP&lt;br&gt;Check, execute, verify&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#CFFAFE;strokeColor=#0891B2;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="740" y="300" width="280" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="identity" value="&lt;b&gt;Okta / Entra ID&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;SSO + role groups&lt;br&gt;Downstream API grants&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="0" y="300" width="270" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="foundry" value="&lt;b&gt;Azure Foundry&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Model inference&lt;br&gt;Entra adapter to verify&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFEDD5;strokeColor=#EA580C;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="95" width="272" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="systems" value="&lt;b&gt;Enterprise Systems&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Outlook / Teams*&lt;br&gt;CRM / Policy system*&lt;br&gt;SharePoint / files&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#CFFAFE;strokeColor=#0891B2;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="280" width="272" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="postgres" value="&lt;b&gt;PostgreSQL HA&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Business data + receipts&lt;br&gt;Agent state in own schema&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#F1F5F9;strokeColor=#64748B;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="370" y="530" width="330" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="temporal" value="&lt;b&gt;Temporal Service&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Durable waits + retries&lt;br&gt;Owns workflow history&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="770" y="530" width="330" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="ops" value="&lt;b&gt;Operations&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:23px&quot;&gt;Monitor + App Insights&lt;br&gt;GitHub Actions CI/CD&lt;br&gt;Probes + replica restart&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FEF9C3;strokeColor=#A07806;strokeWidth=2;fontColor=#132B45;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="0" y="490" width="270" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="https" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#2563EB;strokeWidth=2.5;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="portal" target="api">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="145" />
+              <mxPoint x="340" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="commands" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#16A34A;strokeWidth=2.5;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="api" target="worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="agent-step" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=1.0;exitY=0.3181818181818182;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="worker" target="agent">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="335" />
+              <mxPoint x="710" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="model" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#EA580C;strokeWidth=2.5;exitX=1.0;exitY=0.36363636363636365;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="agent" target="foundry">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="165" />
+              <mxPoint x="1120" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tool-call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#0891B2;strokeWidth=2.5;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="agent" target="tools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="external" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#0891B2;strokeWidth=2.5;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.45454545454545453;entryDx=0;entryDy=0;" edge="1" parent="1" source="tools" target="systems">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sso" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="portal" target="identity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="identity-grants" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=0.0;exitY=0.8488372093023255;exitDx=0;exitDy=0;entryX=1.0;entryY=0.6666666666666666;entryDx=0;entryDy=0;" edge="1" parent="1" source="backend" target="identity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jdbc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#64748B;strokeWidth=2.5;exitX=0.17391304347826086;exitY=1.0;exitDx=0;exitDy=0;entryX=0.36363636363636365;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="backend" target="postgres">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="temporal-grpc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#7C3AED;strokeWidth=2.5;exitX=1.0;exitY=0.7727272727272727;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="worker" target="temporal">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="385" />
+              <mxPoint x="710" y="485" />
+              <mxPoint x="935" y="485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="observability" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;startArrow=none;strokeColor=#A07806;strokeWidth=2.5;exitX=0.0;exitY=0.9534883720930233;exitDx=0;exitDy=0;entryX=1.0;entryY=0.4827586206896552;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="backend" target="ops">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="425" />
+              <mxPoint x="320" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="https-label" value="HTTPS / SSE" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#2563EB;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="280" y="95" width="125" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="oidc-label" value="OIDC / SSO" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#7C3AED;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="145" y="244" width="125" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="task-label" value="Submit / approve" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#16A34A;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="257" width="175" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="tool-label" value="Tool calls" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#0891B2;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="890" y="256" width="125" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="jdbc-label" value="JDBC" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="505" y="476" width="90" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="grpc-label" value="gRPC / task polling" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#7C3AED;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="760" y="452" width="250" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-label" value="HTTPS / MCP" style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=20;fontColor=#0891B2;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1055" y="322" width="150" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="future" value="* Teams and policy:&#10;Validate API access&#10;and permissions." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="495" width="272" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="boundary" value="Outer boxes: deployed services. Inside Java: logical modules. Temporal manages its own persistence." style="text;html=0;whiteSpace=wrap;align=left;verticalAlign=top;fontFamily=Arial;fontSize=21;fontColor=#64748B;fontStyle=0;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="648" width="1472" height="32" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -4,6 +4,12 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 
 **Status: specification and architecture only. No application has been implemented or deployed.** The stories describe generic insurance account-management scenarios and configurable policies.
 
+## Latest Workbuddy proposal
+
+The [project overview deck](docs/presentations/aam-project-overview-mvp.pptx) now presents a conversation-first AM assistant that executes approved tasks. Editable diagrams show the [agent task flow](docs/architecture/diagrams/aam-workbuddy-task-flow.drawio) and [service architecture](docs/architecture/diagrams/aam-workbuddy-service-architecture.drawio).
+
+This proposal evaluates AgentScope Java, Temporal and Azure Foundry. Framework compatibility, recovery behavior and connector permissions still require validation. The deck labels the existing schedule and budget as the previous MVP baseline, pending re-estimation for the expanded scope. The OpenSpec materials and earlier diagrams below describe the previous design and have not yet been reconciled with this proposal.
+
 ## Scope
 
 - Email understanding, account/case matching and reviewed response drafting.
@@ -13,7 +19,7 @@ AAM is a proposed AI mail assistant for insurance account managers. It helps und
 - Small reviewed example libraries for tuning intent recognition and response quality.
 - Controlled automation with explicit approval, factual checks and delivery safeguards.
 
-The proposed core backend is Java/Spring Boot: API, cases, workflow jobs, connections, readiness, approvals and delivery. Next.js remains the portal; a bounded TypeScript Deep Agents companion handles model execution under Java-issued scope and phase grants. Four deployment roles use managed PostgreSQL/Blob with one Java-owned business/job authority. Additional orchestration services are deferred. Models propose; Java application policy controls authorization and sending.
+The earlier OpenSpec design uses Java/Spring Boot for API, cases, workflow jobs, connections, readiness, approvals and delivery. Next.js remains the portal; a bounded TypeScript Deep Agents companion handles model execution under Java-issued scope and phase grants. That design uses four deployment roles with managed PostgreSQL/Blob and one Java-owned business/job authority, deferring additional orchestration services. Models propose; Java application policy controls authorization and sending.
 
 ## Review the design
 
