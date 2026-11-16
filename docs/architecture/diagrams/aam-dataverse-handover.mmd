@@ -1,0 +1,34 @@
+%% 本次交接基线 2026-11-16 Dataverse方案 设计未验收
+flowchart TB
+  U[Teams Tab / Outlook AM]
+  I[Entra ID + workload identity]
+  subgraph JAVA[One Spring Boot service on Azure Container Apps]
+    API[API / caller scope / commands]
+    CASE[Case / OpenItem / readiness policy]
+    JOB[Durable worker / leases / waits / retries]
+    AGENT[AgentRunner adapter / AgentScope Java]
+    GW[Scoped tool gateway / evidence registry]
+    ACT[Draft / approval / action reconciliation]
+    API --> CASE
+    API --> JOB
+    JOB --> AGENT
+    AGENT --> GW
+    CASE --> ACT
+    JOB --> ACT
+  end
+  DV[(Dataverse business and job authority)]
+  MS[Graph Exchange / SharePoint]
+  M[Azure Foundry model API]
+  OPS[Monitor / App Insights / ACR / Key Vault]
+  U -->|HTTPS commands / SSE status| API
+  I -->|identity validation| API
+  CASE -->|Web API records / versions| DV
+  JOB -->|ETag claims / atomic changesets| DV
+  GW -->|scoped reads| MS
+  GW -->|scoped facts| DV
+  ACT -->|drafts / optional approved send| MS
+  MS -->|notifications / delta / Sent Items| JOB
+  AGENT -->|bounded inference| M
+  JAVA -.-> OPS
+
+%% Agent runtime phase graph is code-driven; business waits are persisted.

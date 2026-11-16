@@ -1,0 +1,15 @@
+flowchart TD
+  CLAIM[Java claim job + authorize snapshot] --> CLASSIFY[AgentScope classify / extract]
+  CLASSIFY --> EVIDENCE[Scoped tools collect evidence]
+  EVIDENCE --> READY{Java readiness PASS?}
+  READY -->|No| WAIT[Persist gaps / wake condition; end attempt]
+  WAIT -->|New evidence / approved input| CLAIM
+  READY -->|Yes| DRAFT[AgentScope draft from bound facts]
+  DRAFT --> VALIDATE[Java checks + optional semantic validator]
+  VALIDATE -->|Blocked| REVIEW[Persist NEEDS_REVIEW]
+  VALIDATE -->|Accepted| HUMAN[Versioned draft / human review]
+  HUMAN --> OUTLOOK[Create Outlook draft; AM sends]
+  HUMAN -->|Separately enabled| SEND[Exact approval; Java action executor]
+  OUTLOOK --> RECEIPT[Observe and reconcile result]
+  SEND --> RECEIPT
+  RECEIPT --> CASE[Update action status; close only on business evidence]

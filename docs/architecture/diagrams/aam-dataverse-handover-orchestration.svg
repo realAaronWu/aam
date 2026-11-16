@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1190" viewBox="0 0 1800 1190"><rect width="100%" height="100%" fill="white"/>
+<text x="900" y="45" font-family="Arial,sans-serif" font-size="36" fill="#17253b" text-anchor="middle" dominant-baseline="central">Code-driven stages with bounded AgentScope attempts</text>
+<rect x="70" y="140" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="300.0" y="198.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">1  Java intake</text>
+<text x="300.0" y="236.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Authorize + claim job</text>
+<rect x="670" y="140" width="460" height="155" rx="15" fill="#fff4e5" stroke="#57708d" stroke-width="2"/>
+<text x="900.0" y="198.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">2  AgentScope analysis</text>
+<text x="900.0" y="236.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Classify + extract</text>
+<rect x="1270" y="140" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="1500.0" y="198.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">3  Scoped evidence</text>
+<text x="1500.0" y="236.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Collect required facts</text>
+<rect x="1270" y="465" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="1500.0" y="523.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">4  Java readiness</text>
+<text x="1500.0" y="561.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Check completeness + conflicts</text>
+<rect x="670" y="465" width="460" height="155" rx="15" fill="#fff4e5" stroke="#57708d" stroke-width="2"/>
+<text x="900.0" y="523.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">5  AgentScope draft</text>
+<text x="900.0" y="561.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Use pinned facts + SOP</text>
+<rect x="70" y="465" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="300.0" y="523.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">6  Java validation</text>
+<text x="300.0" y="561.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Schema / claims / scope</text>
+<rect x="70" y="790" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="300.0" y="848.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">7  Human review</text>
+<text x="300.0" y="886.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Versioned Outlook draft</text>
+<rect x="670" y="790" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="900.0" y="848.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">8  Result reconciliation</text>
+<text x="900.0" y="886.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Observe send / preserve gaps</text>
+<rect x="1270" y="790" width="460" height="155" rx="15" fill="#eef4fb" stroke="#57708d" stroke-width="2"/>
+<text x="1500.0" y="848.5" font-family="Arial,sans-serif" font-size="29" fill="#17253b" text-anchor="middle" dominant-baseline="central">Durable business state</text>
+<text x="1500.0" y="886.5" font-family="Arial,sans-serif" font-size="25" fill="#17253b" text-anchor="middle" dominant-baseline="central">Wait / wake / resume</text>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="530,217 670,217"/>
+<polygon fill="#51667e" points="670,217 656.4932934647098,223.52448301166845 656.4932934647098,210.47551698833155"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="1130,217 1270,217"/>
+<polygon fill="#51667e" points="1270,217 1256.49329346471,223.52448301166845 1256.49329346471,210.47551698833155"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="1500,295 1500,465"/>
+<polygon fill="#51667e" points="1500,465 1493.4755169883315,451.49329346470984 1506.5244830116685,451.49329346470984"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="1270,542 1130,542"/>
+<polygon fill="#51667e" points="1130,542 1143.50670653529,535.4755169883315 1143.50670653529,548.5244830116685"/>
+<text x="1200" y="510" font-family="Arial,sans-serif" font-size="24" fill="#17253b" text-anchor="middle" dominant-baseline="central">PASS</text>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="670,542 530,542"/>
+<polygon fill="#51667e" points="530,542 543.5067065352902,535.4755169883315 543.5067065352902,548.5244830116685"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="300,620 300,790"/>
+<polygon fill="#51667e" points="300,790 293.47551698833155,776.4932934647098 306.52448301166845,776.4932934647098"/>
+<text x="395" y="705" font-family="Arial,sans-serif" font-size="24" fill="#17253b" text-anchor="middle" dominant-baseline="central">Accepted</text>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="530,867 670,867"/>
+<polygon fill="#51667e" points="670,867 656.4932934647098,873.5244830116685 656.4932934647098,860.4755169883315"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="1130,867 1270,867"/>
+<polygon fill="#51667e" points="1270,867 1256.49329346471,873.5244830116685 1256.49329346471,860.4755169883315"/>
+<polyline fill="none" stroke="#51667e" stroke-width="3" points="1730,542 1770,542 1770,720 1500,720 1500,790"/>
+<polygon fill="#51667e" points="1500,790 1493.4755169883315,776.4932934647098 1506.5244830116685,776.4932934647098"/>
+<text x="1605" y="680" font-family="Arial,sans-serif" font-size="24" fill="#17253b" text-anchor="middle" dominant-baseline="central">Needs data</text>
+<text x="900" y="1025" font-family="Arial,sans-serif" font-size="28" fill="#17253b" text-anchor="middle" dominant-baseline="central">Business waits end the model call; Java persists the wake conditions in Dataverse.</text>
+<text x="900" y="1075" font-family="Arial,sans-serif" font-size="28" fill="#17253b" text-anchor="middle" dominant-baseline="central">Rejected / incomplete results stay in review. Draft creation is not customer delivery.</text>
+<text x="900" y="1125" font-family="Arial,sans-serif" font-size="27" fill="#17253b" text-anchor="middle" dominant-baseline="central">Application send is a separate opt-in action with exact approval and outcome reconciliation.</text></svg>
